@@ -26,7 +26,15 @@ $ ros2 run open_manipulator_x_controller create_udev_rules
 $ cat /sys/bus/usb-serial/devices/ttyUSB0/latency_timer # terminal output : 1
 '''
 
-### 2-4. Basic Operation
+### 2-4. Setup Bash
+
+'''
+$ source ~/.bashrc
+$ source /opt/ros/humble/setup.bash
+$ source ~/colcon_ws/install/local_setup.sh
+'''
+
+### 2-5. Basic Operation
 Terminal #1 : Enables control of the Openmanipulator
 
 '''$ ros2 launch open_manipulator_x_controller open_manipulator_x_controller.launch.py'''
