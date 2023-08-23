@@ -13,7 +13,7 @@
 ### 2-2. Clone git Repository
 
 <pre><code>$ cd ~
-$ git clone <repository_url> colcon_ws
+$ git clone "repository_url" colcon_ws
 $ cd ~/colcon_ws && colcon build --symlink-install</code></pre>
 
 ### 2-3. USB Latency Timer Setting
