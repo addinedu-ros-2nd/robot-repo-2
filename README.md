@@ -6,16 +6,17 @@
 
 ## 2. How to use
 ### 2-1. Install ROS Packages
-
-'''$ sudo apt install ros-humble-rqt* ros-humble-joint-state-publisher'''
+<pre><code>
+</code></pre>
+<pre><code>$ sudo apt install ros-humble-rqt* ros-humble-joint-state-publisher</code></pre>
 
 ### 2-2. Clone git Repository
 
-'''
+<pre><code>
 $ cd ~
 $ git clone <repository_url> colcon_ws
 $ cd ~/colcon_ws && colcon build --symlink-install
-'''
+</code></pre>
 
 ### 2-3. USB Latency Timer Setting
 The initial USB latency time is 16ms. Utilizing the command provided, the USB latency will be adjusted to 1ms, followed by a confirmation of the new USB latency configuration.
