@@ -1,0 +1,1 @@
+/home/sechan/colcon_ws/src/open_manipulator_msgs/msg/OpenManipulatorState.msg

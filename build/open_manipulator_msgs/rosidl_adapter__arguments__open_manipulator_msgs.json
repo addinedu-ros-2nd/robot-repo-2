@@ -1,0 +1,14 @@
+{
+  "package_name": "open_manipulator_msgs",
+  "non_idl_tuples": [
+    "/home/sechan/colcon_ws/src/open_manipulator_msgs:msg/JointPosition.msg",
+    "/home/sechan/colcon_ws/src/open_manipulator_msgs:msg/KinematicsPose.msg",
+    "/home/sechan/colcon_ws/src/open_manipulator_msgs:msg/OpenManipulatorState.msg",
+    "/home/sechan/colcon_ws/src/open_manipulator_msgs:srv/GetJointPosition.srv",
+    "/home/sechan/colcon_ws/src/open_manipulator_msgs:srv/GetKinematicsPose.srv",
+    "/home/sechan/colcon_ws/src/open_manipulator_msgs:srv/SetJointPosition.srv",
+    "/home/sechan/colcon_ws/src/open_manipulator_msgs:srv/SetKinematicsPose.srv",
+    "/home/sechan/colcon_ws/src/open_manipulator_msgs:srv/SetDrawingTrajectory.srv",
+    "/home/sechan/colcon_ws/src/open_manipulator_msgs:srv/SetActuatorState.srv"
+  ]
+}
