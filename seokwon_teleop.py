@@ -40,6 +40,8 @@ import rclpy
 import select
 import sys
 import threading
+import time
+
 
 from open_manipulator_msgs.msg import KinematicsPose, OpenManipulatorState
 from open_manipulator_msgs.srv import SetJointPosition, SetKinematicsPose
@@ -195,6 +197,152 @@ class TeleopKeyboard(Node):
             for index in range(0, 5):
                 goal_joint_angle[index] = present_joint_angle[index]
 
+           # 여기서 부터 이제 신발 옮기는 코드 작성하기
+
+
+    # 처음 시작 동작(기본)
+    # 동작 1번
+    def action_1(self):
+        goal_joint_angle[0] = 0.0
+        goal_joint_angle[1] = -1.05
+        goal_joint_angle[2] = 0.35
+        goal_joint_angle[3] = 0.7
+        goal_joint_angle[4] = 0.00 
+        pathtime= 3.0
+        self.send_goal_joint_space(pathtime)
+        
+    # 동작 2번
+    def action_2(self):
+        goal_joint_angle[0] = 0.0 
+        goal_joint_angle[1] = 0.126
+        goal_joint_angle[2] = 0.232
+        goal_joint_angle[3] = 1.186
+        goal_joint_angle[4] = 0.01 # 최대한 입 벌리기
+        pathtime= 3.0
+        self.send_goal_joint_space(pathtime)
+        
+    # 동작 3번
+    def action_3(self):
+        goal_joint_angle[0] = 0.0
+        goal_joint_angle[1] = 0.882
+        goal_joint_angle[2] = 0.16
+        goal_joint_angle[3] = 0.586
+        goal_joint_angle[4] = 0.01 
+        pathtime= 3.0
+        self.send_goal_joint_space(pathtime)
+        
+    # 동작 4번
+    def action_4(self):
+        goal_joint_angle[0] = 0.0
+        goal_joint_angle[1] = 0.882
+        goal_joint_angle[2] = 0.16
+        goal_joint_angle[3] = 0.586
+        goal_joint_angle[4] = -0.01 # 최대한 입 다물기
+        pathtime= 3.0
+        self.send_goal_joint_space(pathtime)
+        
+    # 동작 5번
+    def action_5(self):
+        goal_joint_angle[0] = 0.0
+        goal_joint_angle[1] = 0.126
+        goal_joint_angle[2] = 0.232
+        goal_joint_angle[3] = 1.186
+        goal_joint_angle[4] = -0.01 
+        pathtime= 3.0
+        self.send_goal_joint_space(pathtime)
+        
+    # 동작 6번     신발 들기 
+    def action_6(self):
+        goal_joint_angle[0] = 0.029
+        goal_joint_angle[1] = 0.049
+        goal_joint_angle[2] = -0.500
+        goal_joint_angle[3] = 2.028
+        goal_joint_angle[4] = -0.01 
+        pathtime= 3.0
+        self.send_goal_joint_space(pathtime)
+        
+    # 동작 7번     우회전 
+    def action_7(self):
+        goal_joint_angle[0] = -1.601
+        goal_joint_angle[1] = -0.046
+        goal_joint_angle[2] = -0.453
+        goal_joint_angle[3] = 2.019
+        goal_joint_angle[4] = -0.01 
+        pathtime= 3.0
+        self.send_goal_joint_space(pathtime)
+        
+    # 동작 8번    rc카 위에 놓기
+    def action_8(self):
+        goal_joint_angle[0] = -1.537
+        goal_joint_angle[1] = 0.879
+        goal_joint_angle[2] = -1.060
+        goal_joint_angle[3] = 1.698
+        goal_joint_angle[4] = 0.01 
+        pathtime= 3.0
+        self.send_goal_joint_space(pathtime)
+        
+    # 동작 9번
+    def action_9(self):
+        goal_joint_angle[0] = -1.537
+        goal_joint_angle[1] = 0.879
+        goal_joint_angle[2] = -1.060
+        goal_joint_angle[3] = 1.698
+        goal_joint_angle[4] = -0.01 
+        pathtime= 3.0
+        self.send_goal_joint_space(pathtime)
+        
+    # 동작 10번 7번동작으로 복귀 그립퍼 열고 
+    def action_10(self):
+        goal_joint_angle[0] = -1.601
+        goal_joint_angle[1] = -0.046
+        goal_joint_angle[2] = -0.453
+        goal_joint_angle[3] = 2.019
+        goal_joint_angle[4] = -0.01 
+        pathtime= 3.0
+        self.send_goal_joint_space(pathtime)
+    def action_11(self):
+        goal_joint_angle[0] = 0.0
+        goal_joint_angle[1] = -1.05
+        goal_joint_angle[2] = 0.35
+        goal_joint_angle[3] = 0.7
+        goal_joint_angle[4] = 0.00 
+        pathtime= 3.0
+        self.send_goal_joint_space(pathtime)
+
+    # 모든 동작 한번에 실행하기 
+    # 정상루틴 - 신발 정상일 때
+    def action_good(self):
+        self.action_1()
+        time.sleep(2)
+        self.action_2()
+        time.sleep(2)
+        self.action_3()
+        time.sleep(2)
+        self.action_4()
+        time.sleep(2)
+        self.action_5()
+        time.sleep(2)
+        self.action_6()
+        time.sleep(2)
+        self.action_7()
+        time.sleep(2)
+        self.action_8()
+        time.sleep(2)
+        self.action_9()
+        time.sleep(2)
+        self.action_10()
+        time.sleep(2)
+        self.action_11()
+ 
+        
+    # 수정후 루틴 - 그립퍼 위치 비정상일 때 
+    def action_bad(self):
+        pass
+
+
+
+
+
 def get_key(settings):
     if os.name == 'nt':
         return msvcrt.getch().decode('utf-8')
@@ -231,122 +379,6 @@ def print_present_values():
 
 
 
-
-           # 여기서 부터 이제 신발 옮기는 코드 작성하기
-# self.tool_control_req.joint_position.position = [goal_joint_angle[0],
-# goal_joint_angle[1], goal_joint_angle[2], goal_joint_angle[3],
-# goal_joint_angle[4]]
-
-
-
-# 처음 시작 동작(기본)
-# 동작 1번
-def action_1(self):
-    goal_joint_angle[0] = 0.0
-    goal_joint_angle[1] = -1.05
-    goal_joint_angle[2] = 0.35
-    goal_joint_angle[3] = 0.7
-    goal_joint_angle[4] = 0.00 
-    pathtime = 3.0
-    
-# 동작 2번
-def action_2(self):
-    goal_joint_angle[0] = 0.0 
-    goal_joint_angle[1] = 0.126
-    goal_joint_angle[2] = 0.232
-    goal_joint_angle[3] = 1.186
-    goal_joint_angle[4] = 0.01 # 최대한 입 벌리기
-    pathtime = 3.0
-    
-# 동작 3번
-def action_3(self):
-    goal_joint_angle[0] = 0.0
-    goal_joint_angle[1] = 0.882
-    goal_joint_angle[2] = 0.16
-    goal_joint_angle[3] = 0.586
-    goal_joint_angle[4] = 0.01 
-    pathtime = 3.0
-    
-# 동작 4번
-def action_4(self):
-    goal_joint_angle[0] = 0.0
-    goal_joint_angle[1] = 0.882
-    goal_joint_angle[2] = 0.16
-    goal_joint_angle[3] = 0.586
-    goal_joint_angle[4] = -0.01 # 최대한 입 다물기
-    pathtime = 3.0
-    
-# 동작 5번
-def action_5(self):
-    goal_joint_angle[0] = 0.0
-    goal_joint_angle[1] = 0.126
-    goal_joint_angle[2] = 0.232
-    goal_joint_angle[3] = 1.186
-    goal_joint_angle[4] = 0.025 
-    pathtime = 3.0
-    
-# 동작 6번     신발 들기 
-def action_6(self):
-    goal_joint_angle[0] = 0.029
-    goal_joint_angle[1] = 0.049
-    goal_joint_angle[2] = -0.500
-    goal_joint_angle[3] = 2.028
-    goal_joint_angle[4] = 0.061 
-    pathtime = 3.0
-    
-# 동작 7번     우회전 
-def action_7(self):
-    goal_joint_angle[0] = -1.601
-    goal_joint_angle[1] = -0.046
-    goal_joint_angle[2] = -0.453
-    goal_joint_angle[3] = 2.019
-    goal_joint_angle[4] = 0.01 
-    pathtime = 3.0
-    
-# 동작 8번    rc카 위에 놓기
-def action_8(self):
-    goal_joint_angle[0] = -1.537
-    goal_joint_angle[1] = 0.879
-    goal_joint_angle[2] = -1.060
-    goal_joint_angle[3] = 1.698
-    goal_joint_angle[4] = 0.01 
-    pathtime = 3.0
-    
-# 동작 9번
-def action_9(self):
-    goal_joint_angle[0] = -1.537
-    goal_joint_angle[1] = 0.879
-    goal_joint_angle[2] = -1.060
-    goal_joint_angle[3] = 1.698
-    goal_joint_angle[4] = -0.01 
-    pathtime = 3.0
-    
-# 동작 10번 7번동작으로 복귀 그립퍼 열고 
-def action_10(self):
-    goal_joint_angle[0] = -1.601
-    goal_joint_angle[1] = -0.046
-    goal_joint_angle[2] = -0.453
-    goal_joint_angle[3] = 2.019
-    goal_joint_angle[4] = -0.01 
-    pathtime = 3.0
-
-# 모든 동작 한번에 실행하기 
-# 정상루틴 - 신발 정상일 때
-def action_good(self):
-    action_1()
-    action_2()
-    action_3()
-    action_4()
-    action_5()
-    action_6()
-    action_7()
-    action_8()
-    action_9()
-    action_10()
-    
-# 수정후 루틴 - 그립퍼 위치 비정상일 때 
-def action_bad(self):
-    pass
 
 
 
@@ -456,8 +488,8 @@ def main():
                 teleop_keyboard.send_goal_joint_space(pathtime)
             # 신발 정리 루틴 모든 행동 실행 - 정상일 때 
             elif key_value == '3':
-                action_good()
-
+                teleop_keyboard.action_good()
+                teleop_keyboard.send_goal_joint_space(pathtime)
             else:
                 if key_value == '\x03':
                     break
