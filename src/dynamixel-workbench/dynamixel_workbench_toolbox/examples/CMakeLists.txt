@@ -87,5 +87,6 @@ install(TARGETS
   bulk_read_write
   find_dynamixel
   monitor
+  DESTINATION lib/${PROJECT_NAME}
 )
 # Modified
