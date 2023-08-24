@@ -15,7 +15,7 @@
 *******************************************************************************/
 
 /* Authors: Taehun Lim (Darby) */
-
+#include <cstdlib>
 #include <DynamixelWorkbench.h>
 
 #define BAUDRATE_NUM 7
@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
   if (argc < 2)
   {
     printf("Please set '-port_name' arguments for connected Dynamixels\n");
-    return 0;
+    // return 0;
   }
   else
   {

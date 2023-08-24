@@ -15,7 +15,7 @@
 *******************************************************************************/
 
 /* Authors: Taehun Lim (Darby) */
-
+#include <cstdlib>
 #include <DynamixelWorkbench.h>
 #include <fcntl.h>          // FILE control
 #include <termios.h>        // Terminal IO
@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
   if (argc < 2)
   {
     printf("Please set '-port_name' arguments for connected Dynamixels\n");
-    return 0;
+    // return 0;
   }
   else
   {
