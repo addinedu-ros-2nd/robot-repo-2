@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(dynamixel_workbench)
+project(dynamixel_workbench_toolbox) # Modified
 
 add_compile_options(-std=c++11)
 
@@ -17,7 +17,8 @@ add_library(dynamixel_workbench
 if(APPLE)
   target_link_libraries(dynamixel_workbench LINK_PUBLIC "/usr/local/lib/libdxl_mac_cpp.dylib")
 else()
-  target_link_libraries(dynamixel_workbench LINK_PUBLIC "/usr/local/lib/libdxl_x64_cpp.so")
+  # target_link_libraries(dynamixel_workbench LINK_PUBLIC "/usr/local/lib/libdxl_x64_cpp.so")
+  target_link_libraries(dynamixel_workbench LINK_PUBLIC dynamixel_sdk) # Modified
 endif()
 
 add_executable(model_scan src/a_Model_Scan.cpp)
@@ -67,3 +68,24 @@ target_link_libraries(find_dynamixel LINK_PUBLIC dynamixel_workbench)
 
 add_executable(monitor src/p_Monitor.cpp)
 target_link_libraries(monitor LINK_PUBLIC dynamixel_workbench)
+
+# Modified
+install(TARGETS
+  model_scan
+  ping
+  id_change
+  bps_change
+  mode_change
+  reboot
+  reset
+  position
+  velocity
+  current_based_position
+  read_write
+  sync_write
+  sync_read_write
+  bulk_read_write
+  find_dynamixel
+  monitor
+)
+# Modified

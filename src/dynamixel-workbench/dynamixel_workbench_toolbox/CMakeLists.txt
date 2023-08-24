@@ -32,6 +32,13 @@ find_package(rclcpp REQUIRED)
 ################################################################################
 # Build
 ################################################################################
+
+# Modified
+include_directories(../../../install/dynamixel_sdk/include/)
+link_directories(../../../install/dynamixel_sdk/lib)
+add_subdirectory(examples)
+# Modified
+
 include_directories(
   include
 )
