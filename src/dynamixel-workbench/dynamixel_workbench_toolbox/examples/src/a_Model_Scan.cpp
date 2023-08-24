@@ -15,18 +15,18 @@
 *******************************************************************************/
 
 /* Authors: Taehun Lim (Darby) */
-
+#include <cstdlib>
 #include <DynamixelWorkbench.h>
 
 int main(int argc, char *argv[]) 
 {
   const char* port_name = "/dev/ttyUSB0";
-  int baud_rate = 57600;
+  int baud_rate = 1000000;
 
   if (argc < 3)
   {
     printf("Please set '-port_name' and  '-baud_rate' arguments for connected Dynamixels\n");
-    return 0;
+    // return 0;
   }
   else
   {
