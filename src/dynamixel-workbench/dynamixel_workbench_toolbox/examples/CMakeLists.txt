@@ -69,6 +69,9 @@ target_link_libraries(find_dynamixel LINK_PUBLIC dynamixel_workbench)
 add_executable(monitor src/p_Monitor.cpp)
 target_link_libraries(monitor LINK_PUBLIC dynamixel_workbench)
 
+add_executable(save_dxl_info src/save_dxl_info.cpp)
+target_link_libraries(save_dxl_info LINK_PUBLIC dynamixel_workbench)
+
 # Modified
 install(TARGETS
   model_scan
@@ -87,5 +90,7 @@ install(TARGETS
   bulk_read_write
   find_dynamixel
   monitor
+  save_dxl_info
+  DESTINATION lib/${PROJECT_NAME}
 )
 # Modified
