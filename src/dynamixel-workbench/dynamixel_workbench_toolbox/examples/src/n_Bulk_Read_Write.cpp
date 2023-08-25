@@ -23,7 +23,7 @@ void swap(int32_t *array);
 int main(int argc, char *argv[]) 
 {
   const char* port_name = "/dev/ttyUSB0";
-  int baud_rate = 57600;
+  int baud_rate = 1000000;
 
   uint16_t model_number = 0;
   uint8_t dxl_id[2] = {0, 0};

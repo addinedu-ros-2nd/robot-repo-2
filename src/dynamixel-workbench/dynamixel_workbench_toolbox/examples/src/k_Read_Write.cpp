@@ -21,8 +21,8 @@
 int main(int argc, char *argv[]) 
 {
   const char* port_name = "/dev/ttyUSB0";
-  int baud_rate = 57600;
-  int dxl_id = 1;
+  int baud_rate = 1000000;
+  int dxl_id = 12;
 
   if (argc < 4)
   {

@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 {
   const char* port_name = "/dev/ttyUSB0";
   int baud_rate = 1000000;
-  int dxl_id = 1;
+  int dxl_id = 11;
 
   if (argc < 4)
   {

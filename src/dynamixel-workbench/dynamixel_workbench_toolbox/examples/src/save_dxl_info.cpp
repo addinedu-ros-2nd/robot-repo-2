@@ -1,17 +1,19 @@
 #include <cstdlib>
 #include <DynamixelWorkbench.h>
 
-void Model_Scan(uint8_t* scanned_id, const char* port_name = "/dev/ttyUSB0", int baud_rate = 1000000);
+void Model_Scan(uint8_t* scanned_id, const char* port_name, int baud_rate);
 
 DynamixelWorkbench dxl_wb;
 
 int main(int argc, char *argv[]) 
 {
-    (void)argc; // 사용하지 않는 인자에 대해 컴파일러에게 경고하지 않도록 합니다.
-    (void)argv; // 사용하지 않는 인자에 대해 컴파일러에게 경고하지 않도록 합니다.
+    const char* port_name = "/dev/ttyUSB0";
+    int baud_rate = 1000000;
+
+    (void)argc; (void)argv;
 
     uint8_t scanned_id[16];
-    Model_Scan(scanned_id);
+    Model_Scan(scanned_id, port_name, baud_rate);
 
     return 0;
 }
@@ -49,7 +51,11 @@ void Model_Scan(uint8_t* scanned_id, const char* port_name, int baud_rate)
     }
 
     for (int cnt = 0; cnt < dxl_cnt; cnt++)
-        printf("id : %d, model name : %s\n", scanned_id[cnt], dxl_wb.getModelName(scanned_id[cnt]));
-    
+    {
+        uint16_t model_number = 0;
+        result = dxl_wb.ping(scanned_id[cnt], &model_number, &log);
+        printf("id : %d, model name : %s, model_number : %d\n", scanned_id[cnt], dxl_wb.getModelName(scanned_id[cnt]), model_number);
+    }
+        
     return;
 }
