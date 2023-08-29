@@ -5,6 +5,7 @@ add_compile_options(-std=c++11)
 
 include_directories(
   ../src
+  ../include/dynamixel_workbench_toolbox
 )
 
 add_library(dynamixel_workbench

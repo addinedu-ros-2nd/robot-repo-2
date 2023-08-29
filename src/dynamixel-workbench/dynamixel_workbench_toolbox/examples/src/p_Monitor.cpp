@@ -108,7 +108,7 @@ bool monitoring(const char* port_name)
       }
       else if (strcmp(cmd, "begin") == 0)
       {
-        uint32_t baud = 57600;
+        uint32_t baud = 1000000;
         
         baud = atoi(param[0]);
         wb_result = dxl_wb.init(port_name, baud, &log);
