@@ -3,7 +3,7 @@
 ## 1. Development environment
 1-1. OS : Ubuntu 22.04
 
-1-2. Meta OS : ROS2 Humble Hawksbill
+1-2. ROS version : ROS2 Humble Hawksbill
 
 ## 2. How to use
 ### 2-1. Install ROS Packages
