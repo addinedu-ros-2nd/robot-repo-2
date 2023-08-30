@@ -39,16 +39,16 @@ $ source ~/colcon_ws/install/local_setup.sh</code></pre>
 ## 4-3. OpenManipulator basic examples
 
 Here is a list of executable files for the basic Dynamixel examples:
-|filenames--|
+|filenames|
 |------|
-|bps_change|ping|
-|bulk_read_write|position|
-|current_based_position|read_write|
-|find_dynamixel|reboot|
-|id_change|reset|
-|mode_change|sync_read_write|
-|model_scan|sync_write|
-|monitor|velocity|
+|bps_change              ping|
+|bulk_read_write         position|
+|current_based_position  read_write|
+|find_dynamixel          reboot|
+|id_change               reset|
+|mode_change             sync_read_write|
+|model_scan              sync_write|
+|monitor                 velocity|
 
 <pre><code>$ ros2 run dynamixel_workbench_toolbox "executable_file_name"</code></pre>
 
