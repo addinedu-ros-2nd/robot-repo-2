@@ -1,10 +1,10 @@
-# 1. Project Summary
+# 1. Project summary
 
 ### 1-1. Development environment
 - OS : Ubuntu 22.04
 - ROS version : ROS2 Humble Hawksbill
 
-# 3. How to use
+# 3. How to install
 ### 3-1. Install ROS Packages
 
 <pre><code>$ sudo apt install ros-humble-rqt* ros-humble-joint-state-publisher</code></pre>
