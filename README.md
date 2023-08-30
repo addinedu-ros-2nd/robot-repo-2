@@ -41,7 +41,7 @@ $ source ~/colcon_ws/install/local_setup.sh</code></pre>
 Here is a list of executable files for the basic Dynamixel examples:
 |filenames|
 |------|
-|bps_change              ping|
+|bps_change\t\t\t\t\t\t\tping|
 |bulk_read_write         position|
 |current_based_position  read_write|
 |find_dynamixel          reboot|
