@@ -39,9 +39,9 @@ $ source ~/colcon_ws/install/local_setup.sh</code></pre>
 ### 4-3. OpenManipulator basic examples
 
 Here is a list of executable files for the basic Dynamixel examples:
-|executable file list||
-|---|---|
+
 |bps_change|ping|
+|---|---|
 |bulk_read_write|position|
 |current_based_position|read_write|
 |find_dynamixel|reboot|
