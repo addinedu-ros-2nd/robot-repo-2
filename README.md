@@ -52,7 +52,7 @@ Here is a list of executable files for the basic Dynamixel examples:
 
 <pre><code>$ ros2 run dynamixel_workbench_toolbox "executable_file_name"</code></pre>
 
-Don't forget to replace <file_name> with the actual name of the file you want to execute.
+Don't forget to replace "executable_file_name" with the actual name of the file you want to execute.
 
 ### 4-4.OpenManipulator controlled via keyboard
 Terminal #1 : Enables control of the Openmanipulator
