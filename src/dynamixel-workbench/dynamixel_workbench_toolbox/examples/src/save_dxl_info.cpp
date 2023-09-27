@@ -31,17 +31,41 @@ int main(int argc, char *argv[]) {
   // Check DXL setting
   Print_DXL_Setting(scanned_id);
 
-  if (!readonly){
-    // Run manipulator to move shoes
-    Run_None_Camera_Action(scanned_id);
+  // if (!readonly){
+  //   // Run manipulator to move shoes
+  //   Run_None_Camera_Action(scanned_id);
+  // }
+  // else{
+  //   while(true){
+  //       sleep(1);
+  //       for (int i=0;i<5;i++){
+  //         Read_Present_Position(scanned_id[i]);
+  //       }
+  //       printf("\n\n");
+  //   }
+  // }
+
+
+  float tmp_list[5] = {-3.0, -0.125, 0.570, 1.075, -1.05};
+  for (int i=0;i<5;i++){
+    tmp_list[i] = Read_Present_Position(scanned_id[i]);
   }
-  else{
-    while(true){
-        sleep(1);
-        for (int i=0;i<5;i++){
-          Read_Present_Position(scanned_id[i]);
-        }
-        printf("\n\n");
+  printf("\n\n");
+
+  bool flag = 1;
+  while(true){
+    sleep(1);
+    printf("hi");
+    if (flag == 1){
+      tmp_list[1] += 0.1;
+      flag = 0;
+    }
+    else{
+      tmp_list[1] -= 0.1;
+      flag = 1;
+    }
+    for (int j=0; j<5; j++){
+      dxl_wb.goalPosition(scanned_id[j], tmp_list[j]);
     }
   }
   
