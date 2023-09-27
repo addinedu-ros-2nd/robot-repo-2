@@ -33,7 +33,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'teleop_keyboard = open_manipulator_x_teleop.script.teleop_keyboard:main'
+            'teleop_keyboard = open_manipulator_x_teleop.script.teleop_keyboard:main',
+            'make_my_model = open_manipulator_x_teleop.script.make_my_model:main'
         ],
     },
 )
