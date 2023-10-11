@@ -21,14 +21,14 @@
 int main(int argc, char *argv[]) 
 {
   const char* port_name = "/dev/ttyUSB0";
-  int baud_rate = 57600;
-  int dxl_id = 1;
-  int new_dxl_id = 2;
+  int baud_rate = 1000000;
+  int dxl_id = 11;
+  int new_dxl_id = 15;
 
   if (argc < 5)
   {
     printf("Please set '-port_name', '-baud_rate', '-dynamixel id', '-new_dynamixel_id' arguments for connected Dynamixels\n");
-    return 0;
+    // return 0;
   }
   else
   {

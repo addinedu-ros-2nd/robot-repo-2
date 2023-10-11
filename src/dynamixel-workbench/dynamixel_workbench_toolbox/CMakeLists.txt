@@ -24,6 +24,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(dynamixel_sdk REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
 
 ################################################################################
 # Declare ROS messages, services and actions
@@ -81,5 +82,6 @@ install(DIRECTORY include/
 ament_export_include_directories(include)
 ament_export_dependencies(dynamixel_sdk)
 ament_export_dependencies(rclcpp)
+ament_export_dependencies(std_msgs)
 ament_export_libraries(${LIB_NAME})
 ament_package()

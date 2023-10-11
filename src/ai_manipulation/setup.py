@@ -6,11 +6,13 @@ setup(
     name=package_name,
     version='0.0.0',
     packages=find_packages(exclude=['test']),
+    package_data={
+        'ai_manipulation': ['utils/*', 'utils/models/*', 'utils/utils/*'],
+    },
     data_files=[
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        ('share/' + package_name + "/utils/models/", ["common.py"]),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -21,8 +23,10 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'make_my_model = ai_manipulation.make_my_model:main',
-            'run_my_model = ai_manipulation.run_my_model:main',
+            'make_my_model = ai_manipulation.script.make_my_model:main',
+            'run_my_model = ai_manipulation.script.run_my_model:main',
+            'six_dxl_model = ai_manipulation.script.six_dxl_model:main',
+            'testing = ai_manipulation.script.testing:main',
         ],
     },
 )

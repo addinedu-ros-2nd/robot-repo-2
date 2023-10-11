@@ -3,6 +3,7 @@ project(dynamixel_workbench_toolbox) # Modified
 
 add_compile_options(-std=c++11)
 
+
 include_directories(
   ../src
   ../include/dynamixel_workbench_toolbox
@@ -15,12 +16,26 @@ add_library(dynamixel_workbench
   ../src/dynamixel_workbench_toolbox/dynamixel_workbench.cpp
 )
 
-if(APPLE)
-  target_link_libraries(dynamixel_workbench LINK_PUBLIC "/usr/local/lib/libdxl_mac_cpp.dylib")
-else()
-  # target_link_libraries(dynamixel_workbench LINK_PUBLIC "/usr/local/lib/libdxl_x64_cpp.so")
-  target_link_libraries(dynamixel_workbench LINK_PUBLIC dynamixel_sdk) # Modified
-endif()
+find_package(ament_cmake REQUIRED)
+find_package(dynamixel_sdk REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+
+set(dependencies_lib
+  "dynamixel_sdk"
+  "rclcpp"
+  "std_msgs"
+)
+
+ament_target_dependencies(dynamixel_workbench dynamixel_sdk rclcpp std_msgs)
+
+
+# if(APPLE)
+#  target_link_libraries(dynamixel_workbench LINK_PUBLIC "/usr/local/lib/libdxl_mac_cpp.dylib")
+# else()
+# #  target_link_libraries(dynamixel_workbench LINK_PUBLIC "/usr/local/lib/libdxl_x64_cpp.so")
+#  target_link_libraries(dynamixel_workbench LINK_PUBLIC dynamixel_sdk) # Modified
+# endif()
 
 add_executable(model_scan src/a_Model_Scan.cpp)
 target_link_libraries(model_scan LINK_PUBLIC dynamixel_workbench)
@@ -70,10 +85,10 @@ target_link_libraries(find_dynamixel LINK_PUBLIC dynamixel_workbench)
 add_executable(monitor src/p_Monitor.cpp)
 target_link_libraries(monitor LINK_PUBLIC dynamixel_workbench)
 
-add_executable(save_dxl_info src/save_dxl_info.cpp)
-target_link_libraries(save_dxl_info LINK_PUBLIC dynamixel_workbench)
+add_executable(dxl_controller src/dxl_controller.cpp)
+target_link_libraries(dxl_controller LINK_PUBLIC dynamixel_workbench)
 
-# Modified
+
 install(TARGETS
   model_scan
   ping
@@ -91,7 +106,6 @@ install(TARGETS
   bulk_read_write
   find_dynamixel
   monitor
-  save_dxl_info
+  dxl_controller
   DESTINATION lib/${PROJECT_NAME}
 )
-# Modified
