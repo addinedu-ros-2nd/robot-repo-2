@@ -27,52 +27,51 @@ uint8_t scanned_id[6];
 using namespace std::chrono_literals;
 using std::placeholders::_1;
 
-class TeleopCommunication : public rclcpp::Node
-{
-public:
-  TeleopCommunication()
-  : Node("teleop_communication")
-  {
-    publisher_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("present_joint_states", 10);
-    subscription_ = this->create_subscription<std_msgs::msg::Float64MultiArray>(
-      "goal_joint_states", 10, std::bind(&TeleopCommunication::topic_callback, this, _1));
+class TeleopCommunication : public rclcpp::Node{
+  public:
+    TeleopCommunication()
+    : Node("teleop_communication")
+    {
+      publisher_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("present_joint_states", 10);
+      subscription_ = this->create_subscription<std_msgs::msg::Float64MultiArray>(
+        "goal_joint_states", 10, std::bind(&TeleopCommunication::topic_callback, this, _1));
 
-    timer_ = this->create_wall_timer(
-    100ms, std::bind(&TeleopCommunication::timer_callback, this));
-  }
-
-private:
-  void timer_callback()
-  {
-    auto message = std_msgs::msg::Float64MultiArray();
-    std::vector<double> tmp;
-    for (int i=0; i<sizeof(scanned_id); i++){
-      tmp.push_back(static_cast<double>(Read_Present_Position(scanned_id[i])));
+      timer_ = this->create_wall_timer(
+      100ms, std::bind(&TeleopCommunication::timer_callback, this));
     }
 
-    message.data = tmp;
-    // RCLCPP_INFO(get_logger(), "%f, %f, %f", message.data[0], message.data[1], message.data[2]);
-    publisher_->publish(message);
-  }
+  private:
+    void timer_callback()
+    {
+      auto message = std_msgs::msg::Float64MultiArray();
+      std::vector<double> tmp;
+      for (int i=0; i<sizeof(scanned_id); i++){
+        tmp.push_back(static_cast<double>(Read_Present_Position(scanned_id[i])));
+      }
 
-  void topic_callback(const std_msgs::msg::Float64MultiArray::SharedPtr msg)
-  {
-    for (int i=0; i<sizeof(scanned_id); i++){
-      dxl_wb.goalPosition(scanned_id[i], static_cast<float>(msg->data[i]));
+      message.data = tmp;
+      // RCLCPP_INFO(get_logger(), "%f, %f, %f", message.data[0], message.data[1], message.data[2]);
+      publisher_->publish(message);
     }
-    // RCLCPP_INFO(get_logger(), "I heard: '%f, %f, %f'", msg->data[0], msg->data[1], msg->data[2]);
-  }
 
-  rclcpp::TimerBase::SharedPtr timer_;
-  rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr publisher_;
-  rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr subscription_;
+    void topic_callback(const std_msgs::msg::Float64MultiArray::SharedPtr msg)
+    {
+      for (int i=0; i<sizeof(scanned_id); i++){
+        dxl_wb.goalPosition(scanned_id[i], static_cast<float>(msg->data[i]));
+      }
+      // RCLCPP_INFO(get_logger(), "I heard: '%f, %f, %f'", msg->data[0], msg->data[1], msg->data[2]);
+    }
+
+    rclcpp::TimerBase::SharedPtr timer_;
+    rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr publisher_;
+    rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr subscription_;
 };
 
 int main(int argc, char *argv[]) {
   if (argc == 2)
   {
-    if (argv[1].find("control") == string::npos) { // arg[1] includes control
-      printf("Manipulator Control Mode!\n", argv[1]);
+    if (std::string(argv[1]).find("control") == std::string::npos) { // arg[1] includes control
+      printf("Manipulator Control Mode!\n");
       readonly = false;
     }
   }
