@@ -82,6 +82,5 @@ install(DIRECTORY include/
 ament_export_include_directories(include)
 ament_export_dependencies(dynamixel_sdk)
 ament_export_dependencies(rclcpp)
-ament_export_dependencies(std_msgs)
 ament_export_libraries(${LIB_NAME})
 ament_package()
