@@ -132,7 +132,7 @@ def run(
         dnn=False,  # use OpenCV DNN for ONNX inference
         vid_stride=1,  # video frame-rate stride
 ):
-    global tvec, xy_list, cam_activate
+    global tvec, xy_list, cam_activate, object_num
     source = str(source)
     is_file = Path(source).suffix[1:] in (IMG_FORMATS + VID_FORMATS)
     is_url = source.lower().startswith(('rtsp://', 'rtmp://', 'http://', 'https://'))
@@ -193,6 +193,7 @@ def run(
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
             annotator = Annotator(im0, line_width=line_thickness, example=str(names))
             
+            object_num = []
             xy_list = []
             if len(det):
                 # Rescale boxes from img_size to im0 size
@@ -215,7 +216,7 @@ def run(
                 # cls 변수는 클래스 인덱스를 나타내며, names 리스트에서 클래스 이름을 가져옵니다
                 for *xyxy, conf, cls in reversed(det):
                     if view_img:  # 이미지에 바운딩 박스 그리기
-                        c = int(cls)  # 정수형 클래스q
+                        c = int(cls)  # 정수형 클래스
                         label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}') # 라벨 표시 여부
                         annotator.box_label(xyxy, label, color=colors(c, True)) # 이미지에 바운딩 박스와 라벨 추가
                         if names[c] == 'shoe_lace' :  # 원하는 클래스 리스트
@@ -226,6 +227,9 @@ def run(
                                                 
                             # print(f"{names[c]} Center (x, y): {x_pixel:.2f}, {y_pixel:.2f} \n")
                             xy_list.append((x_pixel, y_pixel))
+
+                        object_num = len(xy_list)
+                        print("object detect {0}".format(len(names[c])))
 
             cam_activate = True
 
@@ -335,6 +339,70 @@ class TeleopKeyboard(Node):
         global present_joint_angle
         present_joint_angle = list(msg.data).copy()
         print("I heard:", present_joint_angle)
+
+
+
+# Here  -  seokwon
+#####################################################################################################
+
+    def searching_action(self):
+    # if object can't detect 
+        while (len(object_num) == 0): 
+            goal_joint_angle[0] -= -0.005      # 11번 모터가 1.5부터 -1.5까지 서칭
+            
+            # 오브젝트가 감지가 안될때 처음 대기 상태로 복귀
+            if (goal_joint_angle[0] == -1.5):
+                goal_joint_angle[0] = 3.0
+                goal_joint_angle[1] = 0.377
+                goal_joint_angle[2] = 0.084
+                goal_joint_angle[3] = 0.985
+                self.send_goal_joint_space(self.pathtime)
+            pass
+
+
+        
+            # x 좌표만 신경 쓴것
+            # 오브젝트가 1개만 감지 될 때 (그 방향으로 카메라를 돌려서 오브젝트를 더 찾는다)
+                # -70 < center_x <-30 일때가 실행가능 범위 안에 들어온 것이다.
+            while (len(object_num) == 1) :
+                if (object_num[0][2] <= 30):
+                    if (-70 > center_x ): # -70 보다 센터값이 작으면 왼쪽에 있으니까 카메라도 왼쪽으로 가야함
+                        goal_joint_angle[0] += 0.005
+                    elif ( 70 < center_x ): # 70보다 센터값이 크면 오른쪽에 있으니까 카메라도 오른쪽으로 가야함
+                        goal_joint_angle[0] -= 0.005
+                else:
+                    continue
+
+                # 보류
+                # # 아래의 경우는 시야에 1짝만 있는 상황으로 1짝만 픽업하든가 해야한다.    
+                # elif (-30 < center_x < 0): # -30 ~0 사이의 값이면 거의 중앙에서 살짝 왼쪽이니까 카메라를 살짝 오른쪽으로 돌린다.
+                #     goal_joint_angle[0] += 0.005 
+                # elif (0 < center_x < 30):
+                #     goal_joint_angle[0] -= 0.005
+
+            # 오브젝트가 2개 감지 될 때
+            #object_num -> 오브젝트 넘버, 오브젝트 중앙좌표 x , 앞과 동일하고 y
+            while (len(object_num) >= 2) :
+                if ((object_num[0][2] + object_num[1][2]) <=40):
+                    if ((object_num[0][1] + object_num[1][1]) < -30): # 두 합이 -값이면 왼쪽으로 옮겨야하 한다.
+                        goal_joint_angle[0] += 0.005
+                    elif ((object_num[0][1] + object_num[1][1]) > 30):
+                        goal_joint_angle[0] -= 0.005
+                    # 두개의 x 좌표 합이 0에서 30사이면 카메라 중잉이라고 보면 된다.
+                    elif (0 < abs(object_num[0][1] + object_num[1][1]) < 30):
+                        # 신발 잡는 함수 실행
+                        if ((object_num[0][2] + object_num[1][2]) >10):
+                            self.searching_after_action_far()
+                        elif ( -50 <(object_num[0][2] + object_num[1][2]) < 10):
+                            self.searching_after_action_nomal()
+                        elif ((object_num[0][2] + object_num[1][2]) < -50):
+                            self.searching_after_action_close()
+                else:
+                    continue
+
+
+
+###############################################################################################################
 
 def wait_box_detection():
     while (len(xy_list) != 2):
