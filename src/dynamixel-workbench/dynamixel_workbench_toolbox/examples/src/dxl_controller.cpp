@@ -13,16 +13,17 @@ bool run_none_camera_action = false;
 bool readonly = true;
 // bool readonly = false;
 
-bool Initialize_DXL(uint8_t *scanned_id, const char *port_name, int baud_rate);
+bool Initialize_DXL(const char *port_name, int baud_rate);
 float Read_Present_Position(uint8_t dxl_id);
-bool MinMax_Position_Setting(uint8_t *scanned_id);
-void Set_PID_Param(uint8_t *scanned_id, int32_t PGain, int32_t IGain, int32_t DGain);
-void Print_DXL_Setting(uint8_t *scanned_id);
-void Print_DXL_Info(uint8_t *scanned_id, int i);
-void Run_None_Camera_Action(uint8_t *scanned_id);
+bool MinMax_Position_Setting();
+void Set_PID_Param(int32_t PGain, int32_t IGain, int32_t DGain);
+void Print_DXL_Setting();
+void Print_DXL_Info(int i);
+void Run_None_Camera_Action();
 
 DynamixelWorkbench dxl_wb;
-uint8_t scanned_id[6];
+uint8_t *scanned_id = new uint8_t[0];
+uint8_t dxl_cnt = 0;
 
 using namespace std::chrono_literals;
 using std::placeholders::_1;
@@ -45,7 +46,7 @@ class TeleopCommunication : public rclcpp::Node{
     {
       auto message = std_msgs::msg::Float64MultiArray();
       std::vector<double> tmp;
-      for (int i=0; i<sizeof(scanned_id); i++){
+      for (int i=0; i<dxl_cnt; i++){
         tmp.push_back(static_cast<double>(Read_Present_Position(scanned_id[i])));
       }
 
@@ -56,7 +57,7 @@ class TeleopCommunication : public rclcpp::Node{
 
     void topic_callback(const std_msgs::msg::Float64MultiArray::SharedPtr msg)
     {
-      for (int i=0; i<sizeof(scanned_id); i++){
+      for (int i=0; i<dxl_cnt; i++){
         dxl_wb.goalPosition(scanned_id[i], static_cast<float>(msg->data[i]));
       }
       // RCLCPP_INFO(get_logger(), "I heard: '%f, %f, %f'", msg->data[0], msg->data[1], msg->data[2]);
@@ -68,15 +69,12 @@ class TeleopCommunication : public rclcpp::Node{
 };
 
 int main(int argc, char *argv[]) {
-  if (argc == 2)
-  {
-    if (std::string(argv[1]).find("control") == std::string::npos) { // arg[1] includes control
+  if (argc == 2) {
+    if (std::string(argv[1]).find("control") != std::string::npos) { // arg[1] includes control
       printf("Manipulator Control Mode!\n");
       readonly = false;
     }
   }
-  
-  sleep(2);
 
   // Liux defalut USB port
   const char *port_name = "/dev/ttyUSB0";
@@ -84,20 +82,20 @@ int main(int argc, char *argv[]) {
   int baud_rate = 1000000;
 
   // Get Dynamixel id array and initialize DXL
-  Initialize_DXL(scanned_id, port_name, baud_rate);
+  Initialize_DXL(port_name, baud_rate);
 
   // Check DXL setting
-  Print_DXL_Setting(scanned_id);
+  Print_DXL_Setting();
 
   // if (run_none_camera_action){
   //   // Run manipulator to move shoes (hard coding)
   //   Run_None_Camera_Action(scanned_id);
   // }
   // if (readonly){
-  //   printf("%d\n",sizeof(scanned_id));
+  //   printf("%d\n",dxl_cnt);
   //   while(true){
   //       sleep(1);
-  //       for (int i=0;i<sizeof(scanned_id);i++){
+  //       for (int i=0;i<dxl_cnt;i++){
   //         printf("%d : %f\n", i, Read_Present_Position(scanned_id[i]));
   //       }
   //       printf("\n\n");
@@ -155,13 +153,13 @@ int main(int argc, char *argv[]) {
   //     }
   // }
 
+  delete[] scanned_id;
   return 0;
 }
 
-bool Initialize_DXL(uint8_t *scanned_id, const char *port_name, int baud_rate) {
+bool Initialize_DXL(const char *port_name, int baud_rate) {
   const char *log;
   bool result = false;
-  uint8_t dxl_cnt = 0;
   uint8_t range = 100;
 
   // Initialize
@@ -171,7 +169,7 @@ bool Initialize_DXL(uint8_t *scanned_id, const char *port_name, int baud_rate) {
     printf("Failed to init");
     return result;
   }
- 
+
   // Find models
   result = dxl_wb.scan(scanned_id, &dxl_cnt, range, &log);
   if (!result) {
@@ -203,10 +201,12 @@ bool Initialize_DXL(uint8_t *scanned_id, const char *port_name, int baud_rate) {
         return result;
       }
     }
-
     printf("id : %d, model name : %s, model_number : %d\n", scanned_id[i],
            dxl_wb.getModelName(scanned_id[i]), model_number);
   }
+
+  // Set PID
+  Set_PID_Param(150, 5, 10);
 
   return result;
 }
@@ -229,7 +229,7 @@ float Read_Present_Position(uint8_t dxl_id) {
   return rad;
 }
 
-bool MinMax_Position_Setting(uint8_t *scanned_id){
+bool MinMax_Position_Setting(){
   bool result = false;
   result = dxl_wb.writeRegister(scanned_id[0],
                                 "Min_Position_Limit", 0);
@@ -254,70 +254,28 @@ bool MinMax_Position_Setting(uint8_t *scanned_id){
   return result;
 }
 
-void Set_PID_Param(uint8_t *scanned_id, int32_t PGain, int32_t IGain, int32_t DGain){
+void Set_PID_Param(int32_t PGain, int32_t IGain, int32_t DGain){
   bool result = true;
   int32_t F2Gain = 0;
   int32_t F1Gain = 0;
-  result = dxl_wb.writeRegister(scanned_id[0],
+  for (int i=0; i<dxl_cnt-1; i++){
+    dxl_wb.writeRegister(scanned_id[i],
                                 "Position_D_Gain", DGain);
-  result = dxl_wb.writeRegister(scanned_id[0],
+    dxl_wb.writeRegister(scanned_id[i],
                                 "Position_I_Gain", IGain);
-  result = dxl_wb.writeRegister(scanned_id[0],
+    dxl_wb.writeRegister(scanned_id[i],
                                 "Position_P_Gain", PGain);
-  result = dxl_wb.writeRegister(scanned_id[0],
+    dxl_wb.writeRegister(scanned_id[i],
                                 "Feedforward_2nd_Gain", F2Gain);
-  result = dxl_wb.writeRegister(scanned_id[0],
+    dxl_wb.writeRegister(scanned_id[i],
                                 "Feedforward_1nd_Gain", F1Gain);
-                                
-  result = dxl_wb.writeRegister(scanned_id[1],
-                                "Position_D_Gain", DGain);
-  result = dxl_wb.writeRegister(scanned_id[1],
-                                "Position_I_Gain", IGain);
-  result = dxl_wb.writeRegister(scanned_id[1],
-                                "Position_P_Gain", PGain);
-  result = dxl_wb.writeRegister(scanned_id[1],
-                                "Feedforward_2nd_Gain", F2Gain);
-  result = dxl_wb.writeRegister(scanned_id[1],
-                                "Feedforward_1nd_Gain", F1Gain);
-                                
-  result = dxl_wb.writeRegister(scanned_id[2],
-                                "Position_D_Gain", DGain);
-  result = dxl_wb.writeRegister(scanned_id[2],
-                                "Position_I_Gain", IGain);
-  result = dxl_wb.writeRegister(scanned_id[2],
-                                "Position_P_Gain", PGain);
-  result = dxl_wb.writeRegister(scanned_id[2],
-                                "Feedforward_2nd_Gain", F2Gain);
-  result = dxl_wb.writeRegister(scanned_id[2],
-                                "Feedforward_1nd_Gain", F1Gain);
-                                
-  result = dxl_wb.writeRegister(scanned_id[3],
-                                "Position_D_Gain", DGain);
-  result = dxl_wb.writeRegister(scanned_id[3],
-                                "Position_I_Gain", IGain);
-  result = dxl_wb.writeRegister(scanned_id[3],
-                                "Position_P_Gain", PGain);
-  result = dxl_wb.writeRegister(scanned_id[3],
-                                "Feedforward_2nd_Gain", F2Gain);
-  result = dxl_wb.writeRegister(scanned_id[3],
-                                "Feedforward_1nd_Gain", F1Gain);
-                                
-  result = dxl_wb.writeRegister(scanned_id[4],
-                                "Position_D_Gain", 0);
-  result = dxl_wb.writeRegister(scanned_id[4],
-                                "Position_I_Gain", 0);
-  result = dxl_wb.writeRegister(scanned_id[4],
-                                "Position_P_Gain", 800);
-  result = dxl_wb.writeRegister(scanned_id[4],
-                                "Feedforward_2nd_Gain", 100);
-  result = dxl_wb.writeRegister(scanned_id[4],
-                                "Feedforward_1nd_Gain", 100);
+  }
 
   return;
 }
 
-void Print_DXL_Setting(uint8_t *scanned_id){
-  for (int i=0;i<sizeof(scanned_id);i++){
+void Print_DXL_Setting(){
+  for (int i=0;i<dxl_cnt;i++){
       int32_t data = 0;
       printf("\nid:%d=======================\n", scanned_id[i]);
       dxl_wb.readRegister(scanned_id[i], "Position_D_Gain", &data);
@@ -337,7 +295,7 @@ void Print_DXL_Setting(uint8_t *scanned_id){
   }
 }
 
-void Print_DXL_Info(uint8_t *scanned_id, int i){
+void Print_DXL_Info(int i){
   int32_t data = 0;
   printf("\nid:%d=================================\n", scanned_id[i]);
   dxl_wb.readRegister(scanned_id[i], "Moving", &data);
@@ -368,7 +326,7 @@ void Print_DXL_Info(uint8_t *scanned_id, int i){
   printf("Present_Temperature: %d\n", data);
 }
 
-void Run_None_Camera_Action(uint8_t *scanned_id){
+void Run_None_Camera_Action(){
   const uint array_size = 15;
   float angle_list[array_size][5] = {{-3.0, -0.125, 0.570, 1.075, -1.05}, // Init pos
                                      {-2.000, -0.282, 0.356, 1.299, -1.05}, // Move-1
@@ -387,9 +345,9 @@ void Run_None_Camera_Action(uint8_t *scanned_id){
                                      {-3.0, -0.125, 0.570, 1.075, -1.05}}; // Init pos
 
   for (int i=0; i<array_size; i++){
-    if (i==0) Set_PID_Param(scanned_id, 50, 0, 5);
-    if (i==5) Set_PID_Param(scanned_id, 250, 10, 10);
-    if (i==13) Set_PID_Param(scanned_id, 50, 0, 5);
+    if (i==0) Set_PID_Param(50, 0, 5);
+    if (i==5) Set_PID_Param(250, 10, 10);
+    if (i==13) Set_PID_Param(50, 0, 5);
     for (int j=0; j<5; j++){
       dxl_wb.goalPosition(scanned_id[j], angle_list[i][j]);
     }
@@ -399,7 +357,7 @@ void Run_None_Camera_Action(uint8_t *scanned_id){
       int32_t new_data = 0;
       for (int j=0; j<5; j++){
         printf("\n");
-        Print_DXL_Info(scanned_id, j);
+        Print_DXL_Info(j);
         dxl_wb.readRegister(scanned_id[j], "Moving", &data);
         new_data = new_data | data;
       }
