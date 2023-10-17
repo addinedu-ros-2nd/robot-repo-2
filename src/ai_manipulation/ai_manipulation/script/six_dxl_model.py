@@ -57,17 +57,17 @@ d_path = os.path.join(workspace_path, "src", package_name, package_name, "utils/
 way_point_1_path = os.path.join(workspace_path, "src", package_name, package_name, "datas/way_point_1.json")
 way_point_2_path = os.path.join(workspace_path, "src", package_name, package_name, "datas/way_point_2.json")
 random_state_gen_num = 16
-angle_gap_origin = 0.09  # radian
-angle_gap = 0.07
-path_time = 0.4  # second
+# angle_gap_origin = 0.09  # radian
+angle_gap = 0.15
+# path_time = 0.4  # second
 state_size = 6
 action_size = 4
-threshold = 0.11 # scenario ending thres
+# threshold = 0.11 # scenario ending thres
 INF = 999999999999
 
 present_joint_angle = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 goal_joint_angle = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-prev_goal_joint_angle = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+search_start_point = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
 def pose_esitmation(frame, aruco_dict_type, matrix_coefficients, distortion_coefficients):
 
@@ -264,15 +264,6 @@ class Agent():
         with open(acts_backup, 'w') as json_file:
             json.dump(self.acts, json_file)
 
-    def generate_random_pose(self, pose):
-        global xy_list
-        wait_box_detection()
-        random_values = [0] * 5
-        random_values[0] = np.random.uniform(pose[0] - 0.5 * angle_gap, pose[0] + 0.5 * angle_gap)
-        for idx in range(1,5):
-            random_values[idx] = np.random.uniform(pose[idx] - angle_gap, pose[idx] + angle_gap)
-        return random_values
-    
     def remember(self, state, act):
         self.states.append(state)
         self.acts.append(act)
@@ -316,12 +307,12 @@ def searching_action():
 
     # if object can't detect    
     while (len(xy_list) != 2 and present_joint_angle[0] < 1.0): 
-        goal_joint_angle[0] += 0.02                   
+        goal_joint_angle[0] += 0.02
         teleop_keyboard.send_goal_joint_space()      
-        wait_arrive()
+        wait_arrive(0.05)
 
     while True:
-        time.sleep(0.1)
+        time.sleep(0.05)
         while(len(xy_list) != 2):
             tmp_xy = xy_list.copy()
             time.sleep(0.1)
@@ -335,14 +326,14 @@ def searching_action():
 
         if (center_x > 323):  # first situation if shoe postion is left
             print("center_X_value < 323")
-            goal_joint_angle[0] += 0.01
+            goal_joint_angle[0] += 0.02
         elif (317 > center_x ): # second situation fi shoe position is right
             print("center_X_value > 317") 
-            goal_joint_angle[0] -= 0.01
+            goal_joint_angle[0] -= 0.02
         else:
             print('complete x')
         teleop_keyboard.send_goal_joint_space()
-        wait_arrive()
+        wait_arrive(0.02)
 
         while(len(xy_list) != 2):
             tmp_xy = xy_list.copy()
@@ -357,34 +348,41 @@ def searching_action():
 
         if (center_y < 237):  # first situation if shoe postion is left
             print("center_Y_value < 323")
-            goal_joint_angle[3] += 0.01
+            goal_joint_angle[3] += 0.02
         elif (243 < center_y): # second situation fi shoe position is right
             print("center_Y_value> 317") 
-            goal_joint_angle[3] -= 0.01
+            goal_joint_angle[3] -= 0.02
         else:
             print('complete y')
         teleop_keyboard.send_goal_joint_space()
-        wait_arrive()
-
+        wait_arrive(0.02)
 
 def get_distance(list1, list2):
     return np.sqrt(np.sum(np.fromiter(((p2 - p1)**2 for p1, p2 in zip(list1, list2)), dtype=float)))
 
-def wait_arrive():
+def wait_arrive(thres = 0.1):
     while True:
         tmp_dist = get_distance(goal_joint_angle[:5], present_joint_angle[:5])
         print(tmp_dist)
-        if tmp_dist <= 0.12:
+        if tmp_dist < thres:
             break
-        time.sleep(0.1)
+        time.sleep(0.01)
 
-def move_softly(point1, point2):
+def move_softly_to(goal_point):
     global teleop_keyboard
-    full_step = int(get_distance(point1, point2) * 30)
+    start_point = present_joint_angle[:5]
+    full_step = int(get_distance(start_point, goal_point) * 25)
     for step in range(1, full_step+1):
-        goal_joint_angle[:5] = [(step * x + (full_step - step) * y)/full_step for x, y in zip(point2, point1)]
+        goal_joint_angle[:5] = [(step * x + (full_step - step) * y)/full_step for x, y in zip(goal_point, start_point)]
         teleop_keyboard.send_goal_joint_space()
         wait_arrive()
+
+def generate_random_pose(pose):
+    random_values = [0] * 5
+    random_values[0] = np.random.uniform(pose[0] - 0.5 * angle_gap, pose[0] + 0.5 * angle_gap)
+    for idx in range(1,5):
+        random_values[idx] = np.random.uniform(pose[idx] - angle_gap, pose[idx] + angle_gap)
+    return random_values
 
 def main():
     global tvec, xy_list, cam_activate, goal_joint_angle, teleop_keyboard
@@ -409,13 +407,20 @@ def main():
         else:
             break
     
+    # Check dxl count
+    if len(present_joint_angle) != 6:
+        print("DXL missing!\n DXL count :", len(present_joint_angle))
+        teleop_keyboard.destroy_node()
+        rclpy.shutdown()
+        return
+
     # wait for camera
     while True:
         if cam_activate:
             break
         time.sleep(0.5)
 
-    prev_goal_joint_angle = [-1.0, -0.8866409063339233, 0.1395922601222992, 2.032524585723877, 0., -1.1520196199417114]
+    search_start_point = [-1.0, -0.8866409063339233, 0.1395922601222992, 2.032524585723877, 0., -1.1520196199417114]
 
     goal_joint_angle = present_joint_angle.copy()
 
@@ -428,45 +433,47 @@ def main():
     # Gripper Close
     goal_joint_angle[5] = 0.5593204975128174
     teleop_keyboard.send_goal_joint_space()
-    time.sleep(2)
+    wait_arrive(0.05)
 
+    # Move to Way Point
     for idx in range(len(way_point_1) - 2):
-
         # Initial Position Setting
-        move_softly(present_joint_angle[:5], way_point_2[idx][:5])
-        move_softly(way_point_2[idx][:5], way_point_1[idx][:5])
+        move_softly_to(way_point_2[idx][:5])
+        move_softly_to(way_point_1[idx][:5])
         
         # Gripper Open
-        goal_joint_angle[5] = -1.150485634803772
+        goal_joint_angle[5] = -1.050485634803772
         teleop_keyboard.send_goal_joint_space()
-        time.sleep(2)
+        wait_arrive(0.05)
 
-        # Go UP
-        move_softly(way_point_1[idx][:5], way_point_2[idx][:5])
+        # Go to way2
+        move_softly_to(way_point_2[idx][:5])
 
         # Searching action
-        move_softly(present_joint_angle[:5], prev_goal_joint_angle[:5])
+        move_softly_to(search_start_point[:5])
         searching_action()
 
+        # Move to Random Pose
+        tmp_point = present_joint_angle[:5]
+        for _ in range(random_state_gen_num):
+            move_softly_to(generate_random_pose(tmp_point))
+            time.sleep(0.5)
+
+        # Go to way2
+        move_softly_to(way_point_2[idx][:5])
+
         # Go DOWN
-        move_softly(way_point_2[idx][:5], way_point_1[idx][:5])
+        move_softly_to(way_point_1[idx][:5])
 
         # Gripper Close
         goal_joint_angle[5] = 0.5593204975128174
         teleop_keyboard.send_goal_joint_space()
-        time.sleep(2)
+        wait_arrive(0.05)
 
         # Go UP
-        move_softly(way_point_1[idx][:5], way_point_2[idx][:5])
-
-        # Shoes Searching Function
-
-        # Random Pose Generator -> 
-
-        # 
+        move_softly_to(way_point_2[idx][:5])
 
     # Destroy Node
-
     teleop_keyboard.destroy_node()
     rclpy.shutdown()
 

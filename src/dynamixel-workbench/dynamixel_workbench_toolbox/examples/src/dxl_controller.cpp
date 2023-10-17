@@ -205,8 +205,8 @@ bool Initialize_DXL(const char *port_name, int baud_rate) {
            dxl_wb.getModelName(scanned_id[i]), model_number);
   }
 
-  // Set PID
-  Set_PID_Param(1000, 200, 100);
+  // Set PIDㄴ
+  Set_PID_Param(800, 150, 150);
 
   return result;
 }
