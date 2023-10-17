@@ -33,11 +33,7 @@ import scipy.stats as stats
 
 from array import array
 from std_msgs.msg import Float64MultiArray
-# from open_manipulator_msgs.msg import KinematicsPose, OpenManipulatorState
-# from open_manipulator_msgs.srv import SetJointPosition, SetKinematicsPose
 from rclpy.node import Node
-# from rclpy.qos import QoSProfile
-# from sensor_msgs.msg import JointState
 
 if os.name == 'nt':
     import msvcrt
@@ -66,16 +62,9 @@ action_size = 4
 threshold = 0.11 # scenario ending thres
 INF = 999999999999
 
-present_joint_angle = [0.0, 0.0, 0.0, 0.0, 0.0]
-goal_joint_angle = [0.0, 0.0, 0.0, 0.0, 0.0]
-prev_goal_joint_angle = [0.0, 0.0, 0.0, 0.0, 0.0]
-present_kinematics_pose = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-goal_kinematics_pose = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-prev_goal_kinematics_pose = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-
-e = """
-Communications Failed
-"""
+present_joint_angle = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+goal_joint_angle = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+prev_goal_joint_angle = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
 def pose_esitmation(frame, aruco_dict_type, matrix_coefficients, distortion_coefficients):
 
@@ -114,7 +103,7 @@ def pose_esitmation(frame, aruco_dict_type, matrix_coefficients, distortion_coef
 @smart_inference_mode()
 def run(
         weights=os.path.join(workspace_path, "src", package_name, package_name, "utils/best.pt"),  # model path or triton URL
-        source="2",  # file/dir/URL/glob/screen/0(webcam)
+        source="0",  # file/dir/URL/glob/screen/0(webcam)
         imgsz=(640, 480),  # inference size (height, width)
         conf_thres=0.3,  # confidence threshold
         iou_thres=0.3,  # NMS IOU threshold
@@ -132,7 +121,7 @@ def run(
         dnn=False,  # use OpenCV DNN for ONNX inference
         vid_stride=1,  # video frame-rate stride
 ):
-    global tvec, xy_list, cam_activate, object_num
+    global tvec, xy_list, cam_activate
     source = str(source)
     is_file = Path(source).suffix[1:] in (IMG_FORMATS + VID_FORMATS)
     is_url = source.lower().startswith(('rtsp://', 'rtmp://', 'http://', 'https://'))
@@ -193,7 +182,6 @@ def run(
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
             annotator = Annotator(im0, line_width=line_thickness, example=str(names))
             
-            object_num = []
             xy_list = []
             if len(det):
                 # Rescale boxes from img_size to im0 size
@@ -216,10 +204,10 @@ def run(
                 # cls 변수는 클래스 인덱스를 나타내며, names 리스트에서 클래스 이름을 가져옵니다
                 for *xyxy, conf, cls in reversed(det):
                     if view_img:  # 이미지에 바운딩 박스 그리기
-                        c = int(cls)  # 정수형 클래스
+                        c = int(cls)  # 정수형 클래스q
                         label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}') # 라벨 표시 여부
                         annotator.box_label(xyxy, label, color=colors(c, True)) # 이미지에 바운딩 박스와 라벨 추가
-                        if names[c] == 'shoe_lace' :  # 원하는 클래스 리스트
+                        if names[c] == 'ShoeLace' :  # 원하는 클래스 리스트
                             tmp_list = torch.tensor(xyxy).view(1, 4).view(-1).tolist()
 
                             x_pixel = np.mean([tmp_list[0], tmp_list[2]])
@@ -227,9 +215,6 @@ def run(
                                                 
                             # print(f"{names[c]} Center (x, y): {x_pixel:.2f}, {y_pixel:.2f} \n")
                             xy_list.append((x_pixel, y_pixel))
-
-                        object_num = len(xy_list)
-                        print("object detect {0}".format(len(names[c])))
 
             cam_activate = True
 
@@ -276,33 +261,13 @@ class Agent():
         with open(acts_backup, 'w') as json_file:
             json.dump(self.acts, json_file)
 
-    def generate_random_pose(self, pose, prob_mean, bad_pose):
+    def generate_random_pose(self, pose):
         global xy_list
         wait_box_detection()
-        random_values = [0] * 4
+        random_values = [0] * 5
         random_values[0] = np.random.uniform(pose[0] - 0.5 * angle_gap, pose[0] + 0.5 * angle_gap)
-        random_values[0] = stats.norm.rvs(loc=pose[0] + ((xy_list[0][0] + xy_list[1][0]) / 2 - 320) * 0.001, scale=0.07 * angle_gap, size=1)[0]
-        # print(((xy_list[0][0] + xy_list[1][0]) / 2 - 320) * 0.01)
-        while True:
-            time.sleep(0.03)
-            not_bad = True
-            for idx in range(1,3):
-                if prob_mean[idx] == pose[idx]:
-                    random_values[idx] = np.random.uniform(pose[idx] - angle_gap, pose[idx] + angle_gap)
-                else:
-                    while True:
-                        tmp = stats.norm.rvs(loc=prob_mean[idx], scale=0.4 * angle_gap, size=1)[0]
-                        if (pose[idx] - angle_gap < tmp and tmp < pose[idx] + angle_gap):
-                            break
-                    random_values[idx] = tmp
-            # suppress unwanted camera angle movement
-            random_values[3] = np.random.uniform(pose[3] - 1.0 * angle_gap, pose[3])
-            for each in bad_pose:
-                if np.linalg.norm(np.array(random_values) - np.array(each)) < 0.02:
-                    prob_mean = pose.copy()
-                    not_bad = False
-            if not_bad:
-                break
+        for idx in range(1,5):
+            random_values[idx] = np.random.uniform(pose[idx] - angle_gap, pose[idx] + angle_gap)
         return random_values
     
     def remember(self, state, act):
@@ -316,8 +281,6 @@ class Agent():
         return self.brain.predict(state)
 
 class TeleopKeyboard(Node):
-    settings = None
-
     def __init__(self):
         super().__init__('teleop_keyboard')
         self.goal_joint_state_publisher = self.create_publisher(Float64MultiArray, 'goal_joint_states', 10)
@@ -338,105 +301,125 @@ class TeleopKeyboard(Node):
     def joint_state_callback(self, msg):
         global present_joint_angle
         present_joint_angle = list(msg.data).copy()
-        print("I heard:", present_joint_angle)
+        # print("I heard:", present_joint_angle)
 
 
 
-# Here  -  seokwon
-#####################################################################################################
-
-    def searching_action(self):
-    # if object can't detect 
-        while (len(object_num) == 0): 
-            goal_joint_angle[0] -= -0.005      # 11번 모터가 1.5부터 -1.5까지 서칭
-            
-            # 오브젝트가 감지가 안될때 처음 대기 상태로 복귀
-            if (goal_joint_angle[0] == -1.5):
-                goal_joint_angle[0] = 3.0
-                goal_joint_angle[1] = 0.377
-                goal_joint_angle[2] = 0.084
-                goal_joint_angle[3] = 0.985
-                self.send_goal_joint_space(self.pathtime)
-            pass
-
-
-        
-            # x 좌표만 신경 쓴것
-            # 오브젝트가 1개만 감지 될 때 (그 방향으로 카메라를 돌려서 오브젝트를 더 찾는다)
-                # -70 < center_x <-30 일때가 실행가능 범위 안에 들어온 것이다.
-            while (len(object_num) == 1) :
-                if (object_num[0][2] <= 30):
-                    if (-70 > center_x ): # -70 보다 센터값이 작으면 왼쪽에 있으니까 카메라도 왼쪽으로 가야함
-                        goal_joint_angle[0] += 0.005
-                    elif ( 70 < center_x ): # 70보다 센터값이 크면 오른쪽에 있으니까 카메라도 오른쪽으로 가야함
-                        goal_joint_angle[0] -= 0.005
-                else:
-                    continue
-
-                # 보류
-                # # 아래의 경우는 시야에 1짝만 있는 상황으로 1짝만 픽업하든가 해야한다.    
-                # elif (-30 < center_x < 0): # -30 ~0 사이의 값이면 거의 중앙에서 살짝 왼쪽이니까 카메라를 살짝 오른쪽으로 돌린다.
-                #     goal_joint_angle[0] += 0.005 
-                # elif (0 < center_x < 30):
-                #     goal_joint_angle[0] -= 0.005
-
-            # 오브젝트가 2개 감지 될 때
-            #object_num -> 오브젝트 넘버, 오브젝트 중앙좌표 x , 앞과 동일하고 y
-            while (len(object_num) >= 2) :
-                if ((object_num[0][2] + object_num[1][2]) <=40):
-                    if ((object_num[0][1] + object_num[1][1]) < -30): # 두 합이 -값이면 왼쪽으로 옮겨야하 한다.
-                        goal_joint_angle[0] += 0.005
-                    elif ((object_num[0][1] + object_num[1][1]) > 30):
-                        goal_joint_angle[0] -= 0.005
-                    # 두개의 x 좌표 합이 0에서 30사이면 카메라 중잉이라고 보면 된다.
-                    elif (0 < abs(object_num[0][1] + object_num[1][1]) < 30):
-                        # 신발 잡는 함수 실행
-                        if ((object_num[0][2] + object_num[1][2]) >10):
-                            self.searching_after_action_far()
-                        elif ( -50 <(object_num[0][2] + object_num[1][2]) < 10):
-                            self.searching_after_action_nomal()
-                        elif ((object_num[0][2] + object_num[1][2]) < -50):
-                            self.searching_after_action_close()
-                else:
-                    continue
-
-
-
-###############################################################################################################
 
 def wait_box_detection():
     while (len(xy_list) != 2):
         # print("Detection Failed!", len(xy_list))
-        time.sleep(0.5)
+        wait_arrive()
+
+
+
+
+#######################################################################################33
+#seokwon searching object code
+
+def searching_action():  
+    global xy_list, teleop_keyboard
+
+# if object can't detect    
+    while (len(xy_list) != 2 and present_joint_angle[0] < 1.0): # goal_joint_angle 기본값이 1.5라고 설정 되어있는 경우
+        goal_joint_angle[0] += 0.02                       # 11번 모터가 1.5부터 -1.5까지 서칭 
+        teleop_keyboard.send_goal_joint_space()                  # 그리고 먼곳부터 서칭을 해야하니까 그 최대 값의 joint_angle값을 가져와야 할 듯 하다.
+        wait_arrive()
+
+    while True:
+        time.sleep(0.03)
+    # while (317 > center_x or center_x > 323):
+        while(len(xy_list) != 2):
+            time.sleep(0.1)
+        print("detect two object, move x value")
+        center_x = abs((xy_list[0][0] + xy_list[1][0])/2)
+        center_y = abs((xy_list[0][1] + xy_list[1][1])/2)
+        
+
+
+        if (center_x > 323):  # first situation if shoe postion is left
+            print("center_X_value < 323")
+            goal_joint_angle[0] += 0.01
+            teleop_keyboard.send_goal_joint_space()
+            wait_arrive()
+        elif ( 317 > center_x ): # second situation fi shoe position is right
+            print("center_X_value> 317") 
+            goal_joint_angle[0] -= 0.01
+            
+            teleop_keyboard.send_goal_joint_space()
+            wait_arrive()
+        else:
+            print('complete x and break')
+            continue
+
+        while(len(xy_list) != 2):
+            time.sleep(0.1)
+        print("detect two object, move y value")
+        if (center_y < 237):  # first situation if shoe postion is left
+            print("center_Y_value < 323")
+            goal_joint_angle[3] += 0.01
+            teleop_keyboard.send_goal_joint_space()
+            wait_arrive()
+        elif ( 243 < center_y ): # second situation fi shoe position is right
+            print("center_Y_value> 317") 
+            goal_joint_angle[3] -= 0.01
+            
+            teleop_keyboard.send_goal_joint_space()
+            wait_arrive()
+        else:
+            print('complete y and break')
+            continue
+
+
+    pass
+
+      
+
 
 def wait_arrive():
-    time.sleep(0.1)
     while True:
-        tmp_dist = np.sqrt(np.sum(np.fromiter(((p2 - p1)**2 for p1, p2 in zip(goal_joint_angle[:4], present_joint_angle[:4])), dtype=float)))
-        if tmp_dist == 0:
+        tmp_dist = np.sqrt(np.sum(np.fromiter(((p2 - p1)**2 for p1, p2 in zip(goal_joint_angle[:5], present_joint_angle[:5])), dtype=float)))
+        if tmp_dist <= 0.05:
             break
-    time.sleep(0.1)
+        print(tmp_dist)
+        time.sleep(0.1)
 
 def main():
-    global tvec, xy_list, cam_activate, goal_joint_angle
+    global tvec, xy_list, cam_activate, goal_joint_angle, teleop_keyboard
+
+    cam_activate = False
+    t1 = threading.Thread(target=run, daemon=True)
+    t1.start()
 
     rclpy.init()
     teleop_keyboard = TeleopKeyboard()
     t2 = threading.Thread(target=rclpy.spin, args=(teleop_keyboard,), daemon=True)
     t2.start()
+    time.sleep(1)
 
-
-    prev_goal_joint_angle = [0.03221359848976135, -0.5783107876777649, 0.1457281857728958, 1.902136206626892, 0., 0.023769033551216123]
+    print("1")
+    prev_goal_joint_angle = [-1.0, -0.8866409063339233, 0.1395922601222992, 2.032524585723877, 0., -1.1520196199417114]
 
     goal_joint_angle = prev_goal_joint_angle.copy()
 
+    print("2")
+    goal_joint_angle[:4] = [-1.0, -0.8866409063339233, 0.1395922601222992, 2.032524585723877]
+    teleop_keyboard.send_goal_joint_space()
+    print("3")
+    wait_arrive()
+
+
+    # wait for camera
     while True:
-        goal_joint_angle[:4] = [-0.33221359848976135, -0.5783107876777649, 0.1457281857728958, 1.902136206626892]
-        teleop_keyboard.send_goal_joint_space()
-        time.sleep(1)
-        goal_joint_angle[:4] = [0.33221359848976135, -0.5783107876777649, 0.1457281857728958, 1.902136206626892]
-        teleop_keyboard.send_goal_joint_space()
-        time.sleep(1)
+        if cam_activate:
+            break
+        time.sleep(0.1)
+
+    searching_action()
+
+    print("4")
+    wait_arrive()
+
     teleop_keyboard.destroy_node()
     rclpy.shutdown()
 
