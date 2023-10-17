@@ -15,6 +15,7 @@ from pathlib import Path
 import torch
 import cv2
 import time
+import json
 
 from ultralytics.utils.plotting import Annotator, colors, save_one_box
 
@@ -53,6 +54,8 @@ acts_backup = os.path.join(workspace_path, "src", package_name, package_name, "d
 model_backup = os.path.join(workspace_path, "src", package_name, package_name, "datas/openmanipulator_weight.pkl")
 k_path = os.path.join(workspace_path, "src", package_name, package_name, "utils/calibration_matrix.npy")
 d_path = os.path.join(workspace_path, "src", package_name, package_name, "utils/distortion_coefficients.npy")
+way_point_1_path = os.path.join(workspace_path, "src", package_name, package_name, "datas/way_point_1.json")
+way_point_2_path = os.path.join(workspace_path, "src", package_name, package_name, "datas/way_point_2.json")
 random_state_gen_num = 16
 angle_gap_origin = 0.09  # radian
 angle_gap = 0.07
@@ -303,93 +306,95 @@ class TeleopKeyboard(Node):
         present_joint_angle = list(msg.data).copy()
         # print("I heard:", present_joint_angle)
 
-
-
-
 def wait_box_detection():
     while (len(xy_list) != 2):
         # print("Detection Failed!", len(xy_list))
         wait_arrive()
 
-
-
-
-#######################################################################################33
-#seokwon searching object code
-
 def searching_action():  
     global xy_list, teleop_keyboard
 
-# if object can't detect    
-    while (len(xy_list) != 2 and present_joint_angle[0] < 1.0): # goal_joint_angle 기본값이 1.5라고 설정 되어있는 경우
-        goal_joint_angle[0] += 0.02                       # 11번 모터가 1.5부터 -1.5까지 서칭 
-        teleop_keyboard.send_goal_joint_space()                  # 그리고 먼곳부터 서칭을 해야하니까 그 최대 값의 joint_angle값을 가져와야 할 듯 하다.
+    # if object can't detect    
+    while (len(xy_list) != 2 and present_joint_angle[0] < 1.0): 
+        goal_joint_angle[0] += 0.02                   
+        teleop_keyboard.send_goal_joint_space()      
         wait_arrive()
 
     while True:
-        time.sleep(0.03)
-    # while (317 > center_x or center_x > 323):
+        time.sleep(0.1)
         while(len(xy_list) != 2):
+            tmp_xy = xy_list.copy()
             time.sleep(0.1)
+        tmp_xy = xy_list.copy()
         print("detect two object, move x value")
-        center_x = abs((xy_list[0][0] + xy_list[1][0])/2)
-        center_y = abs((xy_list[0][1] + xy_list[1][1])/2)
-        
+        center_x = abs((tmp_xy[0][0] + tmp_xy[1][0])/2)
+        center_y = abs((tmp_xy[0][1] + tmp_xy[1][1])/2)
 
+        if (317 < center_x and center_x < 323 and 237 < center_y and center_y < 243):
+            break
 
         if (center_x > 323):  # first situation if shoe postion is left
             print("center_X_value < 323")
             goal_joint_angle[0] += 0.01
-            teleop_keyboard.send_goal_joint_space()
-            wait_arrive()
-        elif ( 317 > center_x ): # second situation fi shoe position is right
-            print("center_X_value> 317") 
+        elif (317 > center_x ): # second situation fi shoe position is right
+            print("center_X_value > 317") 
             goal_joint_angle[0] -= 0.01
-            
-            teleop_keyboard.send_goal_joint_space()
-            wait_arrive()
         else:
-            print('complete x and break')
-            continue
+            print('complete x')
+        teleop_keyboard.send_goal_joint_space()
+        wait_arrive()
 
         while(len(xy_list) != 2):
+            tmp_xy = xy_list.copy()
             time.sleep(0.1)
-        print("detect two object, move y value")
+        tmp_xy = xy_list.copy()
+        print("detect two object, move x value")
+        center_x = abs((tmp_xy[0][0] + tmp_xy[1][0])/2)
+        center_y = abs((tmp_xy[0][1] + tmp_xy[1][1])/2)
+
+        if (317 < center_x and center_x < 323 and 237 < center_y and center_y < 243):
+            break
+
         if (center_y < 237):  # first situation if shoe postion is left
             print("center_Y_value < 323")
             goal_joint_angle[3] += 0.01
-            teleop_keyboard.send_goal_joint_space()
-            wait_arrive()
-        elif ( 243 < center_y ): # second situation fi shoe position is right
+        elif (243 < center_y): # second situation fi shoe position is right
             print("center_Y_value> 317") 
             goal_joint_angle[3] -= 0.01
-            
-            teleop_keyboard.send_goal_joint_space()
-            wait_arrive()
         else:
-            print('complete y and break')
-            continue
+            print('complete y')
+        teleop_keyboard.send_goal_joint_space()
+        wait_arrive()
 
 
-    pass
-
-      
-
+def get_distance(list1, list2):
+    return np.sqrt(np.sum(np.fromiter(((p2 - p1)**2 for p1, p2 in zip(list1, list2)), dtype=float)))
 
 def wait_arrive():
     while True:
-        tmp_dist = np.sqrt(np.sum(np.fromiter(((p2 - p1)**2 for p1, p2 in zip(goal_joint_angle[:5], present_joint_angle[:5])), dtype=float)))
-        if tmp_dist <= 0.05:
-            break
+        tmp_dist = get_distance(goal_joint_angle[:5], present_joint_angle[:5])
         print(tmp_dist)
+        if tmp_dist <= 0.12:
+            break
         time.sleep(0.1)
+
+def move_softly(point1, point2):
+    global teleop_keyboard
+    full_step = int(get_distance(point1, point2) * 30)
+    for step in range(1, full_step+1):
+        goal_joint_angle[:5] = [(step * x + (full_step - step) * y)/full_step for x, y in zip(point2, point1)]
+        teleop_keyboard.send_goal_joint_space()
+        wait_arrive()
 
 def main():
     global tvec, xy_list, cam_activate, goal_joint_angle, teleop_keyboard
 
+    # Camera start
     cam_activate = False
     t1 = threading.Thread(target=run, daemon=True)
     t1.start()
+    
+    agent = Agent()
 
     rclpy.init()
     teleop_keyboard = TeleopKeyboard()
@@ -397,28 +402,70 @@ def main():
     t2.start()
     time.sleep(1)
 
-    print("1")
-    prev_goal_joint_angle = [-1.0, -0.8866409063339233, 0.1395922601222992, 2.032524585723877, 0., -1.1520196199417114]
-
-    goal_joint_angle = prev_goal_joint_angle.copy()
-
-    print("2")
-    goal_joint_angle[:4] = [-1.0, -0.8866409063339233, 0.1395922601222992, 2.032524585723877]
-    teleop_keyboard.send_goal_joint_space()
-    print("3")
-    wait_arrive()
-
-
+    # Wait for spin
+    while True:
+        if present_joint_angle == [0., 0., 0., 0., 0., 0.]:
+            time.sleep(0.01)
+        else:
+            break
+    
     # wait for camera
     while True:
         if cam_activate:
             break
-        time.sleep(0.1)
+        time.sleep(0.5)
 
-    searching_action()
+    prev_goal_joint_angle = [-1.0, -0.8866409063339233, 0.1395922601222992, 2.032524585723877, 0., -1.1520196199417114]
 
-    print("4")
-    wait_arrive()
+    goal_joint_angle = present_joint_angle.copy()
+
+    # Read JSON
+    with open(way_point_1_path, 'r') as json_file:
+        way_point_1 = json.load(json_file)
+    with open(way_point_2_path, 'r') as json_file:
+        way_point_2 = json.load(json_file)
+
+    # Gripper Close
+    goal_joint_angle[5] = 0.5593204975128174
+    teleop_keyboard.send_goal_joint_space()
+    time.sleep(2)
+
+    for idx in range(len(way_point_1) - 2):
+
+        # Initial Position Setting
+        move_softly(present_joint_angle[:5], way_point_2[idx][:5])
+        move_softly(way_point_2[idx][:5], way_point_1[idx][:5])
+        
+        # Gripper Open
+        goal_joint_angle[5] = -1.150485634803772
+        teleop_keyboard.send_goal_joint_space()
+        time.sleep(2)
+
+        # Go UP
+        move_softly(way_point_1[idx][:5], way_point_2[idx][:5])
+
+        # Searching action
+        move_softly(present_joint_angle[:5], prev_goal_joint_angle[:5])
+        searching_action()
+
+        # Go DOWN
+        move_softly(way_point_2[idx][:5], way_point_1[idx][:5])
+
+        # Gripper Close
+        goal_joint_angle[5] = 0.5593204975128174
+        teleop_keyboard.send_goal_joint_space()
+        time.sleep(2)
+
+        # Go UP
+        move_softly(way_point_1[idx][:5], way_point_2[idx][:5])
+
+        # Shoes Searching Function
+
+        # Random Pose Generator -> 
+
+        # 
+
+    # Destroy Node
 
     teleop_keyboard.destroy_node()
     rclpy.shutdown()
