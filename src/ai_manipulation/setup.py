@@ -26,7 +26,9 @@ setup(
             'make_my_model = ai_manipulation.script.make_my_model:main',
             'run_my_model = ai_manipulation.script.run_my_model:main',
             'six_dxl_model = ai_manipulation.script.six_dxl_model:main',
+            'six_dxl_run = ai_manipulation.script.six_dxl_run:main',
             'testing = ai_manipulation.script.testing:main',
+            'test_seokwon = ai_manipulation.script.test_seokwon:main',
         ],
     },
 )

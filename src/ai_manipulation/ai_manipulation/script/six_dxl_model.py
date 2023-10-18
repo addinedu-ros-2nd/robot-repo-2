@@ -5,6 +5,7 @@ import select
 import sys
 import threading
 
+import random
 import numpy as np
 from multiprocessing import Process
 import argparse
@@ -29,7 +30,7 @@ from ai_manipulation.utils.utils.utils import ARUCO_DICT
 import joblib
 import json
 import random
-from sklearn.linear_model import LinearRegression
+#from sklearn.linear_model import LinearRegression
 import scipy.stats as stats
 
 from array import array
@@ -49,19 +50,23 @@ output = subprocess.check_output(["ros2", "pkg", "prefix", package_name], text=T
 workspace_path = output.split("/install")[0]
 
 # Params
-states_backup = os.path.join(workspace_path, "src", package_name, package_name, "datas/openmanipulator_states.json")
-acts_backup = os.path.join(workspace_path, "src", package_name, package_name, "datas/openmanipulator_acts.json")
-model_backup = os.path.join(workspace_path, "src", package_name, package_name, "datas/openmanipulator_weight.pkl")
+states_backup = os.path.join(workspace_path, "src", package_name, package_name, "datas/six_dxl_sates.json")
+acts_backup = os.path.join(workspace_path, "src", package_name, package_name, "datas/six_dxl_acts.json")
+model_backup = os.path.join(workspace_path, "src", package_name, package_name, "datas/six_dxl_model.pkl")
 k_path = os.path.join(workspace_path, "src", package_name, package_name, "utils/calibration_matrix.npy")
 d_path = os.path.join(workspace_path, "src", package_name, package_name, "utils/distortion_coefficients.npy")
 way_point_1_path = os.path.join(workspace_path, "src", package_name, package_name, "datas/way_point_1.json")
 way_point_2_path = os.path.join(workspace_path, "src", package_name, package_name, "datas/way_point_2.json")
+manipulator_angle_range_path = os.path.join(workspace_path, "src", package_name, package_name, "datas/manipulator_angle_range.json")
+
+with open(manipulator_angle_range_path, 'r') as json_file:
+    manipulator_angle_range = json.load(json_file)
 random_state_gen_num = 16
 # angle_gap_origin = 0.09  # radian
-angle_gap = 0.15
+# angle_gap = 0.1
 # path_time = 0.4  # second
-state_size = 6
-action_size = 4
+state_size = 13
+action_size = 5
 # threshold = 0.11 # scenario ending thres
 INF = 999999999999
 
@@ -124,7 +129,7 @@ def run(
         dnn=False,  # use OpenCV DNN for ONNX inference
         vid_stride=1,  # video frame-rate stride
 ):
-    global tvec, xy_list, cam_activate
+    global tvec, xy_shoelace, xy_shoe, cam_activate
     source = str(source)
     is_file = Path(source).suffix[1:] in (IMG_FORMATS + VID_FORMATS)
     is_url = source.lower().startswith(('rtsp://', 'rtmp://', 'http://', 'https://'))
@@ -185,7 +190,7 @@ def run(
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
             annotator = Annotator(im0, line_width=line_thickness, example=str(names))
             
-            xy_list = []
+            xy_shoelace, xy_shoe = [], []
             if len(det):
                 # Rescale boxes from img_size to im0 size
                 det[:, :4] = scale_boxes(im.shape[2:], det[:, :4], im0.shape).round()
@@ -203,21 +208,20 @@ def run(
                     mapped_value = to_min + (scaled_value * to_range)
                     return mapped_value
 
-
                 # cls 변수는 클래스 인덱스를 나타내며, names 리스트에서 클래스 이름을 가져옵니다
                 for *xyxy, conf, cls in reversed(det):
                     if view_img:  # 이미지에 바운딩 박스 그리기
                         c = int(cls)  # 정수형 클래스q
                         label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}') # 라벨 표시 여부
                         annotator.box_label(xyxy, label, color=colors(c, True)) # 이미지에 바운딩 박스와 라벨 추가
-                        if names[c] == 'ShoeLace' :  # 원하는 클래스 리스트
-                            tmp_list = torch.tensor(xyxy).view(1, 4).view(-1).tolist()
 
-                            x_pixel = np.mean([tmp_list[0], tmp_list[2]])
-                            y_pixel = np.mean([tmp_list[1], tmp_list[3]])
-                                                
-                            # print(f"{names[c]} Center (x, y): {x_pixel:.2f}, {y_pixel:.2f} \n")
-                            xy_list.append((x_pixel, y_pixel))
+                        tmp_list = torch.tensor(xyxy).view(1, 4).view(-1).tolist()
+                        x_pixel = np.mean([tmp_list[0], tmp_list[2]])
+                        y_pixel = np.mean([tmp_list[1], tmp_list[3]])
+                        if names[c] == 'ShoeLace' :
+                            xy_shoelace.append((x_pixel, y_pixel))
+                        if names[c] == 'Shoe' :
+                            xy_shoe.append((x_pixel, y_pixel))
 
             cam_activate = True
 
@@ -245,9 +249,11 @@ class Agent():
         if os.path.isfile(states_backup):
             with open(states_backup, 'r') as json_file:
                 self.states = json.load(json_file)
+            print(len(self.states), "states loaded")
         if os.path.isfile(acts_backup):
             with open(acts_backup, 'r') as json_file:
                 self.acts = json.load(json_file)
+            print(len(self.acts), "acts loaded")
 
     def _build_model(self):
         # Neural Net for Deep-Q learning Model
@@ -255,6 +261,7 @@ class Agent():
 
         if os.path.isfile(model_backup):
             model = joblib.load(model_backup)
+            print("Model loaded")
         return model
 
     def backup(self):
@@ -297,63 +304,96 @@ class TeleopKeyboard(Node):
         present_joint_angle = list(msg.data).copy()
         # print("I heard:", present_joint_angle)
 
-def wait_box_detection():
-    while (len(xy_list) != 2):
-        # print("Detection Failed!", len(xy_list))
-        wait_arrive()
+def return_box_detection():
+    global xy_shoelace, xy_shoe
+    for i in range(100):
+        if ((len(xy_shoelace) != 2) or (len(xy_shoe) != 2)):
+            time.sleep(0.005)
+        else:
+            result = [xy_shoelace, xy_shoe]
+            return result
+    return None
 
-def searching_action():  
-    global xy_list, teleop_keyboard
+def searching_action():
+    global xy_shoe, teleop_keyboard
+    x_lower, x_upper, y_lower, y_upper = 317, 323, 287, 293
 
     # if object can't detect    
-    while (len(xy_list) != 2 and present_joint_angle[0] < 1.0): 
+    while (len(xy_shoe) != 2 and present_joint_angle[0] < 1.0):
+        print("start searching action 1")
         goal_joint_angle[0] += 0.02
         teleop_keyboard.send_goal_joint_space()      
         wait_arrive(0.05)
 
     while True:
+        print("start searching action 2")
         time.sleep(0.05)
-        while(len(xy_list) != 2):
-            tmp_xy = xy_list.copy()
-            time.sleep(0.1)
-        tmp_xy = xy_list.copy()
-        print("detect two object, move x value")
+
+        now_time = time.time()
+        now_pose = present_joint_angle[:5]
+        while(len(xy_shoe) != 2):
+            tmp_xy = xy_shoe.copy()
+            time.sleep(0.05)
+            if (time.time() - now_time > 0.2):
+                new_pose = generate_random_pose(now_pose, 0.05)
+                if (check_manipulator_angle(new_pose)):
+                    move_softly_to(new_pose)
+                    time.sleep(0.5)
+        tmp_xy = xy_shoe.copy()
+        # print("detect two object, move x value")
         center_x = abs((tmp_xy[0][0] + tmp_xy[1][0])/2)
         center_y = abs((tmp_xy[0][1] + tmp_xy[1][1])/2)
 
-        if (317 < center_x and center_x < 323 and 237 < center_y and center_y < 243):
+        if (x_lower < center_x and center_x < x_upper and y_lower < center_y and center_y < y_upper):
             break
 
-        if (center_x > 323):  # first situation if shoe postion is left
-            print("center_X_value < 323")
+        if (center_x > x_upper):  # first situation if shoe postion is left
+            # print("center_X_value < x_upper")
             goal_joint_angle[0] += 0.02
-        elif (317 > center_x ): # second situation fi shoe position is right
-            print("center_X_value > 317") 
+        elif (x_lower > center_x ): # second situation fi shoe position is right
+            # print("center_X_value > x_lower") 
             goal_joint_angle[0] -= 0.02
         else:
-            print('complete x')
+            # print('complete x')
+            pass
         teleop_keyboard.send_goal_joint_space()
         wait_arrive(0.02)
 
-        while(len(xy_list) != 2):
-            tmp_xy = xy_list.copy()
-            time.sleep(0.1)
-        tmp_xy = xy_list.copy()
-        print("detect two object, move x value")
+        now_time = time.time()
+        now_pose = present_joint_angle[:5]
+        while(len(xy_shoe) != 2):
+            tmp_xy = xy_shoe.copy()
+            time.sleep(0.05)
+            if (time.time() - now_time > 0.2):
+                new_pose = generate_random_pose(now_pose, 0.05)
+                if (check_manipulator_angle(new_pose)):
+                    move_softly_to(new_pose)
+                    time.sleep(0.5)
+        tmp_xy = xy_shoe.copy()
+        # print("detect two object, move x value")
         center_x = abs((tmp_xy[0][0] + tmp_xy[1][0])/2)
         center_y = abs((tmp_xy[0][1] + tmp_xy[1][1])/2)
 
-        if (317 < center_x and center_x < 323 and 237 < center_y and center_y < 243):
+        if (x_lower < center_x and center_x < x_upper and y_lower < center_y and center_y < y_upper):
             break
 
-        if (center_y < 237):  # first situation if shoe postion is left
-            print("center_Y_value < 323")
-            goal_joint_angle[3] += 0.02
-        elif (243 < center_y): # second situation fi shoe position is right
-            print("center_Y_value> 317") 
-            goal_joint_angle[3] -= 0.02
+        if (center_y < y_lower):  # first situation if shoe postion is left
+            # print("center_Y_value < y_lower")
+            if goal_joint_angle[3] > manipulator_angle_range[3][0]:
+                goal_joint_angle[1] += 0.02
+                goal_joint_angle[3] -= 0.02
+            else:
+                goal_joint_angle[3] += 0.02
+        elif (y_upper < center_y): # second situation fi shoe position is right
+            # print("center_Y_value > y_upper")        # 그리퍼가 하늘로 올라갈때 - 이고 내려갈때가 +이다. 
+            if goal_joint_angle[3] < manipulator_angle_range[3][1]:
+                goal_joint_angle[1] -= 0.02
+                goal_joint_angle[3] += 0.02
+            else:
+                goal_joint_angle[3] -= 0.02
         else:
-            print('complete y')
+            # print('complete y')
+            pass
         teleop_keyboard.send_goal_joint_space()
         wait_arrive(0.02)
 
@@ -363,29 +403,38 @@ def get_distance(list1, list2):
 def wait_arrive(thres = 0.1):
     while True:
         tmp_dist = get_distance(goal_joint_angle[:5], present_joint_angle[:5])
-        print(tmp_dist)
+        # print(tmp_dist)
         if tmp_dist < thres:
             break
         time.sleep(0.01)
 
-def move_softly_to(goal_point):
+def move_softly_to(goal_point, mul = 12):
     global teleop_keyboard
     start_point = present_joint_angle[:5]
-    full_step = int(get_distance(start_point, goal_point) * 25)
+    full_step = int(get_distance(start_point, goal_point) * mul)
     for step in range(1, full_step+1):
         goal_joint_angle[:5] = [(step * x + (full_step - step) * y)/full_step for x, y in zip(goal_point, start_point)]
         teleop_keyboard.send_goal_joint_space()
         wait_arrive()
 
-def generate_random_pose(pose):
+def generate_random_pose(pose, angle_gap = 0.1):
     random_values = [0] * 5
-    random_values[0] = np.random.uniform(pose[0] - 0.5 * angle_gap, pose[0] + 0.5 * angle_gap)
-    for idx in range(1,5):
+    for idx in range(0,5):
+        if idx == 3:
+            continue
         random_values[idx] = np.random.uniform(pose[idx] - angle_gap, pose[idx] + angle_gap)
+    random_values[3] = np.random.uniform(pose[3] - angle_gap, pose[3] + 0.5 * angle_gap)
     return random_values
 
+def check_manipulator_angle(pose):
+    # for idx, angle_range in enumerate(manipulator_angle_range):
+    #     if (pose[idx] > angle_range[0] or pose[idx] < angle_range[1]):
+    #         print("angle overload")
+    #         return False
+    return True
+
 def main():
-    global tvec, xy_list, cam_activate, goal_joint_angle, teleop_keyboard
+    global tvec, xy_shoelace, xy_shoe, cam_activate, goal_joint_angle, teleop_keyboard
 
     # Camera start
     cam_activate = False
@@ -398,15 +447,14 @@ def main():
     teleop_keyboard = TeleopKeyboard()
     t2 = threading.Thread(target=rclpy.spin, args=(teleop_keyboard,), daemon=True)
     t2.start()
-    time.sleep(1)
 
     # Wait for spin
     while True:
         if present_joint_angle == [0., 0., 0., 0., 0., 0.]:
-            time.sleep(0.01)
+            time.sleep(0.1)
         else:
             break
-    
+
     # Check dxl count
     if len(present_joint_angle) != 6:
         print("DXL missing!\n DXL count :", len(present_joint_angle))
@@ -420,8 +468,9 @@ def main():
             break
         time.sleep(0.5)
 
-    search_start_point = [-1.0, -0.8866409063339233, 0.1395922601222992, 2.032524585723877, 0., -1.1520196199417114]
-
+    # search_start_point = [-1.0, -0.8866409063339233, 0.1395922601222992, 2.032524585723877, 0., -1.1520196199417114]
+    search_start_point = [-1.0, -1.3115535974502563, 0.7470486760139465, 1.8208352327346802, 0, -1.0983302593231201]
+    
     goal_joint_angle = present_joint_angle.copy()
 
     # Read JSON
@@ -436,16 +485,15 @@ def main():
     wait_arrive(0.05)
 
     # Move to Way Point
-    for idx in range(len(way_point_1) - 2):
+    for idx in range(len(way_point_1)):
+        print("Episode", idx, "/", len(way_point_1), "Start!")
         # Initial Position Setting
         move_softly_to(way_point_2[idx][:5])
         move_softly_to(way_point_1[idx][:5])
-        
         # Gripper Open
         goal_joint_angle[5] = -1.050485634803772
         teleop_keyboard.send_goal_joint_space()
         wait_arrive(0.05)
-
         # Go to way2
         move_softly_to(way_point_2[idx][:5])
 
@@ -454,24 +502,46 @@ def main():
         searching_action()
 
         # Move to Random Pose
-        tmp_point = present_joint_angle[:5]
-        for _ in range(random_state_gen_num):
-            move_softly_to(generate_random_pose(tmp_point))
-            time.sleep(0.5)
+        success_count = 0
+        tmp_pose = present_joint_angle[:5]
+        while (success_count < random_state_gen_num):
+            print("random pose action ")
+            time.sleep(0.01)
+            new_pose = generate_random_pose(tmp_pose)
+            if check_manipulator_angle(new_pose):
+                # move to random pose
+                move_softly_to(new_pose, 30)
+                time.sleep(0.3)
+                # check box detection
+                result = return_box_detection()
+                if result != None:
+                    # if successs, remember this state
+                    success_count += 1
+                    tmp_shoelace, tmp_shoe = result
+                    state = present_joint_angle[:5] + list(tmp_shoelace[0]) + list(tmp_shoelace[1]) + list(tmp_shoe[0]) + list(tmp_shoe[1])
+                    agent.remember(state, way_point_2[idx][:5])
 
         # Go to way2
         move_softly_to(way_point_2[idx][:5])
-
         # Go DOWN
         move_softly_to(way_point_1[idx][:5])
-
         # Gripper Close
         goal_joint_angle[5] = 0.5593204975128174
         teleop_keyboard.send_goal_joint_space()
         wait_arrive(0.05)
-
         # Go UP
         move_softly_to(way_point_2[idx][:5])
+
+    # Final action
+    move_softly_to(way_point_1[0][:5])
+    # Gripper Open
+    goal_joint_angle[5] = -1.050485634803772
+    teleop_keyboard.send_goal_joint_space()
+    wait_arrive(0.05)
+
+    agent.learn()
+    agent.backup()
+    print("Data generation success!")
 
     # Destroy Node
     teleop_keyboard.destroy_node()
