@@ -54,3 +54,4 @@ model_path = '/home/seokwon/deeplearn/src/ai_manipulation/ai_manipulation/datas'
 
 # 모델을 파일로 저장
 model.save(model_path)
+
