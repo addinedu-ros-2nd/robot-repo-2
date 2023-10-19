@@ -9,7 +9,7 @@ df_A = pd.read_json(file_path_A)
 # JSON 파일로부터 데이터 프레임 B를 읽어옵니다.
 file_path_B = '/home/seokwon/deeplearn/src/ai_manipulation/ai_manipulation/datas/way_point_2.json' 
 df_B = pd.read_json(file_path_B)
-df_B.columns = ['output_1', 'output_2', 'output_3', 'output_4', 'output_5']
+df_B.columns = ['output_1', 'output_2', 'output_3', 'output_4', 'output_5', 'output_6']
 
 # 1 번 
 # 데이터 프레임 A에서 입력 특성과 데이터 프레임 B에서 예측 대상을 선택
@@ -42,8 +42,9 @@ for i in range(len(df_A)):
     predicted_rows.append(predicted_row)
 
 # 모델 저장
-model_filename = '/path/to/save/linear_regression_waypoint_2_1.pkl'
+model_filename = '/home/seokwon/deeplearn/src/ai_manipulation/ai_manipulation/datas/linear_model.pkl'
 joblib.dump(model, model_filename)
+
 
 # # 모델을 불러오기
 # loaded_model = joblib.load(model_filename)

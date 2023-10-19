@@ -30,7 +30,7 @@ from ai_manipulation.utils.utils.utils import ARUCO_DICT
 import joblib
 import json
 import random
-#from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression
 import scipy.stats as stats
 
 from array import array
