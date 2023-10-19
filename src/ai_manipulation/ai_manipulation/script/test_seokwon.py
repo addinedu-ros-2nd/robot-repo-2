@@ -17,7 +17,6 @@ import torch
 import cv2
 import time
 import json
-from tensorflow import keras
 
 from ultralytics.utils.plotting import Annotator, colors, save_one_box
 
@@ -59,8 +58,6 @@ d_path = os.path.join(workspace_path, "src", package_name, package_name, "utils/
 way_point_1_path = os.path.join(workspace_path, "src", package_name, package_name, "datas/way_point_1.json")
 way_point_2_path = os.path.join(workspace_path, "src", package_name, package_name, "datas/way_point_2.json")
 manipulator_angle_range_path = os.path.join(workspace_path, "src", package_name, package_name, "datas/manipulator_angle_range.json")
-
-
 
 with open(manipulator_angle_range_path, 'r') as json_file:
     manipulator_angle_range = json.load(json_file)
@@ -436,11 +433,6 @@ def check_manipulator_angle(pose):
     #         return False
     return True
 
-def way_point_2_1(input_data):
-    loaded_model = keras.models.load_model('/home/seokwon/deeplearn/src/ai_manipulation/ai_manipulation/datas/saved_model.pb')
-    predictions = loaded_model.predict(input_data)
-    return predictions
-
 def main():
     global tvec, xy_shoelace, xy_shoe, cam_activate, goal_joint_angle, teleop_keyboard
 
@@ -511,16 +503,13 @@ def main():
                 state = present_joint_angle[:5] + list(tmp_shoelace[0]) + list(tmp_shoelace[1]) + list(tmp_shoe[0]) + list(tmp_shoe[1])
         
     state = np.array(state).reshape(1, -1)
-    nxt_pose = agent.predict(state)[0]
-    move_softly_to(nxt_pose)
+    point_2 = agent.predict(state)[0]
+    move_softly_to(point_2)
     print("Model prediction success!")
 
-    #### 여기에 way_point_2 위치니까 1로가서 잡는 코드 작성하기
-    way_point_data = way_point_2_1()
-    move_softly_to(way_point_data)
-    wait_arrive()
-    move_softly_to(nxt_pose)
-    #### 여기서는 마지막에 놓을 장소 로 가기
+
+
+
     # Destroy Node
     teleop_keyboard.destroy_node()
     rclpy.shutdown()

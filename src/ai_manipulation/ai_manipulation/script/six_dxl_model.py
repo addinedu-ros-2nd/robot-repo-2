@@ -320,25 +320,25 @@ def searching_action():
 
     # if object can't detect    
     while (len(xy_shoe) != 2 and present_joint_angle[0] < 1.0):
-        print("start searching action 1")
+        # print("start searching action 1")
         goal_joint_angle[0] += 0.02
         teleop_keyboard.send_goal_joint_space()      
         wait_arrive(0.05)
 
     while True:
-        print("start searching action 2")
+        # print("start searching action 2")
         time.sleep(0.05)
 
         now_time = time.time()
         now_pose = present_joint_angle[:5]
         while(len(xy_shoe) != 2):
+            print("xy_shoe len :", len(xy_shoe))
             tmp_xy = xy_shoe.copy()
             time.sleep(0.05)
             if (time.time() - now_time > 0.2):
-                new_pose = generate_random_pose(now_pose, 0.05)
-                if (check_manipulator_angle(new_pose)):
-                    move_softly_to(new_pose)
-                    time.sleep(0.5)
+                new_pose = generate_random_pose(now_pose, 0.075)
+                move_softly_to(new_pose)
+                time.sleep(0.3)
         tmp_xy = xy_shoe.copy()
         # print("detect two object, move x value")
         center_x = abs((tmp_xy[0][0] + tmp_xy[1][0])/2)
@@ -362,13 +362,13 @@ def searching_action():
         now_time = time.time()
         now_pose = present_joint_angle[:5]
         while(len(xy_shoe) != 2):
+            print("xy_shoe len :", len(xy_shoe))
             tmp_xy = xy_shoe.copy()
             time.sleep(0.05)
             if (time.time() - now_time > 0.2):
-                new_pose = generate_random_pose(now_pose, 0.05)
-                if (check_manipulator_angle(new_pose)):
-                    move_softly_to(new_pose)
-                    time.sleep(0.5)
+                new_pose = generate_random_pose(now_pose, 0.075)
+                move_softly_to(new_pose)
+                time.sleep(0.3)
         tmp_xy = xy_shoe.copy()
         # print("detect two object, move x value")
         center_x = abs((tmp_xy[0][0] + tmp_xy[1][0])/2)
@@ -440,7 +440,7 @@ def main():
     cam_activate = False
     t1 = threading.Thread(target=run, daemon=True)
     t1.start()
-    
+
     agent = Agent()
 
     rclpy.init()
@@ -470,7 +470,8 @@ def main():
 
     # search_start_point = [-1.0, -0.8866409063339233, 0.1395922601222992, 2.032524585723877, 0., -1.1520196199417114]
     search_start_point = [-1.0, -1.3115535974502563, 0.7470486760139465, 1.8208352327346802, 0, -1.0983302593231201]
-    
+    gripper_open, gripper_close = -1.100485634803772, 0.5793204975128174
+
     goal_joint_angle = present_joint_angle.copy()
 
     # Read JSON
@@ -480,18 +481,18 @@ def main():
         way_point_2 = json.load(json_file)
 
     # Gripper Close
-    goal_joint_angle[5] = 0.5593204975128174
+    goal_joint_angle[5] = gripper_close
     teleop_keyboard.send_goal_joint_space()
     wait_arrive(0.05)
 
     # Move to Way Point
     for idx in range(len(way_point_1)):
-        print("Episode", idx, "/", len(way_point_1), "Start!")
+        print("Episode", idx + 1, "/", len(way_point_1), "Start!")
         # Initial Position Setting
         move_softly_to(way_point_2[idx][:5])
         move_softly_to(way_point_1[idx][:5])
         # Gripper Open
-        goal_joint_angle[5] = -1.050485634803772
+        goal_joint_angle[5] = gripper_open
         teleop_keyboard.send_goal_joint_space()
         wait_arrive(0.05)
         # Go to way2
@@ -508,25 +509,24 @@ def main():
             print("random pose action ")
             time.sleep(0.01)
             new_pose = generate_random_pose(tmp_pose)
-            if check_manipulator_angle(new_pose):
-                # move to random pose
-                move_softly_to(new_pose, 30)
-                time.sleep(0.3)
-                # check box detection
-                result = return_box_detection()
-                if result != None:
-                    # if successs, remember this state
-                    success_count += 1
-                    tmp_shoelace, tmp_shoe = result
-                    state = present_joint_angle[:5] + list(tmp_shoelace[0]) + list(tmp_shoelace[1]) + list(tmp_shoe[0]) + list(tmp_shoe[1])
-                    agent.remember(state, way_point_2[idx][:5])
+            # move to random pose
+            move_softly_to(new_pose, 30)
+            time.sleep(0.3)
+            # check box detection
+            result = return_box_detection()
+            if result != None:
+                # if successs, remember this state
+                success_count += 1
+                tmp_shoelace, tmp_shoe = result
+                state = present_joint_angle[:5] + list(tmp_shoelace[0]) + list(tmp_shoelace[1]) + list(tmp_shoe[0]) + list(tmp_shoe[1])
+                agent.remember(state, way_point_2[idx][:5])
 
         # Go to way2
         move_softly_to(way_point_2[idx][:5])
         # Go DOWN
         move_softly_to(way_point_1[idx][:5])
         # Gripper Close
-        goal_joint_angle[5] = 0.5593204975128174
+        goal_joint_angle[5] = gripper_close
         teleop_keyboard.send_goal_joint_space()
         wait_arrive(0.05)
         # Go UP
@@ -535,7 +535,7 @@ def main():
     # Final action
     move_softly_to(way_point_1[0][:5])
     # Gripper Open
-    goal_joint_angle[5] = -1.050485634803772
+    goal_joint_angle[5] = gripper_open
     teleop_keyboard.send_goal_joint_space()
     wait_arrive(0.05)
 

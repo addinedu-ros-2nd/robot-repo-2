@@ -473,11 +473,17 @@ def main():
     
     goal_joint_angle = present_joint_angle.copy()
 
-    # # Read JSON
-    # with open(way_point_1_path, 'r') as json_file:
-    #     way_point_1 = json.load(json_file)
-    # with open(way_point_2_path, 'r') as json_file:
-    #     way_point_2 = json.load(json_file)
+    # Read JSON
+    with open(way_point_1_path, 'r') as json_file:
+        way_point_1 = json.load(json_file)
+    with open(way_point_2_path, 'r') as json_file:
+        way_point_2 = json.load(json_file)
+
+    # LinearRegressoin way_point 2 to 1 
+    X = way_point_2.copy()
+    y = way_point_1.copy()
+    point_2_to_1 = LinearRegression()
+    point_2_to_1.fit(X, y)
 
     # Searching action
     move_softly_to(search_start_point[:5])
@@ -503,9 +509,13 @@ def main():
                 state = present_joint_angle[:5] + list(tmp_shoelace[0]) + list(tmp_shoelace[1]) + list(tmp_shoe[0]) + list(tmp_shoe[1])
         
     state = np.array(state).reshape(1, -1)
-    nxt_pose = agent.predict(state)[0]
-    move_softly_to(nxt_pose)
-    print("Model prediction success!")
+    point_2 = agent.predict(state)[0]
+    move_softly_to(point_2)
+    point_1 = point_2_to_1.predict(point_2.reshape(1, -1))[0]
+    move_softly_to(point_1)
+    
+    print("Model prediction success!!!")
+
 
 
     # Destroy Node
