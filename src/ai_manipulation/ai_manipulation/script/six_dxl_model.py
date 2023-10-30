@@ -129,7 +129,7 @@ def run(
         dnn=False,  # use OpenCV DNN for ONNX inference
         vid_stride=1,  # video frame-rate stride
 ):
-    global tvec, xy_shoelace, xy_shoe, cam_activate
+    global tvec, xy_shoelace, xy_shoe, cam_activate, x_pixel, y_pixel
     source = str(source)
     is_file = Path(source).suffix[1:] in (IMG_FORMATS + VID_FORMATS)
     is_url = source.lower().startswith(('rtsp://', 'rtmp://', 'http://', 'https://'))
@@ -228,7 +228,7 @@ def run(
             # Stream resultscomplete
             im0 = annotator.result()
             if view_img:
-                # im0 = cv2.flip(im0, -1)  # -1은 상하좌우 반전을 의미합니다
+                im0 = cv2.flip(im0, -1)  # -1은 상하좌우 반전을 의미합니다
 
                 if platform.system() == 'Linux' and p not in windows:
                     windows.append(p)
@@ -314,31 +314,135 @@ def return_box_detection():
             return result
     return None
 
+searching_point=0
+
+##### original searching_action_code #####
+
+# def searching_action():
+#     global xy_shoe, teleop_keyboard
+#     x_lower, x_upper, y_lower, y_upper = 317, 323, 287, 293
+
+#     # if object can't detect    
+#     while (len(xy_shoe) != 2 and present_joint_angle[0] < 1.0):
+#         # print("start searching action 1")
+#         goal_joint_angle[0] += 0.02
+#         teleop_keyboard.send_goal_joint_space()      
+#         wait_arrive(0.05)
+
+
+## 석원이형 코드 ##
+# def searching_action():
+#     global xy_shoe, teleop_keyboard, searching_point
+#     x_lower, x_upper, y_lower, y_upper = 317, 323, 237, 243
+
+#     # if object can't detect    
+#     while (len(xy_shoe) != 2 and present_joint_angle[0] < 1.1):
+#         # searching_point=0
+#         if(searching_point==0):
+#         #if(present_joint_angle[0] < 1.0):
+#             # print("start searching action 1")
+#             goal_joint_angle[0] += 0.02
+#             teleop_keyboard.send_goal_joint_space()      
+#             wait_arrive(0.05)
+#             if present_joint_angle[0] == 1.0:
+#                 searching_point=1
+#                 present_joint_angle[3]=1.9
+#                 teleop_keyboard.send_goal_joint_space()
+#                 time.sleep(0.5)
+#         elif(searching_point==1):
+#             goal_joint_angle[0] -= 0.02
+#             teleop_keyboard.send_goal_joint_space()
+#             if present_joint_angle[0] == -1.0:
+#                 break
+
+
+## 한세 코드 ##
 def searching_action():
-    global xy_shoe, teleop_keyboard
-    x_lower, x_upper, y_lower, y_upper = 317, 323, 287, 293
+    global xy_shoe, xy_shoelace, teleop_keyboard, searching_point
+    # search_start_point = [-1.0, -0.915535974502563, 0.3470486760139465, 2.2208352327346802, 0, -1.0983302593231201] # 서칭 액션_2 포인트 
+    x_lower, x_upper, y_lower, y_upper = 300, 340, 225, 250  ### 기존 317, 323, 237, 243
+    debug_1 = 0
+    Count_debug_1 = 0
+    debug_2 = 0
+    Count_debug_2 = 0
+    debug_3 = 0
+    Count_debug_3 = 0
+    Reset_point = 0
+
 
     # if object can't detect    
-    while (len(xy_shoe) != 2 and present_joint_angle[0] < 1.0):
-        # print("start searching action 1")
-        goal_joint_angle[0] += 0.02
-        teleop_keyboard.send_goal_joint_space()      
-        wait_arrive(0.05)
+    while (len(xy_shoe) != 2 or len(xy_shoelace) != 2):
+        if (searching_point == 0 and present_joint_angle[0] < 1.1):
+            goal_joint_angle[0] += 0.02
+            teleop_keyboard.send_goal_joint_space()
+            wait_arrive(0.05)
+            if present_joint_angle[0] >= 0.9:
+                searching_point = 1
+                
+        elif searching_point == 1:
+            goal_joint_angle[3] = 1.9
+            teleop_keyboard.send_goal_joint_space()
+            wait_arrive(0.05)
+            if 1.7 < goal_joint_angle[3] < 2.1:
+                searching_point = 2
 
-    while True:
+        elif searching_point == 2:
+            goal_joint_angle[0] -= 0.02
+            teleop_keyboard.send_goal_joint_space()
+            wait_arrive(0.05)
+            if (present_joint_angle[0] <= -1.0):
+                break
+            
+    while True: 
         # print("start searching action 2")
+        random_angle = 0.075
         time.sleep(0.05)
+        # print("xy_shoe len :", len(xy_shoe))
+        debug_1 += 1
+        if debug_1 == 10:
+            Count_debug_1 += 1
+            print(" Debug Count_1 :", Count_debug_1)
+            debug_1 = 0
+        
+        
+        if Count_debug_1 == 2 :
+            new_pose = generate_random_pose(now_pose, random_angle)
+            move_softly_to(new_pose)
+            print("Debug Reset and random pose !")
+            Count_debug_1 = 0
+            time.sleep(0.3)    
 
         now_time = time.time()
         now_pose = present_joint_angle[:5]
+
         while(len(xy_shoe) != 2):
+            debug_2 += 1
+            if debug_2 == 10:
+                Count_debug_2 += 1
+                print("  Debug Count_2 :", Count_debug_2)
+                debug_2 = 0
+
             print("xy_shoe len :", len(xy_shoe))
             tmp_xy = xy_shoe.copy()
             time.sleep(0.05)
-            if (time.time() - now_time > 0.2):
-                new_pose = generate_random_pose(now_pose, 0.075)
+            # if (time.time() - now_time > 2):
+            #     new_pose = generate_random_pose(now_pose, random_angle)
+            #     move_softly_to(new_pose)
+            #     time.sleep(0.3)
+            if Count_debug_2 == 2 :
+                new_pose = generate_random_pose(now_pose, random_angle)
                 move_softly_to(new_pose)
+                print("Debug Reset and random pose !")
+                Reset_point += 1
+                print("             Reset_point :", Reset_point)
+                Count_debug_2 = 0
                 time.sleep(0.3)
+            # if Reset_point == 10:
+            #     move_softly_to(search_start_point[:5])
+            #     searching_action_2()
+
+
+
         tmp_xy = xy_shoe.copy()
         # print("detect two object, move x value")
         center_x = abs((tmp_xy[0][0] + tmp_xy[1][0])/2)
@@ -361,14 +465,36 @@ def searching_action():
 
         now_time = time.time()
         now_pose = present_joint_angle[:5]
+
+#### ---------------------- ####
+
         while(len(xy_shoe) != 2):
+            debug_3 += 1
+            if debug_3 == 10:
+                Count_debug_3 += 1
+                print("   Debug Count_3", Count_debug_3)
+                debug_3 = 0
+
             print("xy_shoe len :", len(xy_shoe))
             tmp_xy = xy_shoe.copy()
             time.sleep(0.05)
-            if (time.time() - now_time > 0.2):
-                new_pose = generate_random_pose(now_pose, 0.075)
+            # if (time.time() - now_time > 2):
+            #     new_pose = generate_random_pose(now_pose, random_angle) # 원래 0.075 였음
+            #     move_softly_to(new_pose)
+            #     time.sleep(0.3)
+            if Count_debug_3 == 2 :
+                new_pose = generate_random_pose(now_pose, random_angle)
                 move_softly_to(new_pose)
+                print("Debug Reset and random pose !")
+                Reset_point += 1
+                print("             Reset_point :", Reset_point)
+                Count_debug_3 = 0         
                 time.sleep(0.3)
+            # if Reset_point == 10:
+            #     move_softly_to(search_start_point[:5])
+            #     searching_action_2()
+
+
         tmp_xy = xy_shoe.copy()
         # print("detect two object, move x value")
         center_x = abs((tmp_xy[0][0] + tmp_xy[1][0])/2)
@@ -377,6 +503,165 @@ def searching_action():
         if (x_lower < center_x and center_x < x_upper and y_lower < center_y and center_y < y_upper):
             break
 
+#############################################################
+
+# def searching_action_2():
+#     global xy_shoe, xy_shoelace, teleop_keyboard, searching_point
+#     x_lower, x_upper, y_lower, y_upper = 300, 340, 225, 250  ### 기존 317, 323, 237, 243
+#     debug_1 = 0
+#     Count_debug_1 = 0
+#     debug_2 = 0
+#     Count_debug_2 = 0
+#     debug_3 = 0
+#     Count_debug_3 = 0
+#     Reset_point = 0
+
+
+#     # if object can't detect    
+#     while (len(xy_shoe) != 2 or len(xy_shoelace) != 2):
+#         print("Enter searching_action_2 !!! \n Enter searching_action_2 !!! \n Enter searching_action_2 !!!")
+#         if (searching_point == 0 and present_joint_angle[0] < 1.1):
+#             goal_joint_angle[3] = 1.9
+#             teleop_keyboard.send_goal_joint_space()
+#             wait_arrive(0.05)
+#             goal_joint_angle[0] += 0.02
+#             teleop_keyboard.send_goal_joint_space()
+#             wait_arrive(0.05)
+#             if present_joint_angle[ 0] >= 0.9:
+#                 searching_point = 1
+                
+#         elif searching_point == 1:
+#             goal_joint_angle[3] = 1.5
+#             teleop_keyboard.send_goal_joint_space()
+#             wait_arrive(0.05)
+#             if 1.7 < goal_joint_angle[3] < 2.1:
+#                 searching_point = 2
+
+#         elif searching_point == 2:
+#             goal_joint_angle[0] -= 0.02
+#             teleop_keyboard.send_goal_joint_space()
+#             wait_arrive(0.05)
+#             if (present_joint_angle[0] <= -1.0):
+#                 break
+            
+#     while True: 
+#         # print("start searching action 2")
+#         random_angle = 0.055
+#         time.sleep(0.05)
+#         # print("xy_shoe len :", len(xy_shoe))
+#         debug_1 += 1
+#         if debug_1 == 10:
+#             Count_debug_1 += 1
+#             print("Debug Count_1 :", Count_debug_1)
+#             debug_1 = 0
+        
+        
+#         if Count_debug_1 == 2 :
+#             new_pose = generate_random_pose(now_pose, random_angle)
+#             move_softly_to(new_pose)
+#             print("Debug Reset and random pose !")
+#             Count_debug_1 = 0
+#             time.sleep(0.3)    
+
+#         now_time = time.time()
+#         now_pose = present_joint_angle[:5]
+
+#         while(len(xy_shoe) != 2):
+#             debug_2 += 1
+#             if debug_2 == 10:
+#                 Count_debug_2 += 1
+#                 print("Debug Count", Count_debug_2)
+#                 debug_2 = 0
+
+#             print("xy_shoe len :", len(xy_shoe))
+#             tmp_xy = xy_shoe.copy()
+#             time.sleep(0.05)
+#             # if (time.time() - now_time > 2):
+#             #     new_pose = generate_random_pose(now_pose, random_angle)
+#             #     move_softly_to(new_pose)
+#             #     time.sleep(0.3)
+#             if Count_debug_2 == 2 :
+#                 new_pose = generate_random_pose(now_pose, random_angle)
+#                 move_softly_to(new_pose)
+#                 print("Debug Reset and random pose !")
+#                 Reset_point += 1
+#                 print("Reset_point :", Reset_point)
+#                 Count_debug_2 = 0
+#                 time.sleep(0.3)
+#             if Reset_point == 10:
+#                 move_softly_to(search_start_point[:5])
+#                 searching_action_2()
+
+
+
+#         tmp_xy = xy_shoe.copy()
+#         # print("detect two object, move x value")
+#         center_x = abs((tmp_xy[0][0] + tmp_xy[1][0])/2)
+#         center_y = abs((tmp_xy[0][1] + tmp_xy[1][1])/2)
+
+#         if (x_lower < center_x and center_x < x_upper and y_lower < center_y and center_y < y_upper):
+#             break
+
+#         if (center_x > x_upper):  # first situation if shoe postion is left
+#             # print("center_X_value < x_upper")
+#             goal_joint_angle[0] += 0.02
+#         elif (x_lower > center_x ): # second situation fi shoe position is right
+#             # print("center_X_value > x_lower") 
+#             goal_joint_angle[0] -= 0.02
+#         else:
+#             # print('complete x')
+#             pass
+#         teleop_keyboard.send_goal_joint_space()
+#         wait_arrive(0.02)
+
+#         now_time = time.time()
+#         now_pose = present_joint_angle[:5]
+
+# #### ---------------------- ####
+
+#         while(len(xy_shoe) != 2):
+#             debug_3 += 1
+#             if debug_3 == 10:
+#                 Count_debug_3 += 1
+#                 print("Debug Count", Count_debug_3)
+#                 debug_3 = 0
+
+#             print("xy_shoe len :", len(xy_shoe))
+#             tmp_xy = xy_shoe.copy()
+#             time.sleep(0.05)
+#             # if (time.time() - now_time > 2):
+#             #     new_pose = generate_random_pose(now_pose, random_angle) # 원래 0.075 였음
+#             #     move_softly_to(new_pose)
+#             #     time.sleep(0.3)
+#             if Count_debug_3 == 2 :
+#                 new_pose = generate_random_pose(now_pose, random_angle)
+#                 move_softly_to(new_pose)
+#                 print("Debug Reset and random pose !")
+#                 Reset_point += 1
+#                 print("Reset_point :", Reset_point)
+#                 Count_debug_3 = 0         
+#                 time.sleep(0.3)
+#             if Reset_point == 10:
+#                 move_softly_to(search_start_point[:5])
+#                 searching_action_2()
+
+
+#         tmp_xy = xy_shoe.copy()
+#         # print("detect two object, move x value")
+#         center_x = abs((tmp_xy[0][0] + tmp_xy[1][0])/2)
+#         center_y = abs((tmp_xy[0][1] + tmp_xy[1][1])/2)
+
+#         if (x_lower < center_x and center_x < x_upper and y_lower < center_y and center_y < y_upper):
+#             break
+
+
+
+
+
+############## 한세 추가 ( 아마도 열심히 했던것 )
+        # if (tmp_list[0] + tmp_list[2] > 650):
+            
+##############
         if (center_y < y_lower):  # first situation if shoe postion is left
             # print("center_Y_value < y_lower")
             if goal_joint_angle[3] > manipulator_angle_range[3][0]:
@@ -415,7 +700,7 @@ def move_softly_to(goal_point, mul = 12):
     for step in range(1, full_step+1):
         goal_joint_angle[:5] = [(step * x + (full_step - step) * y)/full_step for x, y in zip(goal_point, start_point)]
         teleop_keyboard.send_goal_joint_space()
-        wait_arrive()
+        wait_arrive(0.1)
 
 def generate_random_pose(pose, angle_gap = 0.1):
     random_values = [0] * 5
@@ -426,11 +711,33 @@ def generate_random_pose(pose, angle_gap = 0.1):
     random_values[3] = np.random.uniform(pose[3] - angle_gap, pose[3] + 0.5 * angle_gap)
     return random_values
 
+# ## 한세 코드 ##
+# def generate_random_pose(pose, angle_gap = 0.1):
+#     global xy_shoelace, xy_shoe, x_pixel, y_pixel
+#     random_values = [0] * 5
+
+#     if (x_pixel > xy_shoelace and y_pixel > xy_shoelace ):
+        
+
+
+
+
+    
+    # for idx in range(0,5):
+    #     if idx == 3:
+    #         continue
+    #     random_values[idx] = np.random.uniform(pose[idx] - angle_gap, pose[idx] + angle_gap)
+    # random_values[3] = np.random.uniform(pose[3] - angle_gap, pose[3] + 0.5 * angle_gap)
+    # return random_values
+
+    
+    
+
 def check_manipulator_angle(pose):
-    # for idx, angle_range in enumerate(manipulator_angle_range):
-    #     if (pose[idx] > angle_range[0] or pose[idx] < angle_range[1]):
-    #         print("angle overload")
-    #         return False
+    for idx, angle_range in enumerate(manipulator_angle_range):
+        if (pose[idx] > angle_range[0] or pose[idx] < angle_range[1]):
+            print("angle overload")
+            return False
     return True
 
 def main():
@@ -447,30 +754,30 @@ def main():
     teleop_keyboard = TeleopKeyboard()
     t2 = threading.Thread(target=rclpy.spin, args=(teleop_keyboard,), daemon=True)
     t2.start()
-
     # Wait for spin
     while True:
         if present_joint_angle == [0., 0., 0., 0., 0., 0.]:
             time.sleep(0.1)
         else:
             break
-
     # Check dxl count
     if len(present_joint_angle) != 6:
         print("DXL missing!\n DXL count :", len(present_joint_angle))
         teleop_keyboard.destroy_node()
         rclpy.shutdown()
         return
-
     # wait for camera
     while True:
         if cam_activate:
             break
         time.sleep(0.5)
-
     # search_start_point = [-1.0, -0.8866409063339233, 0.1395922601222992, 2.032524585723877, 0., -1.1520196199417114]
-    search_start_point = [-1.0, -1.3115535974502563, 0.7470486760139465, 1.8208352327346802, 0, -1.0983302593231201]
-    gripper_open, gripper_close = -1.100485634803772, 0.5793204975128174
+    # search_start_point = [-1.0, -1.3115535974502563, 0.7470486760139465, 1.8208352327346802, 0, -1.0983302593231201] # 10/24 백업
+    # search_start_point = [-1.0, -0.915535974502563, 0.3470486760139465, 2.2208352327346802, 0, -1.0983302593231201] # 10/27 백업 서칭 액션_1 포인트 
+    # search_start_point = [-0.9, -0.2929903268814087, 0.0, 2.2073984146118164, 0, -1.0983302593231201] # 10/27 서칭 두번 하는 코드
+    search_start_point = [0.13345633447170258, -0.4862719178199768, 0.04601942375302315, 2.1491072177886963, 0.11044661700725555, -1.3606410026550293] # 서칭 액션 없이 고정 위치
+    #search_start_point2 = [1.0, -0.3344078063964844, -0.013805827125906944, 1.9159420728683472, 0, -1.0983302593231201]
+    gripper_open, gripper_close = -1.100485634803772, 0.5093204975128174
 
     goal_joint_angle = present_joint_angle.copy()
 
@@ -495,42 +802,50 @@ def main():
         goal_joint_angle[5] = gripper_open
         teleop_keyboard.send_goal_joint_space()
         wait_arrive(0.05)
+        time.sleep(1) ##
         # Go to way2
         move_softly_to(way_point_2[idx][:5])
 
-        # Searching action
-        move_softly_to(search_start_point[:5])
-        searching_action()
+        # Go Searching point 
+        move_softly_to(search_start_point)
 
-        # Move to Random Pose
-        success_count = 0
-        tmp_pose = present_joint_angle[:5]
-        while (success_count < random_state_gen_num):
-            print("random pose action ")
-            time.sleep(0.01)
-            new_pose = generate_random_pose(tmp_pose)
-            # move to random pose
-            move_softly_to(new_pose, 30)
-            time.sleep(0.3)
-            # check box detection
-            result = return_box_detection()
-            if result != None:
-                # if successs, remember this state
-                success_count += 1
-                tmp_shoelace, tmp_shoe = result
-                state = present_joint_angle[:5] + list(tmp_shoelace[0]) + list(tmp_shoelace[1]) + list(tmp_shoe[0]) + list(tmp_shoe[1])
-                agent.remember(state, way_point_2[idx][:5])
+        # # Searching action
+        # move_softly_to(search_start_point[:5])
+        # searching_action()
+
+        # # Move to Random Pose
+        # success_count = 0
+        # tmp_pose = present_joint_angle[:5]
+        # while (success_count < random_state_gen_num):
+        #     print("random pose action ")
+        #     time.sleep(0.01)
+        #     new_pose = generate_random_pose(tmp_pose)
+        #     # move to random pose
+        #     move_softly_to(new_pose, 30)
+        #     time.sleep(0.3)
+        #     # check box detection
+        #     result = return_box_detection()
+        #     if result != None:
+        #         # if successs, remember this state
+        #         success_count += 1
+        #         print(success_count)
+        #         tmp_shoelace, tmp_shoe = result
+        #         state = present_joint_angle[:5] + list(tmp_shoelace[0]) + list(tmp_shoelace[1]) + list(tmp_shoe[0]) + list(tmp_shoe[1])
+        #         agent.remember(state, way_point_2[idx][:5])
 
         # Go to way2
         move_softly_to(way_point_2[idx][:5])
         # Go DOWN
         move_softly_to(way_point_1[idx][:5])
+        wait_arrive()
         # Gripper Close
         goal_joint_angle[5] = gripper_close
         teleop_keyboard.send_goal_joint_space()
         wait_arrive(0.05)
+        time.sleep(1)
         # Go UP
         move_softly_to(way_point_2[idx][:5])
+        time.sleep(1)
 
     # Final action
     move_softly_to(way_point_1[0][:5])

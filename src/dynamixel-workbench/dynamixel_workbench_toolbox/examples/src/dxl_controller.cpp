@@ -206,7 +206,7 @@ bool Initialize_DXL(const char *port_name, int baud_rate) {
   }
 
   // Set PID
-  Set_PID_Param(800, 300, 300);
+  Set_PID_Param(300, 1000, 1000);
 
   return result;
 }

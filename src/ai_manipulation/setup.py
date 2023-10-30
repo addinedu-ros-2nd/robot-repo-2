@@ -29,6 +29,7 @@ setup(
             'six_dxl_run = ai_manipulation.script.six_dxl_run:main',
             'testing = ai_manipulation.script.testing:main',
             'test_seokwon = ai_manipulation.script.test_seokwon:main',
+            'shoe_drop_point_gen = ai_manipulation.script.shoe_drop_point_gen:main',
         ],
     },
 )
