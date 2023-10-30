@@ -65,7 +65,7 @@ random_state_gen_num = 16
 # angle_gap_origin = 0.09  # radian
 # angle_gap = 0.1
 # path_time = 0.4  # second
-state_size = 13
+state_size = 8
 action_size = 5
 # threshold = 0.11 # scenario ending thres
 INF = 999999999999
@@ -306,7 +306,7 @@ class TeleopKeyboard(Node):
 
 def return_box_detection():
     global xy_shoelace, xy_shoe
-    for i in range(100):
+    for i in range(200):
         if ((len(xy_shoelace) != 2) or (len(xy_shoe) != 2)):
             time.sleep(0.005)
         else:
@@ -793,7 +793,7 @@ def main():
     wait_arrive(0.05)
 
     # Move to Way Point
-    for idx in range(len(way_point_1)):
+    for idx in range(len(way_point_1[:2])):
         print("Episode", idx + 1, "/", len(way_point_1), "Start!")
         # Initial Position Setting
         move_softly_to(way_point_2[idx][:5])
@@ -808,6 +808,15 @@ def main():
 
         # Go Searching point 
         move_softly_to(search_start_point)
+        wait_arrive(0.05)
+        time.sleep(2)
+
+        result = return_box_detection()
+        if result != None:
+            # if successs, remember this state
+            tmp_shoelace, tmp_shoe = result
+            state = list(tmp_shoelace[0]) + list(tmp_shoelace[1]) + list(tmp_shoe[0]) + list(tmp_shoe[1])
+            agent.remember(state, way_point_2[idx][:5])
 
         # # Searching action
         # move_softly_to(search_start_point[:5])
