@@ -1,0 +1,18 @@
+/home/hanse/.local/lib/python3.10/site-packages/setuptools/_distutils/cmd.py:66: SetuptoolsDeprecationWarning: setup.py install is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` directly.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html for details.
+        ********************************************************************************
+
+!!
+  self.initialize_options()
+  File "/home/hanse/git_ws/final_project/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script/six_dxl_model.py", line 553
+    search_start_point = [-1.0, -1.3115535974502563, 0.7470486760139465, 1.8208352327346802, 0, -1.0983302593231201] 10/24 백업
+                                                                                                                     ^^
+SyntaxError: invalid syntax
+

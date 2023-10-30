@@ -1,0 +1,51 @@
+[0.166s] Invoking command in '/home/hanse/git_ws/final_project/build/cmake_modules': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/hanse/Final_project/manipulator_deep/IoT-repo-3/install/open_manipulator_x_teleop:/home/hanse/Final_project/manipulator_deep/IoT-repo-3/install/ai_manipulation:/opt/ros/humble /home/hanse/.local/bin/cmake /home/hanse/git_ws/final_project/src/open_manipulator_dependencies/cmake_modules -DCMAKE_INSTALL_PREFIX=/home/hanse/git_ws/final_project/install/cmake_modules
+[0.243s] -- The C compiler identification is GNU 11.4.0
+[0.285s] -- The CXX compiler identification is GNU 11.4.0
+[0.293s] -- Detecting C compiler ABI info
+[0.337s] -- Detecting C compiler ABI info - done
+[0.343s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.343s] -- Detecting C compile features
+[0.343s] -- Detecting C compile features - done
+[0.345s] -- Detecting CXX compiler ABI info
+[0.405s] -- Detecting CXX compiler ABI info - done
+[0.416s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.417s] -- Detecting CXX compile features
+[0.417s] -- Detecting CXX compile features - done
+[0.420s] -- Found ament_cmake: 1.3.5 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.727s] -- Found Python3: /usr/bin/python3.10 (found version "3.10.12") found components: Interpreter 
+[0.854s] -- Configuring done
+[0.856s] -- Generating done
+[0.856s] -- Build files have been written to: /home/hanse/git_ws/final_project/build/cmake_modules
+[0.863s] Invoked command in '/home/hanse/git_ws/final_project/build/cmake_modules' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/hanse/Final_project/manipulator_deep/IoT-repo-3/install/open_manipulator_x_teleop:/home/hanse/Final_project/manipulator_deep/IoT-repo-3/install/ai_manipulation:/opt/ros/humble /home/hanse/.local/bin/cmake /home/hanse/git_ws/final_project/src/open_manipulator_dependencies/cmake_modules -DCMAKE_INSTALL_PREFIX=/home/hanse/git_ws/final_project/install/cmake_modules
+[0.864s] Invoking command in '/home/hanse/git_ws/final_project/build/cmake_modules': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/hanse/Final_project/manipulator_deep/IoT-repo-3/install/open_manipulator_x_teleop:/home/hanse/Final_project/manipulator_deep/IoT-repo-3/install/ai_manipulation:/opt/ros/humble /home/hanse/.local/bin/cmake --build /home/hanse/git_ws/final_project/build/cmake_modules -- -j8 -l8
+[0.896s] Invoked command in '/home/hanse/git_ws/final_project/build/cmake_modules' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/hanse/Final_project/manipulator_deep/IoT-repo-3/install/open_manipulator_x_teleop:/home/hanse/Final_project/manipulator_deep/IoT-repo-3/install/ai_manipulation:/opt/ros/humble /home/hanse/.local/bin/cmake --build /home/hanse/git_ws/final_project/build/cmake_modules -- -j8 -l8
+[0.947s] Invoking command in '/home/hanse/git_ws/final_project/build/cmake_modules': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/hanse/Final_project/manipulator_deep/IoT-repo-3/install/open_manipulator_x_teleop:/home/hanse/Final_project/manipulator_deep/IoT-repo-3/install/ai_manipulation:/opt/ros/humble /home/hanse/.local/bin/cmake --install /home/hanse/git_ws/final_project/build/cmake_modules
+[0.975s] -- Install configuration: ""
+[0.975s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/cmake/Modules
+[0.975s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/cmake/Modules/FindTinyXML2.cmake
+[0.976s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/cmake/Modules/FindTinyXML.cmake
+[0.976s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/cmake/Modules/FindUUID.cmake
+[0.976s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/cmake/Modules/FindXenomai.cmake
+[0.976s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/cmake/Modules/FindGflags.cmake
+[0.976s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/cmake/Modules/FindPoco.cmake
+[0.976s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/cmake/Modules/FindNUMPY.cmake
+[0.977s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/cmake/Modules/FindTBB.cmake
+[0.977s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/cmake/Modules/FindGSL.cmake
+[0.977s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/ament_index/resource_index/package_run_dependencies/cmake_modules
+[0.977s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/ament_index/resource_index/parent_prefix_path/cmake_modules
+[0.978s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/environment/ament_prefix_path.sh
+[0.978s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/environment/ament_prefix_path.dsv
+[0.978s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/environment/path.sh
+[0.978s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/environment/path.dsv
+[0.979s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/local_setup.bash
+[0.979s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/local_setup.sh
+[0.979s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/local_setup.zsh
+[0.979s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/local_setup.dsv
+[0.979s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/package.dsv
+[0.980s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/ament_index/resource_index/packages/cmake_modules
+[0.980s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/cmake/cmake_modules-extras.cmake
+[0.980s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/cmake/ament_cmake_export_dependencies-extras.cmake
+[0.980s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/cmake/cmake_modulesConfig.cmake
+[0.981s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/cmake/cmake_modulesConfig-version.cmake
+[0.981s] -- Installing: /home/hanse/git_ws/final_project/install/cmake_modules/share/cmake_modules/package.xml
+[0.991s] Invoked command in '/home/hanse/git_ws/final_project/build/cmake_modules' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/hanse/Final_project/manipulator_deep/IoT-repo-3/install/open_manipulator_x_teleop:/home/hanse/Final_project/manipulator_deep/IoT-repo-3/install/ai_manipulation:/opt/ros/humble /home/hanse/.local/bin/cmake --install /home/hanse/git_ws/final_project/build/cmake_modules

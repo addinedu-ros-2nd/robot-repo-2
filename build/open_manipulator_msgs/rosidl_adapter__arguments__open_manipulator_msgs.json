@@ -1,0 +1,14 @@
+{
+  "package_name": "open_manipulator_msgs",
+  "non_idl_tuples": [
+    "/home/hanse/git_ws/final_project/src/open_manipulator_msgs:msg/JointPosition.msg",
+    "/home/hanse/git_ws/final_project/src/open_manipulator_msgs:msg/KinematicsPose.msg",
+    "/home/hanse/git_ws/final_project/src/open_manipulator_msgs:msg/OpenManipulatorState.msg",
+    "/home/hanse/git_ws/final_project/src/open_manipulator_msgs:srv/GetJointPosition.srv",
+    "/home/hanse/git_ws/final_project/src/open_manipulator_msgs:srv/GetKinematicsPose.srv",
+    "/home/hanse/git_ws/final_project/src/open_manipulator_msgs:srv/SetJointPosition.srv",
+    "/home/hanse/git_ws/final_project/src/open_manipulator_msgs:srv/SetKinematicsPose.srv",
+    "/home/hanse/git_ws/final_project/src/open_manipulator_msgs:srv/SetDrawingTrajectory.srv",
+    "/home/hanse/git_ws/final_project/src/open_manipulator_msgs:srv/SetActuatorState.srv"
+  ]
+}
