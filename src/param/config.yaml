@@ -1,0 +1,9 @@
+detect_node:
+  ros__parameters:
+    rgb_topic: "/camera/color/image_raw"
+    conf: 0.6
+    device: "cuda:0"
+
+dist_node:
+  ros__parameters:
+    depth_topic: "/camera/depth/image_rect_raw"
