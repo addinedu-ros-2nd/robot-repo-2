@@ -2,4 +2,4 @@
 shoebot
 a=text
 
-세진이형 바보
+세진이형 바보dsdsd
