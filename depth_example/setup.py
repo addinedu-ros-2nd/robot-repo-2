@@ -20,8 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            "detect = depth_example.detect:main",
-            "distance = depth_example.distance:main",
+            "basic_tracking = depth_example.basic_tracking:main",
+            "basic_distance = depth_example.basic_distance:main",
             "Streaming_for_loop_with_tracking = depth_example.Streaming_for_loop_with_tracking:main",
         ],
     },
