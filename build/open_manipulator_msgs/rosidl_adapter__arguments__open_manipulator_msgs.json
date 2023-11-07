@@ -1,0 +1,14 @@
+{
+  "package_name": "open_manipulator_msgs",
+  "non_idl_tuples": [
+    "/home/kimdu/hanse/src/open_manipulator_msgs:msg/JointPosition.msg",
+    "/home/kimdu/hanse/src/open_manipulator_msgs:msg/KinematicsPose.msg",
+    "/home/kimdu/hanse/src/open_manipulator_msgs:msg/OpenManipulatorState.msg",
+    "/home/kimdu/hanse/src/open_manipulator_msgs:srv/GetJointPosition.srv",
+    "/home/kimdu/hanse/src/open_manipulator_msgs:srv/GetKinematicsPose.srv",
+    "/home/kimdu/hanse/src/open_manipulator_msgs:srv/SetJointPosition.srv",
+    "/home/kimdu/hanse/src/open_manipulator_msgs:srv/SetKinematicsPose.srv",
+    "/home/kimdu/hanse/src/open_manipulator_msgs:srv/SetDrawingTrajectory.srv",
+    "/home/kimdu/hanse/src/open_manipulator_msgs:srv/SetActuatorState.srv"
+  ]
+}
