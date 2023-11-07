@@ -6,6 +6,13 @@
 #include "opencv2/opencv.hpp"
 
 class DistNode : public rclcpp::Node {
+    rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr depth_subscription_;
+    rclcpp::Subscription<std_msgs::msg::Int32MultiArray>::SharedPtr detect_subscription_;
+    rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr dist_publisher_;
+    std::shared_ptr<cv_bridge::CvImage> cv_bridge_;
+    cv_bridge::CvImagePtr cv_ptr;
+    // cv_bridge::CvBridge bridge;
+    cv::Mat depth_image_;
     public:
         DistNode() : Node("dist_node") {
             depth_subscription_ = this->create_subscription<sensor_msgs::msg::Image>(
@@ -25,15 +32,18 @@ class DistNode : public rclcpp::Node {
                 10
             );
 
-            // cv_bridge_ = std::make_shared<cv_bridge::CvImage>();
+
             printf("hello!\n");
         }
 
     private:
         void depthImageCallback(const sensor_msgs::msg::Image::SharedPtr msg) {
-            cv_bridge::CvImagePtr cv_ptr;
-            cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::TYPE_32FC1);
+            cv_ptr = cv_bridge_->imgMsgToCv(msg, "passthrough");
             depth_image_ = cv_ptr->image;
+            depth_image_.convertTo(depth_image_, CV_32F);
+            // cv_bridge::CvImagePtr cv_ptr;
+            // cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::TYPE_32FC1);
+            // depth_image_ = cv_ptr->image;
         }
 
         void detectCallback(const std_msgs::msg::Int32MultiArray::SharedPtr msg) {
@@ -45,7 +55,7 @@ class DistNode : public rclcpp::Node {
                 humans.push_back(human);
             }
 
-            if (tmp.size() != 0) {
+            if (tmp.size() != 0 && !depth_image_.empty()) {
                 for (const auto &human : humans) {
                     int id = human[0];
                     int x1 = human[1];
@@ -55,13 +65,16 @@ class DistNode : public rclcpp::Node {
 
                     std::vector<float> depth_list;
 
-                    /////// Fix here!!!! 
-                    // for (int y = y1; y < y2; y++) {
-                    //     for (int x = x1; x < x2; x++) {
-                    //         float pixel_value = depth_image_.at<float>(y, x);
-                    //         depth_list.push_back(pixel_value);
-                    //     }
-                    // }
+                    std::cout << depth_image_.size() << "\n";
+
+                    ////////// Fix here!!!!
+                    for (int y = y1; y < y2; y++) {
+                        for (int x = x1; x < x2; x++) {
+                            std::cout << depth_image_.at<float>(y, x) << "\n";
+                            // float pixel_value = depth_image_.at<float>(y, x);
+                            // depth_list.push_back(pixel_value);
+                        }
+                    }
 
                 //     if (!depth_list.empty()) {
                 //         std::sort(depth_list.begin(), depth_list.end());
@@ -84,12 +97,6 @@ class DistNode : public rclcpp::Node {
             dist_publisher_->publish(*msg);
             RCLCPP_INFO(this->get_logger(), "id:%d person distance is %.4f cm", id, msg->data);
         }
-
-    rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr depth_subscription_;
-    rclcpp::Subscription<std_msgs::msg::Int32MultiArray>::SharedPtr detect_subscription_;
-    rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr dist_publisher_;
-    // std::shared_ptr<cv_bridge::CvImage> cv_bridge_;
-    cv::Mat depth_image_;
 };
 
 int main(int argc, char *argv[]) {

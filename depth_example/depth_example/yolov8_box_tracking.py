@@ -12,13 +12,13 @@ class DetectNode(Node):
         super().__init__('detect_node')
         self.colcor_subscriber = self.create_subscription(
             Image,
-            '/camera/color/image_raw',#이미지 토픽
+            '/camera/color/image_raw', #이미지 토픽
             self.color_image_callback,
             10
         )
         self.detect_publisher = self.create_publisher(
             Int32MultiArray,
-            '/person_detect',
+            '/person_box_tracking',
             10
         )
         self.cv_bridge = CvBridge()

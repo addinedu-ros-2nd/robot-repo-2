@@ -22,7 +22,10 @@ setup(
         'console_scripts': [
             "basic_tracking = depth_example.basic_tracking:main",
             "basic_distance = depth_example.basic_distance:main",
-            "Streaming_for_loop_with_tracking = depth_example.Streaming_for_loop_with_tracking:main",
+            "yolov8_box_tracking = depth_example.yolov8_box_tracking:main",
+            "yolov8_seg_tracking = depth_example.yolov8_seg_tracking:main",
+            "open3d_viewer = depth_example.open3d_viewer:main",
+            "open3d_test = depth_example.open3d_test:main",
         ],
     },
 )

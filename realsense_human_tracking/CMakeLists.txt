@@ -12,6 +12,8 @@ find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(cv_bridge REQUIRED)
+find_package(PCL REQUIRED)
+find_package(VTK REQUIRED)
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
@@ -31,12 +33,15 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-add_executable(human_pcl src/human_pcl.cpp)
-ament_target_dependencies(human_pcl rclcpp std_msgs sensor_msgs OpenCV cv_bridge)
+# add_executable(human_pcl src/human_pcl.cpp)
+# ament_target_dependencies(human_pcl rclcpp std_msgs sensor_msgs OpenCV cv_bridge)
+#add_executable(pointcloud_test src/pointcloud_test.cpp)
+#ament_target_dependencies(pointcloud_test rclcpp std_msgs sensor_msgs OpenCV cv_bridge PCL VTK)
 
-install(TARGETS
-  human_pcl
-  DESTINATION lib/${PROJECT_NAME}
-)
+#install(TARGETS
+#  human_pcl
+#  pointcloud_test
+#  DESTINATION lib/${PROJECT_NAME}
+#)
 
 ament_package()
