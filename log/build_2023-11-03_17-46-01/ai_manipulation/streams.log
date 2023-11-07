@@ -1,0 +1,178 @@
+[1.043s] Invoking command in '/home/kimdu/hanse/src/ai_manipulation': CMAKE_PREFIX_PATH=/home/kimdu/hanse/install/open_manipulator_msgs:/home/kimdu/hanse/robot-repo-2/install/open_manipulator:/home/kimdu/hanse/robot-repo-2/install/open_manipulator_x_controller:/home/kimdu/hanse/robot-repo-2/install/open_manipulator_x_libs:/home/kimdu/hanse/robot-repo-2/install/robotis_manipulator:/home/kimdu/hanse/robot-repo-2/install/open_manipulator_x_description:/home/kimdu/hanse/robot-repo-2/install/open_manipulator_msgs:/home/kimdu/hanse/robot-repo-2/install/dynamixel_workbench:/home/kimdu/hanse/robot-repo-2/install/dynamixel_workbench_toolbox:/home/kimdu/hanse/robot-repo-2/install/dynamixel_sdk_examples:/home/kimdu/hanse/robot-repo-2/install/dynamixel_sdk_custom_interfaces:/home/kimdu/hanse/robot-repo-2/install/dynamixel_sdk:/home/kimdu/hanse/robot-repo-2/install/cmake_modules:/home/kimdu/hanse/install/open_manipulator:/home/kimdu/hanse/install/open_manipulator_x_controller:/home/kimdu/hanse/install/open_manipulator_x_libs:/home/kimdu/hanse/install/robotis_manipulator:/home/kimdu/hanse/install/open_manipulator_x_description:/home/kimdu/hanse/install/dynamixel_workbench:/home/kimdu/hanse/install/dynamixel_workbench_toolbox:/home/kimdu/hanse/install/dynamixel_sdk_examples:/home/kimdu/hanse/install/dynamixel_sdk_custom_interfaces:/home/kimdu/hanse/install/dynamixel_sdk:/home/kimdu/hanse/install/cmake_modules:/home/kimdu/pinkbot/install/minibot_navigation2:/home/kimdu/pinkbot/install/minibot_controllers:/home/kimdu/pinkbot/install/minibot_interfaces:/home/kimdu/pinkbot/install/minibot_hardware_interface:/home/kimdu/pinkbot/install/minibot_bringup:/home/kimdu/pinkbot/install/minibot_gazebo:/home/kimdu/pinkbot/install/minibot_description LD_LIBRARY_PATH=/home/kimdu/hanse/install/open_manipulator_msgs/lib:/home/kimdu/hanse/robot-repo-2/install/open_manipulator_x_libs/lib:/home/kimdu/hanse/robot-repo-2/install/robotis_manipulator/lib:/home/kimdu/hanse/robot-repo-2/install/open_manipulator_msgs/lib:/home/kimdu/hanse/robot-repo-2/install/dynamixel_workbench_toolbox/lib:/home/kimdu/hanse/robot-repo-2/install/dynamixel_sdk_custom_interfaces/lib:/home/kimdu/hanse/robot-repo-2/install/dynamixel_sdk/lib:/home/kimdu/hanse/install/open_manipulator_x_libs/lib:/home/kimdu/hanse/install/robotis_manipulator/lib:/home/kimdu/hanse/install/dynamixel_workbench_toolbox/lib:/home/kimdu/hanse/install/dynamixel_sdk_custom_interfaces/lib:/home/kimdu/hanse/install/dynamixel_sdk/lib:/home/kimdu/pinkbot/install/minibot_controllers/lib:/home/kimdu/pinkbot/install/minibot_interfaces/lib:/home/kimdu/pinkbot/install/minibot_hardware_interface/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib PYTHONPATH=/home/kimdu/hanse/build/ai_manipulation/prefix_override:/home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/ai_manipulation build --build-base /home/kimdu/hanse/build/ai_manipulation/build install --record /home/kimdu/hanse/build/ai_manipulation/install.log --single-version-externally-managed
+[1.253s] running egg_info
+[1.253s] creating ../../build/ai_manipulation/ai_manipulation.egg-info
+[1.253s] writing ../../build/ai_manipulation/ai_manipulation.egg-info/PKG-INFO
+[1.253s] writing dependency_links to ../../build/ai_manipulation/ai_manipulation.egg-info/dependency_links.txt
+[1.253s] writing entry points to ../../build/ai_manipulation/ai_manipulation.egg-info/entry_points.txt
+[1.253s] writing requirements to ../../build/ai_manipulation/ai_manipulation.egg-info/requires.txt
+[1.254s] writing top-level names to ../../build/ai_manipulation/ai_manipulation.egg-info/top_level.txt
+[1.254s] writing manifest file '../../build/ai_manipulation/ai_manipulation.egg-info/SOURCES.txt'
+[1.256s] reading manifest file '../../build/ai_manipulation/ai_manipulation.egg-info/SOURCES.txt'
+[1.256s] writing manifest file '../../build/ai_manipulation/ai_manipulation.egg-info/SOURCES.txt'
+[1.256s] running build
+[1.256s] running build_py
+[1.257s] creating /home/kimdu/hanse/build/ai_manipulation/build
+[1.257s] creating /home/kimdu/hanse/build/ai_manipulation/build/lib
+[1.257s] creating /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation
+[1.257s] copying ai_manipulation/__init__.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation
+[1.257s] creating /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script
+[1.257s] copying ai_manipulation/script/six_dxl_model.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script
+[1.257s] copying ai_manipulation/script/make_my_model.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script
+[1.257s] copying ai_manipulation/script/linear.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script
+[1.257s] copying ai_manipulation/script/run_my_model.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script
+[1.257s] copying ai_manipulation/script/shoe_drop_point_gen.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script
+[1.257s] copying ai_manipulation/script/test_seokwon.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script
+[1.258s] copying ai_manipulation/script/__init__.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script
+[1.258s] copying ai_manipulation/script/six_dxl_run.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script
+[1.258s] copying ai_manipulation/script/testing.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script
+[1.258s] copying ai_manipulation/script/media.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script
+[1.258s] copying ai_manipulation/script/z_value.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script
+[1.258s] creating /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils
+[1.258s] copying ai_manipulation/utils/best_1(기존 신발).pt -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils
+[1.268s] copying ai_manipulation/utils/best_shoe.pt -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils
+[1.278s] copying ai_manipulation/utils/best_3(신발 모형 200개).pt -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils
+[1.288s] copying ai_manipulation/utils/best_2(신발 모형(망한거)).pt -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils
+[1.297s] copying ai_manipulation/utils/best.pt -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils
+[1.307s] copying ai_manipulation/utils/calibration_matrix.npy -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils
+[1.308s] copying ai_manipulation/utils/export.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils
+[1.308s] copying ai_manipulation/utils/distortion_coefficients.npy -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils
+[1.308s] copying ai_manipulation/utils/best_last.pt -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils
+[1.319s] creating /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models
+[1.319s] copying ai_manipulation/utils/models/common.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models
+[1.319s] copying ai_manipulation/utils/models/yolov3-spp.yaml -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models
+[1.319s] copying ai_manipulation/utils/models/tf.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models
+[1.319s] copying ai_manipulation/utils/models/yolo.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models
+[1.319s] copying ai_manipulation/utils/models/yolov3.yaml -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models
+[1.319s] copying ai_manipulation/utils/models/experimental.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models
+[1.319s] copying ai_manipulation/utils/models/yolov3-tiny.yaml -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models
+[1.320s] copying ai_manipulation/utils/models/yolov5m.yaml -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models
+[1.320s] copying ai_manipulation/utils/models/yolov5x.yaml -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models
+[1.320s] copying ai_manipulation/utils/models/__init__.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models
+[1.320s] copying ai_manipulation/utils/models/yolov5s.yaml -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models
+[1.320s] copying ai_manipulation/utils/models/yolov5l.yaml -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models
+[1.320s] copying ai_manipulation/utils/models/yolov5n.yaml -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models
+[1.320s] creating /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils
+[1.320s] copying ai_manipulation/utils/utils/metrics.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils
+[1.320s] copying ai_manipulation/utils/utils/plots.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils
+[1.320s] copying ai_manipulation/utils/utils/loss.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils
+[1.320s] copying ai_manipulation/utils/utils/augmentations.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils
+[1.321s] copying ai_manipulation/utils/utils/general.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils
+[1.321s] copying ai_manipulation/utils/utils/torch_utils.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils
+[1.321s] copying ai_manipulation/utils/utils/__init__.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils
+[1.321s] copying ai_manipulation/utils/utils/dataloaders.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils
+[1.321s] copying ai_manipulation/utils/utils/callbacks.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils
+[1.321s] copying ai_manipulation/utils/utils/autobatch.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils
+[1.321s] copying ai_manipulation/utils/utils/activations.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils
+[1.321s] copying ai_manipulation/utils/utils/triton.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils
+[1.321s] copying ai_manipulation/utils/utils/utils.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils
+[1.322s] copying ai_manipulation/utils/utils/autoanchor.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils
+[1.322s] copying ai_manipulation/utils/utils/downloads.py -> /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils
+[1.322s] running install
+[1.322s] /usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[1.322s]   warnings.warn(
+[1.323s] running install_lib
+[1.324s] creating /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation
+[1.324s] creating /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script
+[1.324s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script/six_dxl_model.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script
+[1.324s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script/make_my_model.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script
+[1.324s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script/linear.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script
+[1.324s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script/run_my_model.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script
+[1.324s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script/shoe_drop_point_gen.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script
+[1.324s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script/test_seokwon.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script
+[1.324s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script/__init__.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script
+[1.324s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script/six_dxl_run.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script
+[1.325s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script/testing.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script
+[1.325s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script/media.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script
+[1.325s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/script/z_value.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script
+[1.325s] creating /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils
+[1.325s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/best_1(기존 신발).pt -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils
+[1.335s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/best_shoe.pt -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils
+[1.344s] creating /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/models
+[1.344s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models/common.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/models
+[1.345s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models/yolov3-spp.yaml -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/models
+[1.345s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models/tf.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/models
+[1.345s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models/yolo.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/models
+[1.345s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models/yolov3.yaml -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/models
+[1.345s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models/experimental.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/models
+[1.345s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models/yolov3-tiny.yaml -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/models
+[1.345s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models/yolov5m.yaml -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/models
+[1.345s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models/yolov5x.yaml -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/models
+[1.345s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models/__init__.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/models
+[1.345s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models/yolov5s.yaml -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/models
+[1.345s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models/yolov5l.yaml -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/models
+[1.345s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/models/yolov5n.yaml -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/models
+[1.346s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/best_3(신발 모형 200개).pt -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils
+[1.355s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/best_2(신발 모형(망한거)).pt -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils
+[1.365s] creating /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils
+[1.365s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils/metrics.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils
+[1.365s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils/plots.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils
+[1.366s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils/loss.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils
+[1.366s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils/augmentations.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils
+[1.366s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils/general.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils
+[1.366s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils/torch_utils.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils
+[1.366s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils/__init__.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils
+[1.366s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils/dataloaders.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils
+[1.366s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils/callbacks.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils
+[1.366s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils/autobatch.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils
+[1.366s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils/activations.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils
+[1.366s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils/triton.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils
+[1.366s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils/utils.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils
+[1.366s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils/autoanchor.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils
+[1.367s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/utils/downloads.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils
+[1.367s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/best.pt -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils
+[1.377s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/calibration_matrix.npy -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils
+[1.377s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/export.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils
+[1.377s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/distortion_coefficients.npy -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils
+[1.377s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/utils/best_last.pt -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils
+[1.387s] copying /home/kimdu/hanse/build/ai_manipulation/build/lib/ai_manipulation/__init__.py -> /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation
+[1.387s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script/six_dxl_model.py to six_dxl_model.cpython-310.pyc
+[1.391s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script/make_my_model.py to make_my_model.cpython-310.pyc
+[1.393s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script/linear.py to linear.cpython-310.pyc
+[1.394s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script/run_my_model.py to run_my_model.cpython-310.pyc
+[1.396s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script/shoe_drop_point_gen.py to shoe_drop_point_gen.cpython-310.pyc
+[1.398s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script/test_seokwon.py to test_seokwon.cpython-310.pyc
+[1.401s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script/__init__.py to __init__.cpython-310.pyc
+[1.401s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script/six_dxl_run.py to six_dxl_run.cpython-310.pyc
+[1.403s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script/testing.py to testing.cpython-310.pyc
+[1.403s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script/media.py to media.cpython-310.pyc
+[1.404s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script/z_value.py to z_value.cpython-310.pyc
+[1.404s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/models/common.py to common.cpython-310.pyc
+[1.411s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/models/tf.py to tf.cpython-310.pyc
+[1.415s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/models/yolo.py to yolo.cpython-310.pyc
+[1.418s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/models/experimental.py to experimental.cpython-310.pyc
+[1.419s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/models/__init__.py to __init__.cpython-310.pyc
+[1.419s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils/metrics.py to metrics.cpython-310.pyc
+[1.421s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils/plots.py to plots.cpython-310.pyc
+[1.424s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils/loss.py to loss.cpython-310.pyc
+[1.425s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils/augmentations.py to augmentations.cpython-310.pyc
+[1.428s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils/general.py to general.cpython-310.pyc
+[1.435s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils/torch_utils.py to torch_utils.cpython-310.pyc
+[1.437s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils/__init__.py to __init__.cpython-310.pyc
+[1.438s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils/dataloaders.py to dataloaders.cpython-310.pyc
+[1.446s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils/callbacks.py to callbacks.cpython-310.pyc
+[1.446s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils/autobatch.py to autobatch.cpython-310.pyc
+[1.447s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils/activations.py to activations.cpython-310.pyc
+[1.447s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils/triton.py to triton.cpython-310.pyc
+[1.448s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils/utils.py to utils.cpython-310.pyc
+[1.448s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils/autoanchor.py to autoanchor.cpython-310.pyc
+[1.450s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/utils/downloads.py to downloads.cpython-310.pyc
+[1.450s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/utils/export.py to export.cpython-310.pyc
+[1.455s] byte-compiling /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/__init__.py to __init__.cpython-310.pyc
+[1.456s] running install_data
+[1.456s] creating /home/kimdu/hanse/install/ai_manipulation/share/ament_index
+[1.456s] creating /home/kimdu/hanse/install/ai_manipulation/share/ament_index/resource_index
+[1.457s] creating /home/kimdu/hanse/install/ai_manipulation/share/ament_index/resource_index/packages
+[1.457s] copying resource/ai_manipulation -> /home/kimdu/hanse/install/ai_manipulation/share/ament_index/resource_index/packages
+[1.457s] copying package.xml -> /home/kimdu/hanse/install/ai_manipulation/share/ai_manipulation
+[1.457s] running install_egg_info
+[1.457s] Copying ../../build/ai_manipulation/ai_manipulation.egg-info to /home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation-0.0.0-py3.10.egg-info
+[1.457s] running install_scripts
+[1.472s] Installing make_my_model script to /home/kimdu/hanse/install/ai_manipulation/lib/ai_manipulation
+[1.473s] Installing run_my_model script to /home/kimdu/hanse/install/ai_manipulation/lib/ai_manipulation
+[1.473s] Installing shoe_drop_point_gen script to /home/kimdu/hanse/install/ai_manipulation/lib/ai_manipulation
+[1.473s] Installing six_dxl_model script to /home/kimdu/hanse/install/ai_manipulation/lib/ai_manipulation
+[1.473s] Installing six_dxl_run script to /home/kimdu/hanse/install/ai_manipulation/lib/ai_manipulation
+[1.473s] Installing test_seokwon script to /home/kimdu/hanse/install/ai_manipulation/lib/ai_manipulation
+[1.473s] Installing testing script to /home/kimdu/hanse/install/ai_manipulation/lib/ai_manipulation
+[1.473s] writing list of installed files to '/home/kimdu/hanse/build/ai_manipulation/install.log'
+[1.499s] Invoked command in '/home/kimdu/hanse/src/ai_manipulation' returned '0': CMAKE_PREFIX_PATH=/home/kimdu/hanse/install/open_manipulator_msgs:/home/kimdu/hanse/robot-repo-2/install/open_manipulator:/home/kimdu/hanse/robot-repo-2/install/open_manipulator_x_controller:/home/kimdu/hanse/robot-repo-2/install/open_manipulator_x_libs:/home/kimdu/hanse/robot-repo-2/install/robotis_manipulator:/home/kimdu/hanse/robot-repo-2/install/open_manipulator_x_description:/home/kimdu/hanse/robot-repo-2/install/open_manipulator_msgs:/home/kimdu/hanse/robot-repo-2/install/dynamixel_workbench:/home/kimdu/hanse/robot-repo-2/install/dynamixel_workbench_toolbox:/home/kimdu/hanse/robot-repo-2/install/dynamixel_sdk_examples:/home/kimdu/hanse/robot-repo-2/install/dynamixel_sdk_custom_interfaces:/home/kimdu/hanse/robot-repo-2/install/dynamixel_sdk:/home/kimdu/hanse/robot-repo-2/install/cmake_modules:/home/kimdu/hanse/install/open_manipulator:/home/kimdu/hanse/install/open_manipulator_x_controller:/home/kimdu/hanse/install/open_manipulator_x_libs:/home/kimdu/hanse/install/robotis_manipulator:/home/kimdu/hanse/install/open_manipulator_x_description:/home/kimdu/hanse/install/dynamixel_workbench:/home/kimdu/hanse/install/dynamixel_workbench_toolbox:/home/kimdu/hanse/install/dynamixel_sdk_examples:/home/kimdu/hanse/install/dynamixel_sdk_custom_interfaces:/home/kimdu/hanse/install/dynamixel_sdk:/home/kimdu/hanse/install/cmake_modules:/home/kimdu/pinkbot/install/minibot_navigation2:/home/kimdu/pinkbot/install/minibot_controllers:/home/kimdu/pinkbot/install/minibot_interfaces:/home/kimdu/pinkbot/install/minibot_hardware_interface:/home/kimdu/pinkbot/install/minibot_bringup:/home/kimdu/pinkbot/install/minibot_gazebo:/home/kimdu/pinkbot/install/minibot_description LD_LIBRARY_PATH=/home/kimdu/hanse/install/open_manipulator_msgs/lib:/home/kimdu/hanse/robot-repo-2/install/open_manipulator_x_libs/lib:/home/kimdu/hanse/robot-repo-2/install/robotis_manipulator/lib:/home/kimdu/hanse/robot-repo-2/install/open_manipulator_msgs/lib:/home/kimdu/hanse/robot-repo-2/install/dynamixel_workbench_toolbox/lib:/home/kimdu/hanse/robot-repo-2/install/dynamixel_sdk_custom_interfaces/lib:/home/kimdu/hanse/robot-repo-2/install/dynamixel_sdk/lib:/home/kimdu/hanse/install/open_manipulator_x_libs/lib:/home/kimdu/hanse/install/robotis_manipulator/lib:/home/kimdu/hanse/install/dynamixel_workbench_toolbox/lib:/home/kimdu/hanse/install/dynamixel_sdk_custom_interfaces/lib:/home/kimdu/hanse/install/dynamixel_sdk/lib:/home/kimdu/pinkbot/install/minibot_controllers/lib:/home/kimdu/pinkbot/install/minibot_interfaces/lib:/home/kimdu/pinkbot/install/minibot_hardware_interface/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib PYTHONPATH=/home/kimdu/hanse/build/ai_manipulation/prefix_override:/home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/ai_manipulation build --build-base /home/kimdu/hanse/build/ai_manipulation/build install --record /home/kimdu/hanse/build/ai_manipulation/install.log --single-version-externally-managed

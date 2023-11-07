@@ -1,0 +1,483 @@
+[0.217s] Invoking command in '/home/kimdu/hanse/build/open_manipulator_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/kimdu/hanse/robot-repo-2/install/open_manipulator_x_teleop:/home/kimdu/hanse/robot-repo-2/install/ai_manipulation:/home/kimdu/hanse/install/open_manipulator_x_teleop:/home/kimdu/hanse/install/ai_manipulation:/home/kimdu/pinkbot/install/minibot_driving:/home/kimdu/pinkbot/install/mas_test:/opt/ros/humble /usr/bin/cmake /home/kimdu/hanse/src/open_manipulator_msgs -DCMAKE_INSTALL_PREFIX=/home/kimdu/hanse/install/open_manipulator_msgs
+[0.271s] -- The C compiler identification is GNU 11.4.0
+[0.334s] -- The CXX compiler identification is GNU 11.4.0
+[0.341s] -- Detecting C compiler ABI info
+[0.410s] -- Detecting C compiler ABI info - done
+[0.420s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.420s] -- Detecting C compile features
+[0.420s] -- Detecting C compile features - done
+[0.423s] -- Detecting CXX compiler ABI info
+[0.499s] -- Detecting CXX compiler ABI info - done
+[0.504s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.504s] -- Detecting CXX compile features
+[0.505s] -- Detecting CXX compile features - done
+[0.507s] -- Found ament_cmake: 1.3.5 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.701s] -- Found Python3: /usr/bin/python3.10 (found version "3.10.12") found components: Interpreter 
+[0.776s] -- Found geometry_msgs: 4.2.3 (/opt/ros/humble/share/geometry_msgs/cmake)
+[0.808s] -- Found rosidl_generator_c: 3.1.5 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.812s] -- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.820s] -- Found rosidl_generator_cpp: 3.1.5 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.832s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.852s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.005s] -- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+[1.482s] -- Found ament_cmake_cppcheck: 0.12.8 (/opt/ros/humble/share/ament_cmake_cppcheck/cmake)
+[1.486s] -- Found ament_cmake_cpplint: 0.12.8 (/opt/ros/humble/share/ament_cmake_cpplint/cmake)
+[1.490s] -- Found ament_cmake_uncrustify: 0.12.8 (/opt/ros/humble/share/ament_cmake_uncrustify/cmake)
+[1.495s] -- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+[1.875s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[2.014s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[2.043s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.12", minimum required is "3.6") 
+[2.046s] -- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)
+[2.076s] -- Found PythonLibs: /usr/lib/x86_64-linux-gnu/libpython3.10.so (found suitable version "3.10.12", minimum required is "3.5") 
+[2.076s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[2.076s] -- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10
+[2.077s] -- Using PYTHON_LIBRARIES: /usr/lib/x86_64-linux-gnu/libpython3.10.so
+[2.101s] -- Found PythonExtra: .so  
+[2.210s] -- Found ament_cmake_flake8: 0.12.8 (/opt/ros/humble/share/ament_cmake_flake8/cmake)
+[2.214s] -- Found ament_cmake_pep257: 0.12.8 (/opt/ros/humble/share/ament_cmake_pep257/cmake)
+[2.222s] -- Configuring done
+[2.272s] -- Generating done
+[2.276s] -- Build files have been written to: /home/kimdu/hanse/build/open_manipulator_msgs
+[2.302s] Invoked command in '/home/kimdu/hanse/build/open_manipulator_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/kimdu/hanse/robot-repo-2/install/open_manipulator_x_teleop:/home/kimdu/hanse/robot-repo-2/install/ai_manipulation:/home/kimdu/hanse/install/open_manipulator_x_teleop:/home/kimdu/hanse/install/ai_manipulation:/home/kimdu/pinkbot/install/minibot_driving:/home/kimdu/pinkbot/install/mas_test:/opt/ros/humble /usr/bin/cmake /home/kimdu/hanse/src/open_manipulator_msgs -DCMAKE_INSTALL_PREFIX=/home/kimdu/hanse/install/open_manipulator_msgs
+[2.302s] Invoking command in '/home/kimdu/hanse/build/open_manipulator_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/kimdu/hanse/robot-repo-2/install/open_manipulator_x_teleop:/home/kimdu/hanse/robot-repo-2/install/ai_manipulation:/home/kimdu/hanse/install/open_manipulator_x_teleop:/home/kimdu/hanse/install/ai_manipulation:/home/kimdu/pinkbot/install/minibot_driving:/home/kimdu/pinkbot/install/mas_test:/opt/ros/humble /usr/bin/cmake --build /home/kimdu/hanse/build/open_manipulator_msgs -- -j8 -l8
+[2.366s] [  1%] [34m[1mGenerating C code for ROS interfaces[0m
+[2.407s] [  2%] [34m[1mGenerating C++ code for ROS interfaces[0m
+[2.427s] [  2%] Built target ament_cmake_python_copy_open_manipulator_msgs
+[2.823s] running egg_info
+[2.823s] creating open_manipulator_msgs.egg-info
+[2.824s] writing open_manipulator_msgs.egg-info/PKG-INFO
+[2.824s] writing dependency_links to open_manipulator_msgs.egg-info/dependency_links.txt
+[2.825s] writing top-level names to open_manipulator_msgs.egg-info/top_level.txt
+[2.825s] writing manifest file 'open_manipulator_msgs.egg-info/SOURCES.txt'
+[2.828s] reading manifest file 'open_manipulator_msgs.egg-info/SOURCES.txt'
+[2.829s] writing manifest file 'open_manipulator_msgs.egg-info/SOURCES.txt'
+[2.906s] [  2%] Built target ament_cmake_python_build_open_manipulator_msgs_egg
+[3.927s] [  2%] Built target open_manipulator_msgs__cpp
+[3.958s] [  3%] [34m[1mGenerating C++ type support dispatch for ROS interfaces[0m
+[3.977s] [  4%] [34m[1mGenerating C++ type support for eProsima Fast-RTPS[0m
+[3.991s] [  5%] [34m[1mGenerating C++ introspection for ROS interfaces[0m
+[4.568s] [  6%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_generator_c.dir/rosidl_generator_c/open_manipulator_msgs/msg/detail/joint_position__functions.c.o[0m
+[4.581s] [  7%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_generator_c.dir/rosidl_generator_c/open_manipulator_msgs/msg/detail/kinematics_pose__functions.c.o[0m
+[4.596s] [  8%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_generator_c.dir/rosidl_generator_c/open_manipulator_msgs/msg/detail/open_manipulator_state__functions.c.o[0m
+[4.608s] [  9%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_generator_c.dir/rosidl_generator_c/open_manipulator_msgs/srv/detail/get_joint_position__functions.c.o[0m
+[4.704s] [ 10%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_generator_c.dir/rosidl_generator_c/open_manipulator_msgs/srv/detail/get_kinematics_pose__functions.c.o[0m
+[4.772s] [ 11%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_generator_c.dir/rosidl_generator_c/open_manipulator_msgs/srv/detail/set_joint_position__functions.c.o[0m
+[4.783s] [ 12%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_generator_c.dir/rosidl_generator_c/open_manipulator_msgs/srv/detail/set_drawing_trajectory__functions.c.o[0m
+[4.794s] [ 13%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_generator_c.dir/rosidl_generator_c/open_manipulator_msgs/srv/detail/set_kinematics_pose__functions.c.o[0m
+[4.883s] [ 14%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_generator_c.dir/rosidl_generator_c/open_manipulator_msgs/srv/detail/set_actuator_state__functions.c.o[0m
+[5.057s] [ 15%] [32m[1mLinking C shared library libopen_manipulator_msgs__rosidl_generator_c.so[0m
+[5.163s] [ 16%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/open_manipulator_msgs/msg/kinematics_pose__type_support.cpp.o[0m
+[5.166s] [ 17%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/open_manipulator_msgs/msg/joint_position__type_support.cpp.o[0m
+[5.183s] [ 18%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/open_manipulator_msgs/msg/open_manipulator_state__type_support.cpp.o[0m
+[5.196s] [ 20%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/open_manipulator_msgs/srv/get_joint_position__type_support.cpp.o[0m
+[5.233s] [ 21%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/open_manipulator_msgs/srv/get_kinematics_pose__type_support.cpp.o[0m
+[5.238s] [ 22%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/open_manipulator_msgs/msg/detail/joint_position__type_support.cpp.o[0m
+[5.273s] [ 22%] Built target open_manipulator_msgs__rosidl_generator_c
+[5.381s] [ 23%] [34m[1mGenerating C type support for eProsima Fast-RTPS[0m
+[5.639s] [ 24%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/open_manipulator_msgs/srv/set_joint_position__type_support.cpp.o[0m
+[5.758s] [ 25%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/open_manipulator_msgs/srv/set_kinematics_pose__type_support.cpp.o[0m
+[6.188s] [ 26%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/open_manipulator_msgs/srv/set_drawing_trajectory__type_support.cpp.o[0m
+[6.248s] [ 27%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/open_manipulator_msgs/srv/set_actuator_state__type_support.cpp.o[0m
+[6.320s] [ 28%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/open_manipulator_msgs/msg/detail/kinematics_pose__type_support.cpp.o[0m
+[6.351s] [ 29%] [34m[1mGenerating C introspection for ROS interfaces[0m
+[6.378s] [ 30%] [34m[1mGenerating C type support dispatch for ROS interfaces[0m
+[6.747s] [ 31%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/open_manipulator_msgs/msg/detail/open_manipulator_state__type_support.cpp.o[0m
+[6.918s] [ 32%] [32m[1mLinking CXX shared library libopen_manipulator_msgs__rosidl_typesupport_cpp.so[0m
+[7.014s] [ 33%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/open_manipulator_msgs/msg/detail/dds_fastrtps/joint_position__type_support.cpp.o[0m
+[7.047s] [ 34%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/open_manipulator_msgs/srv/detail/get_joint_position__type_support.cpp.o[0m
+[7.067s] [ 35%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/open_manipulator_msgs/msg/detail/dds_fastrtps/kinematics_pose__type_support.cpp.o[0m
+[7.081s] [ 35%] Built target open_manipulator_msgs__rosidl_typesupport_cpp
+[7.133s] [ 36%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/open_manipulator_msgs/msg/detail/dds_fastrtps/open_manipulator_state__type_support.cpp.o[0m
+[7.308s] [ 37%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/open_manipulator_msgs/srv/detail/get_kinematics_pose__type_support.cpp.o[0m
+[7.791s] [ 38%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/open_manipulator_msgs/srv/detail/dds_fastrtps/get_joint_position__type_support.cpp.o[0m
+[7.940s] [ 40%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/open_manipulator_msgs/srv/detail/dds_fastrtps/get_kinematics_pose__type_support.cpp.o[0m
+[8.235s] [ 41%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/open_manipulator_msgs/srv/detail/dds_fastrtps/set_joint_position__type_support.cpp.o[0m
+[8.261s] [ 42%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/open_manipulator_msgs/srv/detail/set_joint_position__type_support.cpp.o[0m
+[8.330s] [ 43%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/open_manipulator_msgs/msg/joint_position__type_support.cpp.o[0m
+[8.479s] [ 44%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/open_manipulator_msgs/msg/kinematics_pose__type_support.cpp.o[0m
+[8.626s] [ 45%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/open_manipulator_msgs/msg/detail/joint_position__type_support_c.cpp.o[0m
+[8.650s] [ 46%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/open_manipulator_msgs/msg/open_manipulator_state__type_support.cpp.o[0m
+[8.714s] [ 47%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/open_manipulator_msgs/srv/detail/dds_fastrtps/set_kinematics_pose__type_support.cpp.o[0m
+[8.771s] [ 48%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/open_manipulator_msgs/srv/get_joint_position__type_support.cpp.o[0m
+[8.779s] [ 49%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/open_manipulator_msgs/msg/detail/kinematics_pose__type_support_c.cpp.o[0m
+[8.903s] [ 50%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/open_manipulator_msgs/srv/get_kinematics_pose__type_support.cpp.o[0m
+[8.906s] [ 51%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/open_manipulator_msgs/msg/detail/open_manipulator_state__type_support_c.cpp.o[0m
+[9.080s] [ 52%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/open_manipulator_msgs/srv/set_joint_position__type_support.cpp.o[0m
+[9.286s] [ 53%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/open_manipulator_msgs/srv/set_kinematics_pose__type_support.cpp.o[0m
+[9.320s] [ 54%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/open_manipulator_msgs/srv/detail/set_kinematics_pose__type_support.cpp.o[0m
+[9.458s] [ 55%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/open_manipulator_msgs/srv/set_drawing_trajectory__type_support.cpp.o[0m
+[9.500s] [ 56%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/open_manipulator_msgs/srv/detail/get_joint_position__type_support_c.cpp.o[0m
+[9.519s] [ 57%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/open_manipulator_msgs/msg/detail/joint_position__type_support.c.o[0m
+[9.623s] [ 58%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/open_manipulator_msgs/srv/set_actuator_state__type_support.cpp.o[0m
+[9.664s] [ 60%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/open_manipulator_msgs/msg/detail/kinematics_pose__type_support.c.o[0m
+[9.807s] [ 61%] [32m[1mLinking CXX shared library libopen_manipulator_msgs__rosidl_typesupport_c.so[0m
+[9.827s] [ 62%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/open_manipulator_msgs/srv/detail/get_kinematics_pose__type_support_c.cpp.o[0m
+[9.851s] [ 63%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/open_manipulator_msgs/msg/detail/open_manipulator_state__type_support.c.o[0m
+[9.973s] [ 64%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/open_manipulator_msgs/srv/detail/dds_fastrtps/set_drawing_trajectory__type_support.cpp.o[0m
+[9.973s] [ 65%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/open_manipulator_msgs/srv/detail/get_joint_position__type_support.c.o[0m
+[9.974s] [ 65%] Built target open_manipulator_msgs__rosidl_typesupport_c
+[10.019s] [ 66%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/open_manipulator_msgs/srv/detail/get_kinematics_pose__type_support.c.o[0m
+[10.020s] [ 67%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/open_manipulator_msgs/srv/detail/set_joint_position__type_support.c.o[0m
+[10.020s] [ 68%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/open_manipulator_msgs/srv/detail/set_kinematics_pose__type_support.c.o[0m
+[10.036s] [ 69%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/open_manipulator_msgs/srv/detail/dds_fastrtps/set_actuator_state__type_support.cpp.o[0m
+[10.093s] [ 70%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/open_manipulator_msgs/srv/detail/set_drawing_trajectory__type_support.cpp.o[0m
+[10.093s] [ 71%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/open_manipulator_msgs/srv/detail/set_actuator_state__type_support.cpp.o[0m
+[10.096s] [ 72%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/open_manipulator_msgs/srv/detail/set_actuator_state__type_support.c.o[0m
+[10.117s] [ 73%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/open_manipulator_msgs/srv/detail/set_drawing_trajectory__type_support.c.o[0m
+[10.234s] [ 74%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/open_manipulator_msgs/srv/detail/set_joint_position__type_support_c.cpp.o[0m
+[10.258s] [ 76%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/open_manipulator_msgs/srv/detail/set_kinematics_pose__type_support_c.cpp.o[0m
+[10.258s] [ 76%] [32m[1mLinking C shared library libopen_manipulator_msgs__rosidl_typesupport_introspection_c.so[0m
+[10.430s] [ 76%] Built target open_manipulator_msgs__rosidl_typesupport_introspection_c
+[10.499s] [ 77%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/open_manipulator_msgs/srv/detail/set_drawing_trajectory__type_support_c.cpp.o[0m
+[10.633s] [ 78%] [32mBuilding CXX object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/open_manipulator_msgs/srv/detail/set_actuator_state__type_support_c.cpp.o[0m
+[10.695s] [ 80%] [32m[1mLinking CXX shared library libopen_manipulator_msgs__rosidl_typesupport_fastrtps_cpp.so[0m
+[10.786s] [ 81%] [32m[1mLinking CXX shared library libopen_manipulator_msgs__rosidl_typesupport_introspection_cpp.so[0m
+[10.823s] [ 81%] Built target open_manipulator_msgs__rosidl_typesupport_fastrtps_cpp
+[10.912s] [ 81%] Built target open_manipulator_msgs__rosidl_typesupport_introspection_cpp
+[11.111s] [ 82%] [32m[1mLinking CXX shared library libopen_manipulator_msgs__rosidl_typesupport_fastrtps_c.so[0m
+[11.192s] [ 82%] Built target open_manipulator_msgs__rosidl_typesupport_fastrtps_c
+[11.211s] [ 82%] Built target open_manipulator_msgs
+[11.232s] [ 83%] [34m[1mGenerating Python code for ROS interfaces[0m
+[12.946s] [ 83%] Built target open_manipulator_msgs__py
+[12.969s] [ 84%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_generator_py.dir/rosidl_generator_py/open_manipulator_msgs/msg/_open_manipulator_state_s.c.o[0m
+[12.969s] [ 85%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_generator_py.dir/rosidl_generator_py/open_manipulator_msgs/msg/_joint_position_s.c.o[0m
+[12.970s] [ 86%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_generator_py.dir/rosidl_generator_py/open_manipulator_msgs/msg/_kinematics_pose_s.c.o[0m
+[12.970s] [ 87%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_generator_py.dir/rosidl_generator_py/open_manipulator_msgs/srv/_get_joint_position_s.c.o[0m
+[12.971s] [ 88%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_generator_py.dir/rosidl_generator_py/open_manipulator_msgs/srv/_get_kinematics_pose_s.c.o[0m
+[12.980s] [ 89%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_generator_py.dir/rosidl_generator_py/open_manipulator_msgs/srv/_set_joint_position_s.c.o[0m
+[12.982s] [ 90%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_generator_py.dir/rosidl_generator_py/open_manipulator_msgs/srv/_set_kinematics_pose_s.c.o[0m
+[12.992s] [ 91%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_generator_py.dir/rosidl_generator_py/open_manipulator_msgs/srv/_set_drawing_trajectory_s.c.o[0m
+[13.098s] [ 92%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_generator_py.dir/rosidl_generator_py/open_manipulator_msgs/srv/_set_actuator_state_s.c.o[0m
+[13.279s] [ 93%] [32m[1mLinking C shared library rosidl_generator_py/open_manipulator_msgs/libopen_manipulator_msgs__rosidl_generator_py.so[0m
+[13.333s] [ 93%] Built target open_manipulator_msgs__rosidl_generator_py
+[13.354s] [ 95%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/open_manipulator_msgs/_open_manipulator_msgs_s.ep.rosidl_typesupport_fastrtps_c.c.o[0m
+[13.355s] [ 95%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/open_manipulator_msgs/_open_manipulator_msgs_s.ep.rosidl_typesupport_introspection_c.c.o[0m
+[13.356s] [ 96%] [32mBuilding C object CMakeFiles/open_manipulator_msgs__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/open_manipulator_msgs/_open_manipulator_msgs_s.ep.rosidl_typesupport_c.c.o[0m
+[13.517s] [ 97%] [32m[1mLinking C shared library rosidl_generator_py/open_manipulator_msgs/open_manipulator_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so[0m
+[13.527s] [ 98%] [32m[1mLinking C shared library rosidl_generator_py/open_manipulator_msgs/open_manipulator_msgs_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so[0m
+[13.551s] [100%] [32m[1mLinking C shared library rosidl_generator_py/open_manipulator_msgs/open_manipulator_msgs_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so[0m
+[13.569s] [100%] Built target open_manipulator_msgs__rosidl_typesupport_fastrtps_c__pyext
+[13.593s] [100%] Built target open_manipulator_msgs__rosidl_typesupport_introspection_c__pyext
+[13.602s] [100%] Built target open_manipulator_msgs__rosidl_typesupport_c__pyext
+[13.613s] Invoked command in '/home/kimdu/hanse/build/open_manipulator_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/kimdu/hanse/robot-repo-2/install/open_manipulator_x_teleop:/home/kimdu/hanse/robot-repo-2/install/ai_manipulation:/home/kimdu/hanse/install/open_manipulator_x_teleop:/home/kimdu/hanse/install/ai_manipulation:/home/kimdu/pinkbot/install/minibot_driving:/home/kimdu/pinkbot/install/mas_test:/opt/ros/humble /usr/bin/cmake --build /home/kimdu/hanse/build/open_manipulator_msgs -- -j8 -l8
+[13.826s] Invoking command in '/home/kimdu/hanse/build/open_manipulator_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/kimdu/hanse/robot-repo-2/install/open_manipulator_x_teleop:/home/kimdu/hanse/robot-repo-2/install/ai_manipulation:/home/kimdu/hanse/install/open_manipulator_x_teleop:/home/kimdu/hanse/install/ai_manipulation:/home/kimdu/pinkbot/install/minibot_driving:/home/kimdu/pinkbot/install/mas_test:/opt/ros/humble /usr/bin/cmake --install /home/kimdu/hanse/build/open_manipulator_msgs
+[13.833s] -- Install configuration: ""
+[13.833s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/ament_index/resource_index/rosidl_interfaces/open_manipulator_msgs
+[13.833s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs
+[13.833s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg
+[13.833s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/open_manipulator_state.h
+[13.834s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/kinematics_pose.h
+[13.834s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/rosidl_generator_c__visibility_control.h
+[13.834s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/joint_position.h
+[13.834s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail
+[13.834s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/kinematics_pose__functions.c
+[13.834s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/joint_position__functions.h
+[13.834s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/open_manipulator_state__struct.h
+[13.834s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/kinematics_pose__type_support.h
+[13.834s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/kinematics_pose__functions.h
+[13.834s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/joint_position__struct.h
+[13.834s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/open_manipulator_state__functions.c
+[13.834s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/open_manipulator_state__functions.h
+[13.834s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/kinematics_pose__struct.h
+[13.834s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/open_manipulator_state__type_support.h
+[13.835s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/joint_position__type_support.h
+[13.835s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/joint_position__functions.c
+[13.835s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv
+[13.835s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/set_actuator_state.h
+[13.835s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/get_joint_position.h
+[13.835s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/set_drawing_trajectory.h
+[13.835s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/set_joint_position.h
+[13.835s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/get_kinematics_pose.h
+[13.835s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail
+[13.835s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_joint_position__functions.h
+[13.835s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_kinematics_pose__functions.h
+[13.835s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_kinematics_pose__functions.c
+[13.836s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_drawing_trajectory__struct.h
+[13.836s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_drawing_trajectory__type_support.h
+[13.836s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_joint_position__functions.c
+[13.836s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_actuator_state__functions.c
+[13.836s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_kinematics_pose__functions.h
+[13.836s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_kinematics_pose__type_support.h
+[13.836s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_joint_position__struct.h
+[13.836s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_joint_position__struct.h
+[13.836s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_kinematics_pose__struct.h
+[13.836s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_actuator_state__type_support.h
+[13.836s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_actuator_state__functions.h
+[13.836s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_kinematics_pose__type_support.h
+[13.837s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_joint_position__type_support.h
+[13.837s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_drawing_trajectory__functions.c
+[13.837s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_joint_position__functions.h
+[13.837s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_actuator_state__struct.h
+[13.837s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_drawing_trajectory__functions.h
+[13.837s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_joint_position__type_support.h
+[13.837s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_kinematics_pose__struct.h
+[13.837s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_kinematics_pose__functions.c
+[13.837s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_joint_position__functions.c
+[13.837s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/set_kinematics_pose.h
+[13.837s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/environment/library_path.sh
+[13.837s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/environment/library_path.dsv
+[13.838s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/lib/libopen_manipulator_msgs__rosidl_generator_c.so
+[13.838s] -- Set runtime path of "/home/kimdu/hanse/install/open_manipulator_msgs/lib/libopen_manipulator_msgs__rosidl_generator_c.so" to ""
+[13.838s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs
+[13.838s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg
+[13.838s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[13.838s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail
+[13.838s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/kinematics_pose__rosidl_typesupport_fastrtps_c.h
+[13.838s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/joint_position__rosidl_typesupport_fastrtps_c.h
+[13.838s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/open_manipulator_state__rosidl_typesupport_fastrtps_c.h
+[13.838s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv
+[13.839s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail
+[13.839s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_kinematics_pose__rosidl_typesupport_fastrtps_c.h
+[13.839s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_drawing_trajectory__rosidl_typesupport_fastrtps_c.h
+[13.839s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_actuator_state__rosidl_typesupport_fastrtps_c.h
+[13.839s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_joint_position__rosidl_typesupport_fastrtps_c.h
+[13.839s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_kinematics_pose__rosidl_typesupport_fastrtps_c.h
+[13.839s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_joint_position__rosidl_typesupport_fastrtps_c.h
+[13.839s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/lib/libopen_manipulator_msgs__rosidl_typesupport_fastrtps_c.so
+[13.839s] -- Set runtime path of "/home/kimdu/hanse/install/open_manipulator_msgs/lib/libopen_manipulator_msgs__rosidl_typesupport_fastrtps_c.so" to ""
+[13.839s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs
+[13.839s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg
+[13.839s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/open_manipulator_state.hpp
+[13.839s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/kinematics_pose.hpp
+[13.839s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/joint_position.hpp
+[13.839s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail
+[13.839s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/joint_position__struct.hpp
+[13.839s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/kinematics_pose__traits.hpp
+[13.839s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/joint_position__traits.hpp
+[13.840s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/open_manipulator_state__builder.hpp
+[13.840s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/kinematics_pose__builder.hpp
+[13.840s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/joint_position__builder.hpp
+[13.840s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/open_manipulator_state__traits.hpp
+[13.840s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/kinematics_pose__struct.hpp
+[13.840s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/open_manipulator_state__struct.hpp
+[13.840s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv
+[13.840s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/set_joint_position.hpp
+[13.840s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/get_joint_position.hpp
+[13.840s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/set_drawing_trajectory.hpp
+[13.840s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/get_kinematics_pose.hpp
+[13.840s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail
+[13.840s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_kinematics_pose__builder.hpp
+[13.840s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_joint_position__struct.hpp
+[13.840s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_kinematics_pose__builder.hpp
+[13.840s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_joint_position__struct.hpp
+[13.841s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_drawing_trajectory__struct.hpp
+[13.841s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_kinematics_pose__struct.hpp
+[13.841s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_joint_position__traits.hpp
+[13.841s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_drawing_trajectory__traits.hpp
+[13.841s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_kinematics_pose__traits.hpp
+[13.841s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_joint_position__builder.hpp
+[13.841s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_drawing_trajectory__builder.hpp
+[13.841s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_actuator_state__struct.hpp
+[13.841s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_joint_position__builder.hpp
+[13.841s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_actuator_state__builder.hpp
+[13.841s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_joint_position__traits.hpp
+[13.841s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_kinematics_pose__traits.hpp
+[13.841s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_actuator_state__traits.hpp
+[13.841s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_kinematics_pose__struct.hpp
+[13.841s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/set_actuator_state.hpp
+[13.842s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/set_kinematics_pose.hpp
+[13.842s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs
+[13.842s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg
+[13.842s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[13.842s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail
+[13.842s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/open_manipulator_state__rosidl_typesupport_fastrtps_cpp.hpp
+[13.842s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/joint_position__rosidl_typesupport_fastrtps_cpp.hpp
+[13.842s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/dds_fastrtps
+[13.842s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/kinematics_pose__rosidl_typesupport_fastrtps_cpp.hpp
+[13.842s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv
+[13.842s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail
+[13.842s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_joint_position__rosidl_typesupport_fastrtps_cpp.hpp
+[13.842s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_drawing_trajectory__rosidl_typesupport_fastrtps_cpp.hpp
+[13.842s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_kinematics_pose__rosidl_typesupport_fastrtps_cpp.hpp
+[13.842s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/dds_fastrtps
+[13.842s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_joint_position__rosidl_typesupport_fastrtps_cpp.hpp
+[13.842s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_actuator_state__rosidl_typesupport_fastrtps_cpp.hpp
+[13.842s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_kinematics_pose__rosidl_typesupport_fastrtps_cpp.hpp
+[13.842s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/lib/libopen_manipulator_msgs__rosidl_typesupport_fastrtps_cpp.so
+[13.842s] -- Set runtime path of "/home/kimdu/hanse/install/open_manipulator_msgs/lib/libopen_manipulator_msgs__rosidl_typesupport_fastrtps_cpp.so" to ""
+[13.842s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs
+[13.843s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg
+[13.843s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[13.843s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail
+[13.843s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/open_manipulator_state__type_support.c
+[13.843s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/kinematics_pose__rosidl_typesupport_introspection_c.h
+[13.843s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/joint_position__type_support.c
+[13.843s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/kinematics_pose__type_support.c
+[13.843s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/joint_position__rosidl_typesupport_introspection_c.h
+[13.843s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/open_manipulator_state__rosidl_typesupport_introspection_c.h
+[13.843s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv
+[13.843s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail
+[13.843s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_drawing_trajectory__type_support.c
+[13.843s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_joint_position__rosidl_typesupport_introspection_c.h
+[13.843s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_actuator_state__rosidl_typesupport_introspection_c.h
+[13.844s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_drawing_trajectory__rosidl_typesupport_introspection_c.h
+[13.844s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_kinematics_pose__type_support.c
+[13.844s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_joint_position__type_support.c
+[13.844s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_joint_position__rosidl_typesupport_introspection_c.h
+[13.844s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_joint_position__type_support.c
+[13.844s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_kinematics_pose__rosidl_typesupport_introspection_c.h
+[13.844s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_kinematics_pose__rosidl_typesupport_introspection_c.h
+[13.844s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_kinematics_pose__type_support.c
+[13.844s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_actuator_state__type_support.c
+[13.844s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/lib/libopen_manipulator_msgs__rosidl_typesupport_introspection_c.so
+[13.844s] -- Set runtime path of "/home/kimdu/hanse/install/open_manipulator_msgs/lib/libopen_manipulator_msgs__rosidl_typesupport_introspection_c.so" to ""
+[13.844s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/lib/libopen_manipulator_msgs__rosidl_typesupport_c.so
+[13.844s] -- Set runtime path of "/home/kimdu/hanse/install/open_manipulator_msgs/lib/libopen_manipulator_msgs__rosidl_typesupport_c.so" to ""
+[13.845s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs
+[13.845s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg
+[13.845s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail
+[13.845s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/kinematics_pose__rosidl_typesupport_introspection_cpp.hpp
+[13.845s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/open_manipulator_state__type_support.cpp
+[13.845s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/joint_position__type_support.cpp
+[13.845s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/joint_position__rosidl_typesupport_introspection_cpp.hpp
+[13.845s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/open_manipulator_state__rosidl_typesupport_introspection_cpp.hpp
+[13.845s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/msg/detail/kinematics_pose__type_support.cpp
+[13.845s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv
+[13.845s] -- Up-to-date: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail
+[13.845s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_joint_position__type_support.cpp
+[13.845s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_kinematics_pose__type_support.cpp
+[13.845s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_actuator_state__type_support.cpp
+[13.846s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_drawing_trajectory__type_support.cpp
+[13.846s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_kinematics_pose__rosidl_typesupport_introspection_cpp.hpp
+[13.846s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_kinematics_pose__rosidl_typesupport_introspection_cpp.hpp
+[13.846s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_kinematics_pose__type_support.cpp
+[13.846s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_joint_position__rosidl_typesupport_introspection_cpp.hpp
+[13.846s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_joint_position__rosidl_typesupport_introspection_cpp.hpp
+[13.846s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_actuator_state__rosidl_typesupport_introspection_cpp.hpp
+[13.846s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/get_joint_position__type_support.cpp
+[13.846s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/include/open_manipulator_msgs/open_manipulator_msgs/srv/detail/set_drawing_trajectory__rosidl_typesupport_introspection_cpp.hpp
+[13.846s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/lib/libopen_manipulator_msgs__rosidl_typesupport_introspection_cpp.so
+[13.846s] -- Set runtime path of "/home/kimdu/hanse/install/open_manipulator_msgs/lib/libopen_manipulator_msgs__rosidl_typesupport_introspection_cpp.so" to ""
+[13.846s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/lib/libopen_manipulator_msgs__rosidl_typesupport_cpp.so
+[13.846s] -- Set runtime path of "/home/kimdu/hanse/install/open_manipulator_msgs/lib/libopen_manipulator_msgs__rosidl_typesupport_cpp.so" to ""
+[13.846s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/environment/pythonpath.sh
+[13.846s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/environment/pythonpath.dsv
+[13.846s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs-2.2.0-py3.10.egg-info
+[13.846s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs-2.2.0-py3.10.egg-info/top_level.txt
+[13.846s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs-2.2.0-py3.10.egg-info/dependency_links.txt
+[13.846s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs-2.2.0-py3.10.egg-info/PKG-INFO
+[13.847s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs-2.2.0-py3.10.egg-info/SOURCES.txt
+[13.847s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs
+[13.847s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/open_manipulator_msgs_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+[13.847s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/_open_manipulator_msgs_s.ep.rosidl_typesupport_fastrtps_c.c
+[13.847s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/open_manipulator_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+[13.847s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/__init__.py
+[13.847s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/msg
+[13.847s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/msg/_joint_position_s.c
+[13.847s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/msg/_open_manipulator_state_s.c
+[13.847s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/msg/_open_manipulator_state.py
+[13.847s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/msg/_kinematics_pose.py
+[13.847s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/msg/__init__.py
+[13.847s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/msg/_kinematics_pose_s.c
+[13.847s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/msg/_joint_position.py
+[13.848s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/libopen_manipulator_msgs__rosidl_generator_py.so
+[13.848s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/_open_manipulator_msgs_s.ep.rosidl_typesupport_c.c
+[13.848s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/_open_manipulator_msgs_s.ep.rosidl_typesupport_introspection_c.c
+[13.848s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/srv
+[13.848s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/srv/_set_actuator_state_s.c
+[13.848s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/srv/_get_kinematics_pose_s.c
+[13.848s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/srv/_set_drawing_trajectory_s.c
+[13.848s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/srv/_set_joint_position.py
+[13.848s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/srv/_get_joint_position.py
+[13.848s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/srv/_set_actuator_state.py
+[13.848s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/srv/_set_joint_position_s.c
+[13.849s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/srv/__init__.py
+[13.849s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/srv/_set_kinematics_pose.py
+[13.849s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/srv/_get_joint_position_s.c
+[13.849s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/srv/_set_kinematics_pose_s.c
+[13.849s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/srv/_set_drawing_trajectory.py
+[13.849s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/srv/_get_kinematics_pose.py
+[13.849s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/open_manipulator_msgs_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+[13.883s] Listing '/home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs'...
+[13.883s] Compiling '/home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/__init__.py'...
+[13.883s] Listing '/home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/msg'...
+[13.883s] Compiling '/home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/msg/__init__.py'...
+[13.883s] Compiling '/home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/msg/_joint_position.py'...
+[13.883s] Compiling '/home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/msg/_kinematics_pose.py'...
+[13.883s] Compiling '/home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/msg/_open_manipulator_state.py'...
+[13.883s] Listing '/home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/srv'...
+[13.883s] Compiling '/home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/srv/__init__.py'...
+[13.883s] Compiling '/home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/srv/_get_joint_position.py'...
+[13.884s] Compiling '/home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/srv/_get_kinematics_pose.py'...
+[13.884s] Compiling '/home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/srv/_set_actuator_state.py'...
+[13.884s] Compiling '/home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/srv/_set_drawing_trajectory.py'...
+[13.884s] Compiling '/home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/srv/_set_joint_position.py'...
+[13.884s] Compiling '/home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/srv/_set_kinematics_pose.py'...
+[13.887s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/open_manipulator_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+[13.887s] -- Set runtime path of "/home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/open_manipulator_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so" to ""
+[13.887s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/open_manipulator_msgs_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+[13.887s] -- Set runtime path of "/home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/open_manipulator_msgs_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so" to ""
+[13.887s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/open_manipulator_msgs_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+[13.887s] -- Set runtime path of "/home/kimdu/hanse/install/open_manipulator_msgs/local/lib/python3.10/dist-packages/open_manipulator_msgs/open_manipulator_msgs_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so" to ""
+[13.887s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/lib/libopen_manipulator_msgs__rosidl_generator_py.so
+[13.888s] -- Set runtime path of "/home/kimdu/hanse/install/open_manipulator_msgs/lib/libopen_manipulator_msgs__rosidl_generator_py.so" to ""
+[13.888s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/msg/JointPosition.idl
+[13.888s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/msg/KinematicsPose.idl
+[13.888s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/msg/OpenManipulatorState.idl
+[13.888s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/GetJointPosition.idl
+[13.888s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/GetKinematicsPose.idl
+[13.888s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/SetJointPosition.idl
+[13.888s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/SetKinematicsPose.idl
+[13.888s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/SetDrawingTrajectory.idl
+[13.888s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/SetActuatorState.idl
+[13.888s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/msg/JointPosition.msg
+[13.888s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/msg/KinematicsPose.msg
+[13.889s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/msg/OpenManipulatorState.msg
+[13.889s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/GetJointPosition.srv
+[13.889s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/GetJointPosition_Request.msg
+[13.889s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/GetJointPosition_Response.msg
+[13.889s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/GetKinematicsPose.srv
+[13.889s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/GetKinematicsPose_Request.msg
+[13.889s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/GetKinematicsPose_Response.msg
+[13.889s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/SetJointPosition.srv
+[13.889s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/SetJointPosition_Request.msg
+[13.889s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/SetJointPosition_Response.msg
+[13.889s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/SetKinematicsPose.srv
+[13.890s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/SetKinematicsPose_Request.msg
+[13.890s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/SetKinematicsPose_Response.msg
+[13.890s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/SetDrawingTrajectory.srv
+[13.890s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/SetDrawingTrajectory_Request.msg
+[13.890s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/SetDrawingTrajectory_Response.msg
+[13.890s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/SetActuatorState.srv
+[13.890s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/SetActuatorState_Request.msg
+[13.890s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/srv/SetActuatorState_Response.msg
+[13.890s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/ament_index/resource_index/package_run_dependencies/open_manipulator_msgs
+[13.890s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/ament_index/resource_index/parent_prefix_path/open_manipulator_msgs
+[13.890s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/environment/ament_prefix_path.sh
+[13.890s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/environment/ament_prefix_path.dsv
+[13.890s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/environment/path.sh
+[13.891s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/environment/path.dsv
+[13.891s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/local_setup.bash
+[13.891s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/local_setup.sh
+[13.891s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/local_setup.zsh
+[13.891s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/local_setup.dsv
+[13.891s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/package.dsv
+[13.891s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/ament_index/resource_index/packages/open_manipulator_msgs
+[13.891s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/export_open_manipulator_msgs__rosidl_generator_cExport.cmake
+[13.891s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/export_open_manipulator_msgs__rosidl_generator_cExport-noconfig.cmake
+[13.891s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/export_open_manipulator_msgs__rosidl_typesupport_fastrtps_cExport.cmake
+[13.891s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/export_open_manipulator_msgs__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[13.891s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/export_open_manipulator_msgs__rosidl_generator_cppExport.cmake
+[13.891s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/export_open_manipulator_msgs__rosidl_typesupport_fastrtps_cppExport.cmake
+[13.892s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/export_open_manipulator_msgs__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[13.892s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/open_manipulator_msgs__rosidl_typesupport_introspection_cExport.cmake
+[13.892s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/open_manipulator_msgs__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[13.892s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/open_manipulator_msgs__rosidl_typesupport_cExport.cmake
+[13.892s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/open_manipulator_msgs__rosidl_typesupport_cExport-noconfig.cmake
+[13.892s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/open_manipulator_msgs__rosidl_typesupport_introspection_cppExport.cmake
+[13.892s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/open_manipulator_msgs__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[13.892s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/open_manipulator_msgs__rosidl_typesupport_cppExport.cmake
+[13.892s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/open_manipulator_msgs__rosidl_typesupport_cppExport-noconfig.cmake
+[13.892s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/export_open_manipulator_msgs__rosidl_generator_pyExport.cmake
+[13.892s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/export_open_manipulator_msgs__rosidl_generator_pyExport-noconfig.cmake
+[13.892s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/rosidl_cmake-extras.cmake
+[13.892s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/ament_cmake_export_dependencies-extras.cmake
+[13.893s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/ament_cmake_export_include_directories-extras.cmake
+[13.893s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/ament_cmake_export_libraries-extras.cmake
+[13.893s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/ament_cmake_export_targets-extras.cmake
+[13.893s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[13.893s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[13.893s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/open_manipulator_msgsConfig.cmake
+[13.893s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake/open_manipulator_msgsConfig-version.cmake
+[13.893s] -- Installing: /home/kimdu/hanse/install/open_manipulator_msgs/share/open_manipulator_msgs/package.xml
+[13.895s] Invoked command in '/home/kimdu/hanse/build/open_manipulator_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/kimdu/hanse/robot-repo-2/install/open_manipulator_x_teleop:/home/kimdu/hanse/robot-repo-2/install/ai_manipulation:/home/kimdu/hanse/install/open_manipulator_x_teleop:/home/kimdu/hanse/install/ai_manipulation:/home/kimdu/pinkbot/install/minibot_driving:/home/kimdu/pinkbot/install/mas_test:/opt/ros/humble /usr/bin/cmake --install /home/kimdu/hanse/build/open_manipulator_msgs

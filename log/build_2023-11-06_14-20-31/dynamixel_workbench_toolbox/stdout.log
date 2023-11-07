@@ -1,0 +1,64 @@
+[ 11%] Built target dynamixel_workbench
+[ 22%] Built target dynamixel_workbench_toolbox
+[ 27%] Built target ping
+[ 31%] Built target model_scan
+[ 36%] Built target bps_change
+[ 40%] Built target mode_change
+[ 45%] Built target reboot
+[ 50%] Built target id_change
+[ 59%] Built target reset
+[ 59%] Built target position
+[ 63%] Built target current_based_position
+[ 68%] Built target velocity
+[ 72%] Built target read_write
+[ 77%] Built target sync_write
+[ 81%] Built target bulk_read_write
+[ 86%] Built target sync_read_write
+[ 90%] Built target find_dynamixel
+[ 95%] Built target monitor
+[100%] Built target dxl_controller
+-- Install configuration: ""
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/lib/libdynamixel_workbench_toolbox.so
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/include/
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/include//dynamixel_workbench_toolbox
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/include//dynamixel_workbench_toolbox/dynamixel_tool.h
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/include//dynamixel_workbench_toolbox/dynamixel_driver.h
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/include//dynamixel_workbench_toolbox/dynamixel_item.h
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/include//dynamixel_workbench_toolbox/dynamixel_workbench.h
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/share/dynamixel_workbench_toolbox/environment/library_path.sh
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/share/dynamixel_workbench_toolbox/environment/library_path.dsv
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/share/ament_index/resource_index/package_run_dependencies/dynamixel_workbench_toolbox
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/share/ament_index/resource_index/parent_prefix_path/dynamixel_workbench_toolbox
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/share/dynamixel_workbench_toolbox/environment/ament_prefix_path.sh
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/share/dynamixel_workbench_toolbox/environment/ament_prefix_path.dsv
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/share/dynamixel_workbench_toolbox/environment/path.sh
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/share/dynamixel_workbench_toolbox/environment/path.dsv
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/share/dynamixel_workbench_toolbox/local_setup.bash
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/share/dynamixel_workbench_toolbox/local_setup.sh
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/share/dynamixel_workbench_toolbox/local_setup.zsh
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/share/dynamixel_workbench_toolbox/local_setup.dsv
+-- Installing: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/share/dynamixel_workbench_toolbox/package.dsv
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/share/ament_index/resource_index/packages/dynamixel_workbench_toolbox
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/share/dynamixel_workbench_toolbox/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/share/dynamixel_workbench_toolbox/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/share/dynamixel_workbench_toolbox/cmake/ament_cmake_export_libraries-extras.cmake
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/share/dynamixel_workbench_toolbox/cmake/dynamixel_workbench_toolboxConfig.cmake
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/share/dynamixel_workbench_toolbox/cmake/dynamixel_workbench_toolboxConfig-version.cmake
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/share/dynamixel_workbench_toolbox/package.xml
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/lib/dynamixel_workbench_toolbox/model_scan
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/lib/dynamixel_workbench_toolbox/ping
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/lib/dynamixel_workbench_toolbox/id_change
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/lib/dynamixel_workbench_toolbox/bps_change
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/lib/dynamixel_workbench_toolbox/mode_change
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/lib/dynamixel_workbench_toolbox/reboot
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/lib/dynamixel_workbench_toolbox/reset
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/lib/dynamixel_workbench_toolbox/position
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/lib/dynamixel_workbench_toolbox/velocity
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/lib/dynamixel_workbench_toolbox/current_based_position
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/lib/dynamixel_workbench_toolbox/read_write
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/lib/dynamixel_workbench_toolbox/sync_write
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/lib/dynamixel_workbench_toolbox/sync_read_write
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/lib/dynamixel_workbench_toolbox/bulk_read_write
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/lib/dynamixel_workbench_toolbox/find_dynamixel
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/lib/dynamixel_workbench_toolbox/monitor
+-- Up-to-date: /home/kimdu/hanse/install/dynamixel_workbench_toolbox/lib/dynamixel_workbench_toolbox/dxl_controller
