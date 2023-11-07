@@ -258,7 +258,7 @@ class Agent():
 
     def _build_model(self):
         model = LinearRegression()
-        self.model.fit(self.states, self.acts)
+        model.fit(self.states, self.acts)
         return model
 
     def backup(self):
@@ -371,7 +371,7 @@ def move_softly_to(goal_point, mul = 12):
     for step in range(1, full_step+1):
         goal_joint_angle[:5] = [(step * x + (full_step - step) * y)/full_step for x, y in zip(goal_point, start_point)]
         teleop_keyboard.send_goal_joint_space()
-        wait_arrive()
+        wait_arrive(0.1)
 
 def generate_random_pose(pose, angle_gap = 0.1):
     random_values = [0] * 5
@@ -434,8 +434,9 @@ def main():
         way_point_2 = json.load(json_file)
 
     # LinearRegressoin way_point 2 to 1 
-    X = way_point_2.copy()
-    y = way_point_1.copy()
+    X = np.array(way_point_2)[:,:5]
+    y = np.array(way_point_1)[:,:5]
+    print(np.array(way_point_2)[:,:5].shape)
     point_2_to_1 = LinearRegression()
     point_2_to_1.fit(X, y)
 
@@ -474,11 +475,11 @@ def main():
         print("Model prediction failed!")
         return
         
-    point_2 = agent.predict(state)[0]
+    point_2 = agent.predict(np.array(state).reshape(1, -1))[0]
     move_softly_to(point_2)
 
-    # point_1 = point_2_to_1.predict(point_2.reshape(1, -1))[0]
-    # move_softly_to(point_1)
+    point_1 = point_2_to_1.predict(np.array(present_joint_angle[:5]).reshape(1, -1))[0]
+    move_softly_to(point_1)
     
     print("Model prediction success!!!")
 
