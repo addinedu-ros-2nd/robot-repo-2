@@ -439,7 +439,6 @@ def main():
     point_2_to_1 = LinearRegression()
     point_2_to_1.fit(X, y)
 
-
     # Go Searching point 
     move_softly_to(search_start_point)
     wait_arrive(0.05)
