@@ -50,7 +50,7 @@ output = subprocess.check_output(["ros2", "pkg", "prefix", package_name], text=T
 workspace_path = output.split("/install")[0]
 
 # Params
-states_backup = os.path.join(workspace_path, "src", package_name, package_name, "datas/six_dxl_sates.json")
+states_backup = os.path.join(workspace_path, "src", package_name, package_name, "datas/six_dxl_states.json")
 acts_backup = os.path.join(workspace_path, "src", package_name, package_name, "datas/six_dxl_acts.json")
 model_backup = os.path.join(workspace_path, "src", package_name, package_name, "datas/six_dxl_model.pkl")
 k_path = os.path.join(workspace_path, "src", package_name, package_name, "utils/calibration_matrix.npy")
@@ -113,7 +113,7 @@ def run(
         weights=os.path.join(workspace_path, "src", package_name, package_name, "utils/best.pt"),  # model path or triton URL
         source="0",  # file/dir/URL/glob/screen/0(webcam)
         imgsz=(640, 480),  # inference size (height, width)
-        conf_thres=0.3,  # confidence threshold
+        conf_thres=0.1,  # confidence threshold
         iou_thres=0.3,  # NMS IOU threshold
         max_det=1000,  # maximum detections per image
         device='',  # cuda device, i.e. 0 or 0,1,2,3 or cpu
