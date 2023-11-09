@@ -50,7 +50,7 @@ output = subprocess.check_output(["ros2", "pkg", "prefix", package_name], text=T
 workspace_path = output.split("/install")[0]
 
 # Params
-states_backup = os.path.join(workspace_path, "src", package_name, package_name, "datas/six_dxl_sates.json")
+states_backup = os.path.join(workspace_path, "src", package_name, package_name, "datas/six_dxl_states.json")
 acts_backup = os.path.join(workspace_path, "src", package_name, package_name, "datas/six_dxl_acts.json")
 model_backup = os.path.join(workspace_path, "src", package_name, package_name, "datas/six_dxl_model.pkl")
 k_path = os.path.join(workspace_path, "src", package_name, package_name, "utils/calibration_matrix.npy")
@@ -113,7 +113,7 @@ def run(
         weights=os.path.join(workspace_path, "src", package_name, package_name, "utils/best.pt"),  # model path or triton URL
         source="0",  # file/dir/URL/glob/screen/0(webcam)
         imgsz=(640, 480),  # inference size (height, width)
-        conf_thres=0.3,  # confidence threshold
+        conf_thres=0.1,  # confidence threshold
         iou_thres=0.3,  # NMS IOU threshold
         max_det=1000,  # maximum detections per image
         device='',  # cuda device, i.e. 0 or 0,1,2,3 or cpu
@@ -318,46 +318,71 @@ searching_point=0
 
 
 def gripper_searching_action():
-    global xy_shoe, xy_shoelace, teleop_keyboard, searching_point, way_point_1, center_x, center_y, tmp_xy
+    global xy_shoe, xy_shoelace, teleop_keyboard, searching_point, way_point_1, center_x, center_y, tmp_xy, fail_list, success_count
     gripper_searching_start_point = [0.13345633447170258, -0.4862719178199768, 0.04601942375302315, 2.1491072177886963, -1.1, -1.3606410026550293] # 그립퍼 서칭 시작
-    x_lower, x_upper, y_lower, y_upper = 200, 410, 125, 350    #### 두번째 300, 340, 225, 250  ### 맨 첫 기준 317, 323, 237, 243
+    x_lower, x_upper, y_lower, y_upper = 200, 550, 125, 350    #### 두번째 300, 340, 225, 250  ### 맨 첫 기준 317, 323, 237, 243
     # goal_joint_angle[4] = -1.1
     # teleop_keyboard.send_goal_joint_space()
+    
+    agent = Agent()
+    # way_point_2 = json.load(json_file)
     
     move_softly_to(gripper_searching_start_point)
     wait_arrive(0.1)
     time.sleep(2)
+    print("Searching Start")
+    # 바운딩 박스가 4개가 생성되면 success_count가 +1
+    success_count = 0
     while True:
-        print("Searching Start")
-        goal_joint_angle[4] += 0.02
+        
+        goal_joint_angle[4] += 0.01
         teleop_keyboard.send_goal_joint_space()
         wait_arrive(0.05)
 
         
-        print("shooe's box :", len(xy_shoe),"shoelace's box : ", len(xy_shoelace) )
+        print("shoe's box :", len(xy_shoe),"shoelace's box : ", len(xy_shoelace) )
         print("roll is", present_joint_angle[4])
-        if (present_joint_angle[4] <= 1.4):
+        
+        # gripper 의 각도가 특정각만큼만 searching
+        if (present_joint_angle[4] < 1.25):
+            
+            # 바운딩 박스가 각각 2개씩일때만 좌표 기록
             if (len(xy_shoe) == 2 and len(xy_shoelace) == 2):
+                
                 result = [xy_shoelace, xy_shoe]
                 tmp_xy = xy_shoe.copy()
-                print("searching complete!")
                 # print("detect two object, move x value")
                 center_x = abs((tmp_xy[0][0] + tmp_xy[1][0])/2)
-                center_y = abs((tmp_xy[0][1] + tmp_xy[1][1])/2)
-                # x_lower, x_upper, y_lower, y_upper = 200, 410, 125, 350 
-                print("center_x = ", center_x, "center_y = ", center_y)
-                if (x_lower < center_x and center_x < x_upper ): # and y_lower < center_y and center_y < y_upper
-                    time.sleep(1.5)
-                    print(" good ! ")
-                    return result
+                # center_y = abs((tmp_xy[0][1] + tmp_xy[1][1])/2)
+                # x_lower, x_upper, y_lower, y_upper = 200, 600, 125, 350 
+                
+                
+                print("center_x = ", center_x)
+                if (x_lower < center_x and center_x < x_upper): # and y_lower < center_y and center_y < y_upper
+                    time.sleep(0.5)
+                    success_count += 1
+                    tmp_shoelace, tmp_shoe = result
+                    
+                    # if successs, remember this state
+                    print("Point Checked! I will remember this point")
+                    print(f"Now shoebot learned Points {success_count} times")
+                    state = [present_joint_angle[4]] + list(tmp_shoelace[0]) + list(tmp_shoelace[1]) + list(tmp_shoe[0]) + list(tmp_shoe[1])
+                    agent.remember(state, way_point_2[episode][:5])
+                    print("!!!!!!!!!OK! Save Information about Joint angle and X,Y Position!!!!!!!!!!!!!!!")
+                    # return result
                 
         else:
-            print("oops failed!")
-            # way_point_1[0][:5]
-            # teleop_keyboard.send_goal_joint_space()                
-            # wait_arrive(0.1)
-            # sys.exit()
-            return None            
+            if success_count == 0:
+                print(f"oops...{fail_list} episode failed!")
+                return success_count, fail_list
+                         
+            else:
+                print(f"Ok! {episode + 1} episode complete searching {success_count} points!!")
+                agent.learn()
+                agent.backup()
+                return success_count, fail_list
+        # print("result is ", result)
+                   
 
 def get_distance(list1, list2):
     return np.sqrt(np.sum(np.fromiter(((p2 - p1)**2 for p1, p2 in zip(list1, list2)), dtype=float)))
@@ -418,8 +443,9 @@ def check_manipulator_angle(pose):
     return True
 
 def main():
-    global tvec, xy_shoelace, xy_shoe, cam_activate, goal_joint_angle, teleop_keyboard, way_point_1
+    global tvec, xy_shoelace, xy_shoe, cam_activate, goal_joint_angle, teleop_keyboard, way_point_1, fail_list, success_count, episode  
 
+    fail_list = []
     # Camera start
     cam_activate = False
     t1 = threading.Thread(target=run, daemon=True)
@@ -456,6 +482,7 @@ def main():
     search_start_point = [0.13345633447170258, -0.4862719178199768, 0.04601942375302315, 2.1491072177886963, 0.11044661700725555, -1.3606410026550293] # 서칭 액션 없이 고정 위치
     #search_start_point2 = [1.0, -0.3344078063964844, -0.013805827125906944, 1.9159420728683472, 0, -1.0983302593231201]
     gripper_open, gripper_close = -1.100485634803772, 0.3093204975128174
+    shoes_check_point = [0.02454369328916073, -0.2316311001777649, 0.21475732326507568, -0.28378644585609436, 0.02147573232650757, -0.8574953079223633]
 
     goal_joint_angle = present_joint_angle.copy()
 
@@ -463,72 +490,77 @@ def main():
     with open(way_point_1_path, 'r') as json_file:
         way_point_1 = json.load(json_file)
     with open(way_point_2_path, 'r') as json_file:
+        global way_point_2
         way_point_2 = json.load(json_file)
 
     # Gripper Close
     goal_joint_angle[5] = gripper_close
     teleop_keyboard.send_goal_joint_space()
     wait_arrive(0.05)
+    
+    ## Check Gripper picks shoes
+    # move_softly_to(shoes_check_point)
+    # wait_arrive(5)
+    # time.sleep(2)
+    
 
-    success_count = 0
+    
     fail_list = []
     
+    
     # Move to Way Point
-    current_episode = 105
-    for idx, point in enumerate(way_point_1[current_episode:]):
-        # print ("Episode", 1 + current_episode , "~", len(way_point_1[:current_episode + 31]), "Studying")
-        # print("Episode", idx + 1 + current_episode, "/", len(way_point_1[:current_episode + 31]), "Start!")
-        print ("Episode", 1 + current_episode , "~", len(way_point_1[current_episode:]), "Studying")
-        print("Episode", idx + 1 + current_episode, "/", len(way_point_1[current_episode:]), "Start!")
-        # Initial Position Setting
-        move_softly_to(way_point_2[idx+current_episode][:5])
-        move_softly_to(way_point_1[idx+current_episode][:5])
+    # learn_list = way_point_1[17, 18, 19, 20, 22, 24, 26, 27, 28, 29, 30, 31, 32, 34, 36, 38, 40, 42, 45, 46, 72, 89, 90, 91, 92, 93, 99, 100, 102, 104, 106]
+    # list = [17, 18, 19, 20, 22, 24, 26, 27, 28, 29, 30, 31, 32, 34, 36, 38, 40, 42, 45, 46, 72, 89, 90, 91, 92, 93, 99, 100, 102, 104, 106]
+    list = [89, 90, 92, 94, 100]
+    for idx, point in enumerate(list):
+        episode = point
+        print ("Episode", episode , "Studying")
+        # print("Episode", idx + 1 + episode_start, "/", len(way_point_1), "Start!")
+        # print ("Episode", 1 + episode_start , "~", len(way_point_1[episode_start:]), "Studying")
+        # print("Episode", idx + 1 + episode_start, "/", len(way_point_1[episode_start:]), "Start!")
+        
+        ## Check Gripper picks shoes
+        # move_softly_to(shoes_check_point)
+        # wait_arrive(5)
+        # time.sleep(10)
+    
+        # if (len(xy_shoe) == 0 and len(xy_shoelace) == 0):
+        #     print("Gripper don't pick shoes.... Learning again please")
+        #     with open(log_file, 'a') as file:
+        #         # file.write(f"{episode} episode succeed {success_count} times! \n")
+        #         file.write(f"\n Now Gripper don't pick shoes in {episode + 1} episode ... Check this episode")
+        #     teleop_keyboard.destroy_node()
+        #     rclpy.shutdown()
+        # else:
+        #     print("Good!! Gripper picks shoes Successfully~!!")
+        #     ## 서칭액션으로 def 조건 넣어주고 if문 하니까 idx 꼬이는듯 ;;
+        
+        #### Initial Position Setting #####
+        move_softly_to(way_point_2[episode][:5])
+        move_softly_to(way_point_1[episode][:5])
         # Gripper Open
+        print("open?")
         goal_joint_angle[5] = gripper_open
         teleop_keyboard.send_goal_joint_space()
         wait_arrive(0.05)
         time.sleep(1) 
+        print("open!")
         # Go to way2
-        move_softly_to(way_point_2[idx+current_episode][:5])
+        move_softly_to(way_point_2[episode][:5])
 
         # Go Searching point 
         move_softly_to(search_start_point)
         wait_arrive(0.05)
         time.sleep(1)
         
-        if not (len(xy_shoe) == 2 and len(xy_shoelace) == 2):
-            print(" Hmm.. Where is shoes? Searching Start !")
-            result = gripper_searching_action()
-        else:
-            result = [xy_shoe, xy_shoelace]
-            tmp_xy = xy_shoe.copy()
-            print("searching complete!")
-            # print("detect two object, move x value")
-            center_x = abs((tmp_xy[0][0] + tmp_xy[1][0])/2)
-            center_y = abs((tmp_xy[0][1] + tmp_xy[1][1])/2)
-            
-            x_lower, x_upper = 200, 410
-            print("center_x = ", center_x, "center_y = ", center_y)
-            if (x_lower < center_x and center_x < x_upper ): # and y_lower < center_y and center_y < y_upper
-                time.sleep(1.5)
-                print("OK! I find shoes")
-            else:
-                print("Ooops, shoes are so far... Searching Start!")
-                result = gripper_searching_action()
-            
+
+        
+        
+        print(" Hmm.. Where is shoes? Searching Start !")
+        result = gripper_searching_action()
+        
             
         # result = return_box_detection()
-        print("result is ", result)
-        if result != None:
-            success_count += 1
-            # if successs, remember this state
-            tmp_shoelace, tmp_shoe = result
-            state = [present_joint_angle[4]] + list(tmp_shoelace[0]) + list(tmp_shoelace[1]) + list(tmp_shoe[0]) + list(tmp_shoe[1])
-            agent.remember(state, way_point_2[idx+current_episode][:5])
-            print("!!!!!!!!!OK! Save Information about Joint angle and X,Y Position!!!!!!!!!!!!!!!")
-        else:
-            fail_list.append(idx + current_episode)
-            print("this episode is failed!")
 
         
         # # 기다리는 동안 조건 확인
@@ -539,9 +571,9 @@ def main():
         # # go to way_point
         # if len(xy_shoe) == 2 and len(xy_shoelace) == 2:
         # Go to way2
-        move_softly_to(way_point_2[idx+current_episode][:5])
+        move_softly_to(way_point_2[episode][:5])
         # Go DOWN
-        move_softly_to(way_point_1[idx+current_episode][:5])
+        move_softly_to(way_point_1[episode][:5])
         wait_arrive()
         # Gripper Close
         goal_joint_angle[5] = gripper_close
@@ -549,48 +581,20 @@ def main():
         wait_arrive(0.05)
         time.sleep(1)
         # Go UP
-        move_softly_to(way_point_2[idx+current_episode][:5])
-        time.sleep(1)
-        ## 서칭액션으로 def 조건 넣어주고 if문 하니까 idx 꼬이는듯 ;;
-            
         
-        # # Searching action
-        # move_softly_to(search_start_point[:5])
-        # searching_action()
-
-        # # Move to Random Pose
-        # success_count = 0
-        # tmp_pose = present_joint_angle[:5]
-        # while (success_count < random_state_gen_num):
-        #     print("random pose action ")
-        #     time.sleep(0.01)
-        #     new_pose = generate_random_pose(tmp_pose)
-        #     # move to random pose
-        #     move_softly_to(new_pose, 30)
-        #     time.sleep(0.3)
-        #     # check box detection
-        #     result = return_box_detection()
-        #     if result != None:
-        #         # if successs, remember this state
-        #         success_count += 1
-        #         print(success_count)
-        #         tmp_shoelace, tmp_shoe = result
-        #         state = present_joint_angle[:5] + list(tmp_shoelace[0]) + list(tmp_shoelace[1]) + list(tmp_shoe[0]) + list(tmp_shoe[1])
-        #         agent.remember(state, way_point_2[idx][:5])
-
-        # # Go to way2
-        # move_softly_to(way_point_2[idx][:5])
-        # # Go DOWN
-        # move_softly_to(way_point_1[idx][:5])
-        # wait_arrive()
-        # # Gripper Close
-        # goal_joint_angle[5] = gripper_close
-        # teleop_keyboard.send_goal_joint_space()
-        # wait_arrive(0.05)
-        # time.sleep(1)
-        # # Go UP
-        # move_softly_to(way_point_2[idx][:5])
-        # time.sleep(1)
+        log_file = "/home/kimdu/hanse/src/ai_manipulation/ai_manipulation/script/log_left_again.txt"
+        if result != None:
+            with open(log_file, 'a') as file:
+                file.write(f"\n {episode + 1} episode succeed {success_count} times!")
+                # file.write(f"Now {fail_list} episodes are failed... So Sad")
+            
+        else:
+            fail_list.append(episode + 1)
+            print("this episode is failed!")
+            with open(log_file, 'a') as file:
+                # file.write(f"{episode} episode succeed {success_count} times! \n")
+                file.write(f"\n Now {fail_list} episode is failed... So Sad")
+            
 
     # Final action
     move_softly_to(way_point_1[0][:5])
@@ -599,12 +603,9 @@ def main():
     teleop_keyboard.send_goal_joint_space()
     wait_arrive(0.05)
 
-    agent.learn()
-    agent.backup()
+    # agent.learn()
+    # agent.backup()
     print("Data generation finished!")
-    # print(success_count, "/", len(way_point_1[current_episode:current_episode+31]), "succeed!")
-    print(success_count, "/", len(way_point_1[current_episode:]), "succeed!")
-    print("fail_list:", fail_list)
 
     # Destroy Node
     teleop_keyboard.destroy_node()
