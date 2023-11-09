@@ -12,7 +12,7 @@ class MyPublisher(Node):
         self.counter = 0
 
     def publish_data(self):
-        for value in range(1 ,2):  # 0부터 5까지의 정수를 반복
+        for value in range(3 ,5):  # 0부터 5까지의 정수를 반복
             msg = Int32()
             msg.data = value
             self.publisher.publish(msg)

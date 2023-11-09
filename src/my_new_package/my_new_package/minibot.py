@@ -43,22 +43,24 @@ class MobileRobot(Node):
 
     def minibotfinHtoStimer(self):
         msg = String()
-        msg.data = 'minibot_to_main_move_finish_home_to_shoebox'
+        msg.data = 'Minibot arrived Home to Shoebox Successfully!!!'
         self.publisher_minibotfinHtoS_.publish(msg)
         self.get_logger().info(f'HometoSFin: "{msg.data}"')
     def minibotfinAtoHtimer(self):
         msg = String()
-        msg.data = 'minibot_to_main_move_finish_anyposition_to_home'
+        msg.data = 'Minibot arrived Any to Home Successfully!!!'
         self.publisher_minibotfinAtoH_.publish(msg)
         self.get_logger().info(f'AnytoHomeFin: "{msg.data}"')
     def minibotfinStoHtimer(self):
         msg = String()
-        msg.data = 'minibot_to_main_move_finish_shoebox_to_home'
+        msg.data = 'Minibot arrived Shoebox to Home Successfully!!!'
         self.publisher_minibotfinStoH_.publish(msg)
         self.get_logger().info(f'ShoetoHomeFin: "{msg.data}"')
 
         
-     
+
+
+
     def miniStoH_callback(self, msg):
         # 로케이션에대한 정의를 지정해준후에 msg_는 숫자로 받는거임.
          # location = msg.location
@@ -74,30 +76,6 @@ class MobileRobot(Node):
         # 로케이션에대한 정의를 지정해준후에 msg_는 숫자로 받는거임.
          # location = msg.location
         self.get_logger().info(f'I heard: "{msg.data}"')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     #listener_callback 에서는 일단 지금 다받지만, 각각 받을시에는
     #홈으로 받았을때 홈의 위치로 가는 함수 만들고,
@@ -136,8 +114,6 @@ class MobileRobot(Node):
     #         return None
 
 
-
-        
 
 def main(args=None):
     rclpy.init(args=args)

@@ -4,10 +4,11 @@ import os
 class SoundPlayer:
     def __init__(self, sound_file):
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        os.chdir(current_dir)
+        sound_path = os.path.join(current_dir, 'src/my_new_package/my_new_package/sound',sound_file)
         pygame.init()
-        self.sound_file = sound_file
+        self.sound_file = sound_path
         self.sound = pygame.mixer.Sound(self.sound_file)
+
     def play(self):
         self.sound.play()
     def wait_for_completion(self):
