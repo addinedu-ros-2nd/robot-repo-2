@@ -9,6 +9,22 @@ from std_msgs.msg import Int32MultiArray
 from cv_bridge import CvBridge
 import numpy as np
 import time
+from collections import Counter
+
+def remove_outliers(data):
+    now_time = time.time()
+    rows, cols = data.shape
+    new_data = np.copy(data)
+    for i in range(2, rows - 2, 2):
+        for j in range(2, cols - 2, 2):
+            nonzero_count = np.count_nonzero(data[i-2:i+2, j-2:j+2])
+            if nonzero_count <= 14:
+                new_data[i-2:i+2, j-2:j+2] = 0
+    
+    # new_data[new_data > 0] = 1
+    # new_data[new_data <= 0] = 0
+    print(time.time() - now_time)
+    return new_data
 
 class PointCloudVisualizer(Node):
     def __init__(self):
@@ -46,7 +62,41 @@ class PointCloudVisualizer(Node):
         self.vis.add_geometry(self.pcd)
 
     def seg_callback(self, msg):
-        self.seg = np.array(msg.data[1:307201]).astype(np.uint8)
+        self.seg = np.array(msg.data[1:307201]).astype(np.uint8).reshape(480, 640)
+        self.seg = remove_outliers(self.seg)
+        if self.depth_image is not None:
+            self.depth_image = self.depth_image * self.seg
+
+        if self.intrinsics is not None:
+            depth_image_o3d = o3d.geometry.Image(self.depth_image)
+            self.pcd = o3d.geometry.PointCloud.create_from_depth_image(
+                depth_image_o3d,
+                self.intrinsics,
+                # depth_scale=1.0,
+                # depth_trunc=1.0,
+                # stride=2,
+                project_valid_depth_only=True,
+            )
+            self.pcd.transform([[1, 0, 0, 0], [0, -1, 0, 0], [0, 0, -1, 0],
+                           [0, 0, 0, 1]])
+            self.vis.reset_view_point(True)
+            # ctr = self.vis.get_view_control()
+            # ctr.unset_constant_z_far()
+            # ctr.unset_constant_z_near()
+            # ctr.scale(1000.0)
+            # ctr.set_lookat([0, 0, 0])  # 원점을 중심으로
+            # ctr.set_up([0, 0, 1])  # 위를 향하도록
+            # ctr.set_front([0, -1, 0])  # 앞을 향하도록
+            # ctr.set_constant_z_far(10.0)
+            # ctr.set_constant_z_near(10.9)
+            # ctr.rotate(x, y, x0, y0)
+            # ctr.rotate(0.0, 180.0)
+            # ctr.change_field_of_view(step=-90)
+            self.vis.clear_geometries()
+            self.vis.add_geometry(self.pcd)
+            # self.vis.update_geometry(self.pcd)
+            self.vis.update_renderer()
+            self.vis.poll_events()
 
     def camera_info_callback(self, msg):
         fx = msg.k[0]
@@ -62,42 +112,6 @@ class PointCloudVisualizer(Node):
     def depth_image_callback(self, msg):
         self.depth_image = self.cv_bridge.imgmsg_to_cv2(msg, desired_encoding='passthrough')
         self.depth_image = np.array(self.depth_image, dtype=np.float32)
-        if self.seg is not None:
-            self.depth_image = self.depth_image * self.seg.reshape(self.depth_image.shape[0], self.depth_image.shape[1])
-            print()
-        depth_scale = 1.0   
-
-        if self.intrinsics is not None:
-            depth_image_o3d = o3d.geometry.Image(self.depth_image)
-            self.pcd = o3d.geometry.PointCloud.create_from_depth_image(
-                depth_image_o3d,
-                self.intrinsics,
-                depth_scale=depth_scale,
-                # depth_trunc=1.0,
-                # stride=2,
-                project_valid_depth_only=True,
-            )
-            self.pcd.transform([[1, 0, 0, 0], [0, -1, 0, 0], [0, 0, -1, 0],
-                           [0, 0, 0, 1]])
-            self.vis.reset_view_point(True)
-            ctr = self.vis.get_view_control()
-            ctr.unset_constant_z_far()
-            ctr.unset_constant_z_near()
-            ctr.scale(1000.0)
-            # ctr.set_lookat([0, 0, 0])  # 원점을 중심으로
-            # ctr.set_up([0, 0, 1])  # 위를 향하도록
-            # ctr.set_front([0, -1, 0])  # 앞을 향하도록
-            # ctr.set_constant_z_far(10.0)
-            # ctr.set_constant_z_near(10.9)
-            # ctr.rotate(x, y, x0, y0)
-            # ctr.rotate(0.0, 180.0)
-            # ctr.change_field_of_view(step=-90)
-            self.vis.clear_geometries()
-            self.vis.add_geometry(self.pcd)
-            # self.vis.update_geometry(self.pcd)
-            self.vis.update_renderer()
-            self.vis.poll_events()
-            time.sleep(0.1)
 
 def main(args=None):
     rclpy.init(args=args)

@@ -71,7 +71,6 @@ class DetectNode(Node):
         if len(tracking_seg) > 0:
             msg = Int32MultiArray()
             msg.data = tracking_seg
-            print(len(tracking_seg))
             self.seg_publisher.publish(msg)
 def main(args=None):
     rclpy.init(args=args)
