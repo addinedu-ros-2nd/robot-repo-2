@@ -1,0 +1,7 @@
+/usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+  warnings.warn(
+  File "/home/kimdu/hanse/install/ai_manipulation/lib/python3.10/site-packages/ai_manipulation/script/six_dxl_model.py", line 521
+    global episode
+    ^^^^^^^^^^^^^^
+SyntaxError: name 'episode' is used prior to global declaration
+
