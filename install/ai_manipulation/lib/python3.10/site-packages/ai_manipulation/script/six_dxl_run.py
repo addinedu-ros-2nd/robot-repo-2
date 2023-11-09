@@ -50,7 +50,7 @@ output = subprocess.check_output(["ros2", "pkg", "prefix", package_name], text=T
 workspace_path = output.split("/install")[0]
 
 # Params
-states_backup = os.path.join(workspace_path, "src", package_name, package_name, "datas/six_dxl_sates.json")
+states_backup = os.path.join(workspace_path, "src", package_name, package_name, "datas/six_dxl_states.json")
 acts_backup = os.path.join(workspace_path, "src", package_name, package_name, "datas/six_dxl_acts.json")
 model_backup = os.path.join(workspace_path, "src", package_name, package_name, "datas/six_dxl_model.pkl")
 k_path = os.path.join(workspace_path, "src", package_name, package_name, "utils/calibration_matrix.npy")
@@ -65,7 +65,7 @@ random_state_gen_num = 16
 # angle_gap_origin = 0.09  # radian
 # angle_gap = 0.1
 # path_time = 0.4  # second
-state_size = 13
+state_size = 9
 action_size = 5
 # threshold = 0.11 # scenario ending thres
 INF = 999999999999
@@ -113,7 +113,7 @@ def run(
         weights=os.path.join(workspace_path, "src", package_name, package_name, "utils/best.pt"),  # model path or triton URL
         source="0",  # file/dir/URL/glob/screen/0(webcam)
         imgsz=(640, 480),  # inference size (height, width)
-        conf_thres=0.3,  # confidence threshold
+        conf_thres=0.1,  # confidence threshold
         iou_thres=0.3,  # NMS IOU threshold
         max_det=1000,  # maximum detections per image
         device='',  # cuda device, i.e. 0 or 0,1,2,3 or cpu
@@ -244,7 +244,6 @@ class Agent():
         self.state_size         = state_size
         self.action_size        = action_size
         self.learning_rate      = 0.001
-        self.brain              = self._build_model()
     
         if os.path.isfile(states_backup):
             with open(states_backup, 'r') as json_file:
@@ -254,14 +253,12 @@ class Agent():
             with open(acts_backup, 'r') as json_file:
                 self.acts = json.load(json_file)
             print(len(self.acts), "acts loaded")
+        
+        self.brain              = self._build_model()
 
     def _build_model(self):
-        # Neural Net for Deep-Q learning Model
         model = LinearRegression()
-
-        if os.path.isfile(model_backup):
-            model = joblib.load(model_backup)
-            print("Model loaded")
+        model.fit(self.states, self.acts)
         return model
 
     def backup(self):
@@ -314,88 +311,47 @@ def return_box_detection():
             return result
     return None
 
-def searching_action():
-    global xy_shoe, teleop_keyboard
-    x_lower, x_upper, y_lower, y_upper = 317, 323, 287, 293
-
-    # if object can't detect    
-    while (len(xy_shoe) != 2 and present_joint_angle[0] < 1.0):
-        print("start searching action 1")
-        goal_joint_angle[0] += 0.02
-        teleop_keyboard.send_goal_joint_space()      
+def gripper_searching_action():
+    global xy_shoe, xy_shoelace, teleop_keyboard, searching_point, way_point_1, center_x, center_y, tmp_xy
+    gripper_searching_start_point = [0.13345633447170258, -0.4862719178199768, 0.04601942375302315, 2.1491072177886963, -1.1, -1.3606410026550293] # 그립퍼 서칭 시작
+    x_lower, x_upper, y_lower, y_upper = 200, 410, 125, 350    #### 두번째 300, 340, 225, 250  ### 맨 첫 기준 317, 323, 237, 243
+    # goal_joint_angle[4] = -1.1
+    # teleop_keyboard.send_goal_joint_space()
+    
+    move_softly_to(gripper_searching_start_point)
+    wait_arrive(0.1)
+    time.sleep(2)
+    while True:
+        print("Searching Start")
+        goal_joint_angle[4] += 0.02
+        teleop_keyboard.send_goal_joint_space()
         wait_arrive(0.05)
 
-    while True:
-        print("start searching action 2")
-        time.sleep(0.05)
-
-        now_time = time.time()
-        now_pose = present_joint_angle[:5]
-        while(len(xy_shoe) != 2):
-            tmp_xy = xy_shoe.copy()
-            time.sleep(0.05)
-            if (time.time() - now_time > 0.2):
-                new_pose = generate_random_pose(now_pose, 0.05)
-                if (check_manipulator_angle(new_pose)):
-                    move_softly_to(new_pose)
-                    time.sleep(0.5)
-        tmp_xy = xy_shoe.copy()
-        # print("detect two object, move x value")
-        center_x = abs((tmp_xy[0][0] + tmp_xy[1][0])/2)
-        center_y = abs((tmp_xy[0][1] + tmp_xy[1][1])/2)
-
-        if (x_lower < center_x and center_x < x_upper and y_lower < center_y and center_y < y_upper):
-            break
-
-        if (center_x > x_upper):  # first situation if shoe postion is left
-            # print("center_X_value < x_upper")
-            goal_joint_angle[0] += 0.02
-        elif (x_lower > center_x ): # second situation fi shoe position is right
-            # print("center_X_value > x_lower") 
-            goal_joint_angle[0] -= 0.02
+        
+        print("shooe's box :", len(xy_shoe),"shoelace's box : ", len(xy_shoelace) )
+        print("roll is", present_joint_angle[4])
+        if (present_joint_angle[4] <= 1.4):
+            if (len(xy_shoe) == 2 and len(xy_shoelace) == 2):
+                result = [xy_shoelace, xy_shoe]
+                tmp_xy = xy_shoe.copy()
+                print("searching complete!")
+                # print("detect two object, move x value")
+                center_x = abs((tmp_xy[0][0] + tmp_xy[1][0])/2)
+                center_y = abs((tmp_xy[0][1] + tmp_xy[1][1])/2)
+                # x_lower, x_upper, y_lower, y_upper = 200, 410, 125, 350 
+                print("center_x = ", center_x, "center_y = ", center_y)
+                if (x_lower < center_x and center_x < x_upper ): # and y_lower < center_y and center_y < y_upper
+                    time.sleep(1.5)
+                    print(" good ! ")
+                    return result
+                
         else:
-            # print('complete x')
-            pass
-        teleop_keyboard.send_goal_joint_space()
-        wait_arrive(0.02)
-
-        now_time = time.time()
-        now_pose = present_joint_angle[:5]
-        while(len(xy_shoe) != 2):
-            tmp_xy = xy_shoe.copy()
-            time.sleep(0.05)
-            if (time.time() - now_time > 0.2):
-                new_pose = generate_random_pose(now_pose, 0.05)
-                if (check_manipulator_angle(new_pose)):
-                    move_softly_to(new_pose)
-                    time.sleep(0.5)
-        tmp_xy = xy_shoe.copy()
-        # print("detect two object, move x value")
-        center_x = abs((tmp_xy[0][0] + tmp_xy[1][0])/2)
-        center_y = abs((tmp_xy[0][1] + tmp_xy[1][1])/2)
-
-        if (x_lower < center_x and center_x < x_upper and y_lower < center_y and center_y < y_upper):
-            break
-
-        if (center_y < y_lower):  # first situation if shoe postion is left
-            # print("center_Y_value < y_lower")
-            if goal_joint_angle[3] > manipulator_angle_range[3][0]:
-                goal_joint_angle[1] += 0.02
-                goal_joint_angle[3] -= 0.02
-            else:
-                goal_joint_angle[3] += 0.02
-        elif (y_upper < center_y): # second situation fi shoe position is right
-            # print("center_Y_value > y_upper")        # 그리퍼가 하늘로 올라갈때 - 이고 내려갈때가 +이다. 
-            if goal_joint_angle[3] < manipulator_angle_range[3][1]:
-                goal_joint_angle[1] -= 0.02
-                goal_joint_angle[3] += 0.02
-            else:
-                goal_joint_angle[3] -= 0.02
-        else:
-            # print('complete y')
-            pass
-        teleop_keyboard.send_goal_joint_space()
-        wait_arrive(0.02)
+            print("oops failed!")
+            # way_point_1[0][:5]
+            # teleop_keyboard.send_goal_joint_space()                
+            # wait_arrive(0.1)
+            # sys.exit()
+            return None            
 
 def get_distance(list1, list2):
     return np.sqrt(np.sum(np.fromiter(((p2 - p1)**2 for p1, p2 in zip(list1, list2)), dtype=float)))
@@ -415,7 +371,7 @@ def move_softly_to(goal_point, mul = 12):
     for step in range(1, full_step+1):
         goal_joint_angle[:5] = [(step * x + (full_step - step) * y)/full_step for x, y in zip(goal_point, start_point)]
         teleop_keyboard.send_goal_joint_space()
-        wait_arrive()
+        wait_arrive(0.1)
 
 def generate_random_pose(pose, angle_gap = 0.1):
     random_values = [0] * 5
@@ -434,34 +390,32 @@ def check_manipulator_angle(pose):
     return True
 
 def main():
-    global tvec, xy_shoelace, xy_shoe, cam_activate, goal_joint_angle, teleop_keyboard
+    global tvec, xy_shoelace, xy_shoe, cam_activate, goal_joint_angle, teleop_keyboard, way_point_1
 
     # Camera start
     cam_activate = False
     t1 = threading.Thread(target=run, daemon=True)
     t1.start()
-    
+
     agent = Agent()
 
     rclpy.init()
     teleop_keyboard = TeleopKeyboard()
     t2 = threading.Thread(target=rclpy.spin, args=(teleop_keyboard,), daemon=True)
     t2.start()
-
     # Wait for spin
     while True:
         if present_joint_angle == [0., 0., 0., 0., 0., 0.]:
             time.sleep(0.1)
         else:
             break
-
     # Check dxl count
     if len(present_joint_angle) != 6:
         print("DXL missing!\n DXL count :", len(present_joint_angle))
         teleop_keyboard.destroy_node()
         rclpy.shutdown()
         return
-
+    
     # wait for camera
     while True:
         if cam_activate:
@@ -469,7 +423,7 @@ def main():
         time.sleep(0.5)
 
     # search_start_point = [-1.0, -0.8866409063339233, 0.1395922601222992, 2.032524585723877, 0., -1.1520196199417114]
-    search_start_point = [-1.0, -1.3115535974502563, 0.7470486760139465, 1.8208352327346802, 0, -1.0983302593231201]
+    search_start_point = [0.13345633447170258, -0.4862719178199768, 0.04601942375302315, 2.1491072177886963, 0.11044661700725555, -1.3606410026550293] # 서칭 액션 없이 고정 위치
     
     goal_joint_angle = present_joint_angle.copy()
 
@@ -480,38 +434,51 @@ def main():
         way_point_2 = json.load(json_file)
 
     # LinearRegressoin way_point 2 to 1 
-    X = way_point_2.copy()
-    y = way_point_1.copy()
+    X = np.array(way_point_2)[:,:5]
+    y = np.array(way_point_1)[:,:5]
+    print(np.array(way_point_2)[:,:5].shape)
     point_2_to_1 = LinearRegression()
     point_2_to_1.fit(X, y)
 
-    # Searching action
-    move_softly_to(search_start_point[:5])
-    searching_action()
-
-    # Move to Random Pose
-    success_count = 0
-    tmp_pose = present_joint_angle[:5]
-    while (success_count < 1):
-        print("random pose action")
-        time.sleep(0.01)
-        new_pose = generate_random_pose(tmp_pose, 0.05)
-        if check_manipulator_angle(new_pose):
-            # move to random pose
-            move_softly_to(new_pose, 30)
-            time.sleep(0.3)
-            # check box detection
-            result = return_box_detection()
-            if result != None:
-                # if successs, remember this state
-                success_count += 1
-                tmp_shoelace, tmp_shoe = result
-                state = present_joint_angle[:5] + list(tmp_shoelace[0]) + list(tmp_shoelace[1]) + list(tmp_shoe[0]) + list(tmp_shoe[1])
+    # Go Searching point 
+    move_softly_to(search_start_point)
+    wait_arrive(0.05)
+    time.sleep(1)
+    
+    if not (len(xy_shoe) == 2 and len(xy_shoelace) == 2):
+        print(" Hmm.. Where is shoes? Searching Start !")
+        result = gripper_searching_action()
+    else:
+        result = [xy_shoe, xy_shoelace]
+        tmp_xy = xy_shoe.copy()
+        print("searching complete!")
+        # print("detect two object, move x value")
+        center_x = abs((tmp_xy[0][0] + tmp_xy[1][0])/2)
+        center_y = abs((tmp_xy[0][1] + tmp_xy[1][1])/2)
         
-    state = np.array(state).reshape(1, -1)
-    point_2 = agent.predict(state)[0]
+        x_lower, x_upper = 200, 410
+        print("center_x = ", center_x, "center_y = ", center_y)
+        if (x_lower < center_x and center_x < x_upper ): # and y_lower < center_y and center_y < y_upper
+            time.sleep(1.5)
+            print("OK! I find shoes")
+        else:
+            print("Ooops, shoes are so far... Searching Start!")
+            result = gripper_searching_action()
+    
+    print("result is ", result)
+    if result != None:
+        # if successs, remember this state
+        tmp_shoelace, tmp_shoe = result
+        state = [present_joint_angle[4]] + list(tmp_shoelace[0]) + list(tmp_shoelace[1]) + list(tmp_shoe[0]) + list(tmp_shoe[1])
+        print("!!!!!!!!!OK! Save Information about Joint angle and X,Y Position!!!!!!!!!!!!!!!")
+    else:
+        print("Model prediction failed!")
+        return
+        
+    point_2 = agent.predict(np.array(state).reshape(1, -1))[0]
     move_softly_to(point_2)
-    point_1 = point_2_to_1.predict(point_2.reshape(1, -1))[0]
+
+    point_1 = point_2_to_1.predict(np.array(present_joint_angle[:5]).reshape(1, -1))[0]
     move_softly_to(point_1)
     
     print("Model prediction success!!!")
