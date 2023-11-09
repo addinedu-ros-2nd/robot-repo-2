@@ -509,12 +509,13 @@ def main():
     
     
     # Move to Way Point
-    episode_start = 0
-    for idx, point in enumerate(way_point_1[episode_start:]):
-        
-        episode = idx + episode_start
-        print ("Episode", 1 + episode_start , "~", len(way_point_1), "Studying")
-        print("Episode", idx + 1 + episode_start, "/", len(way_point_1), "Start!")
+    # learn_list = way_point_1[17, 18, 19, 20, 22, 24, 26, 27, 28, 29, 30, 31, 32, 34, 36, 38, 40, 42, 45, 46, 72, 89, 90, 91, 92, 93, 99, 100, 102, 104, 106]
+    # list = [17, 18, 19, 20, 22, 24, 26, 27, 28, 29, 30, 31, 32, 34, 36, 38, 40, 42, 45, 46, 72, 89, 90, 91, 92, 93, 99, 100, 102, 104, 106]
+    list = [89, 90, 92, 94, 100]
+    for idx, point in enumerate(list):
+        episode = point
+        print ("Episode", episode , "Studying")
+        # print("Episode", idx + 1 + episode_start, "/", len(way_point_1), "Start!")
         # print ("Episode", 1 + episode_start , "~", len(way_point_1[episode_start:]), "Studying")
         # print("Episode", idx + 1 + episode_start, "/", len(way_point_1[episode_start:]), "Start!")
         
@@ -552,6 +553,7 @@ def main():
         wait_arrive(0.05)
         time.sleep(1)
         
+
         
         
         print(" Hmm.. Where is shoes? Searching Start !")

@@ -31,3 +31,46 @@
  100 episode succeed 6 times!
  101 episode succeed 1 times!
  102 episode succeed 23 times!
+ 18 episode succeed 9 times!
+ 19 episode succeed 23 times!
+ 20 episode succeed 23 times!
+ 21 episode succeed 16 times!
+ 23 episode succeed 39 times!
+ 25 episode succeed 38 times!
+ 27 episode succeed 35 times!
+ 28 episode succeed 14 times!
+ 29 episode succeed 28 times!
+ 30 episode succeed 47 times!
+ 31 episode succeed 32 times!
+ 32 episode succeed 47 times!
+ 33 episode succeed 40 times!
+ 35 episode succeed 47 times!
+ 37 episode succeed 8 times!
+ 39 episode succeed 21 times!
+ 41 episode succeed 18 times!
+ 43 episode succeed 23 times!
+ 46 episode succeed 9 times!
+ 47 episode succeed 22 times!
+ 73 episode succeed 17 times!
+ 90 episode succeed 2 times!
+ 91 episode succeed 2 times!
+ 92 episode succeed 12 times!
+ 93 episode succeed 9 times!
+ 94 episode succeed 20 times!
+ 100 episode succeed 12 times!
+ 101 episode succeed 9 times!
+ 103 episode succeed 21 times!
+ 105 episode succeed 24 times!
+ 107 episode succeed 27 times!
+ 90 episode succeed 0 times!
+ 91 episode succeed 0 times!
+ 90 episode succeed 3 times!
+ 91 episode succeed 8 times!
+ 93 episode succeed 9 times!
+ 95 episode succeed 11 times!
+ 101 episode succeed 14 times!
+ 90 episode succeed 10 times!
+ 91 episode succeed 4 times!
+ 93 episode succeed 7 times!
+ 95 episode succeed 9 times!
+ 101 episode succeed 23 times!
