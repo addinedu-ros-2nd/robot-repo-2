@@ -1,19 +1,27 @@
 cmake_minimum_required(VERSION 3.8)
 project(realsense_human_tracking)
 
+# Default to C++14
+#if(NOT CMAKE_CXX_STANDARD)
+set(CMAKE_CXX_STANDARD 14)
+#endif()
+
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-
+find_package(pcl_conversions REQUIRED)
+find_package(PCL REQUIRED)
 #find_package(realsense2 REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(cv_bridge REQUIRED)
-find_package(PCL REQUIRED)
-find_package(VTK REQUIRED)
+
+include_directories(${PCL_INCLUDE_DIRS} include)
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
@@ -33,15 +41,28 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-# add_executable(human_pcl src/human_pcl.cpp)
-# ament_target_dependencies(human_pcl rclcpp std_msgs sensor_msgs OpenCV cv_bridge)
+add_executable(human_pcl src/human_pcl.cpp)
+target_link_libraries( human_pcl
+  ${PCL_LIBRARIES}
+)
+ament_target_dependencies( human_pcl
+  rclcpp
+  std_msgs
+  sensor_msgs
+  OpenCV
+  cv_bridge
+)
 #add_executable(pointcloud_test src/pointcloud_test.cpp)
-#ament_target_dependencies(pointcloud_test rclcpp std_msgs sensor_msgs OpenCV cv_bridge PCL VTK)
+#ament_target_dependencies(pointcloud_test rclcpp std_msgs sensor_msgs OpenCV cv_bridge)
+add_executable(pcl_visualizer_demo src/pcl_visualizer_demo.cpp)
+target_link_libraries( pcl_visualizer_demo ${PCL_LIBRARIES})
 
-#install(TARGETS
-#  human_pcl
+
+install(TARGETS
+ human_pcl
 #  pointcloud_test
-#  DESTINATION lib/${PROJECT_NAME}
-#)
+pcl_visualizer_demo
+ DESTINATION lib/${PROJECT_NAME}
+)
 
 ament_package()
