@@ -28,11 +28,11 @@ class DetectNode(Node):
         )
         self.cv_bridge = CvBridge()
         self.model = YOLO('yolov8n-seg.pt')
-        self.visualization = False
+        self.visualization = True
 
     def color_image_callback(self, msg):
         color_image = self.cv_bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
-        person_tracking = self.model.track(color_image, persist=True, conf=0.5, classes=0)[0]
+        person_tracking = self.model.track(color_image, persist=True, conf=0.5, classes=0, device="cuda", max_det=1)[0]
         tracking_box = []
         tracking_seg = []
         if person_tracking.boxes.id==None:

@@ -52,16 +52,25 @@ ament_target_dependencies( human_pcl
   OpenCV
   cv_bridge
 )
-#add_executable(pointcloud_test src/pointcloud_test.cpp)
-#ament_target_dependencies(pointcloud_test rclcpp std_msgs sensor_msgs OpenCV cv_bridge)
+add_executable(color_image src/color_image.cpp)
+ament_target_dependencies(color_image rclcpp std_msgs sensor_msgs OpenCV cv_bridge)
 add_executable(pcl_visualizer_demo src/pcl_visualizer_demo.cpp)
 target_link_libraries( pcl_visualizer_demo ${PCL_LIBRARIES})
+add_executable(pcl_dbscan src/pcl_dbscan.cpp)
+target_link_libraries( pcl_dbscan
+  ${PCL_LIBRARIES}
+)
+ament_target_dependencies(pcl_dbscan rclcpp std_msgs sensor_msgs OpenCV cv_bridge)
+add_executable(testing src/test.cpp)
+ament_target_dependencies(testing rclcpp std_msgs sensor_msgs OpenCV cv_bridge)
 
 
 install(TARGETS
  human_pcl
-#  pointcloud_test
-pcl_visualizer_demo
+ color_image
+ pcl_visualizer_demo
+ pcl_dbscan
+ testing
  DESTINATION lib/${PROJECT_NAME}
 )
 
