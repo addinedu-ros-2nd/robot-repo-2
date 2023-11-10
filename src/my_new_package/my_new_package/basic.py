@@ -15,7 +15,7 @@ import random
 
 
 # ros ver
-from_class = uic.loadUiType("src/my_new_package/my_new_package/shoebotVer.0.01.ui")[0]
+from_class = uic.loadUiType("src/my_new_package/my_new_package/shoebotVer.0.98.ui")[0]
 # #python ver
 # from_class = uic.loadUiType("basic.ui")[0]
 
@@ -160,7 +160,7 @@ class WindowClass(QMainWindow, from_class) :
     def __init__(self, node):
         super().__init__()
         self.setupUi(self)
-        self.setWindowTitle("Shoebot_Ver.0.1!")
+        self.setWindowTitle("Shoebot_Ver.0.95!")
         
         
 # #auto trigger===
@@ -338,17 +338,18 @@ class WindowClass(QMainWindow, from_class) :
     # def auto_refresh(self):
     #     self.rosMobilestart.click()
     #     self.getfaceidbtn.click()
-    #     # self.roboPbtn.click()
-    #     # self.miniHtoSbtn.click()
-    #     # self.miniStoHbtn.click()
-    #     # self.miniAtoHbtn.click()
-    #     # self.roboUbtn.click()
+    #     self.rosMobileRstart.click()
+        # self.roboPbtn.click()
+        # self.miniHtoSbtn.click()
+        # self.miniStoHbtn.click()
+        # self.miniAtoHbtn.click()
+        # self.roboUbtn.click()
    
 
     def mainmobile(self, node, testfaceid):
         testfaceid_tmp = str(testfaceid)
         if testfaceid == 0:
-            self.lineEdit_4.setText('홈위치에있는상태거나인식못함')
+            self.lineEdit_4.setText('Face_ID not recognized')
             self.lineEdit_5.setText('')
             self.lineEdit_6.setText('')
         elif testfaceid == 6: # 미니봇이 특별한 위치가아닌 랜덤위치에 있을떄 """ anyposition to home을 줍니다 """
@@ -357,13 +358,13 @@ class WindowClass(QMainWindow, from_class) :
             self.lineEdit_6.setText('')
             self.lineEdit_4.setText('main_to_minibot_move_start_anyposition_to_home')
             self.roslog.append('main_to_minibot_move_start_anyposition_to_home')
-            self.miniAtoHfinbtn.click
+            self.miniAtoHbtn.click
             node.minibotfinAtoH_callback
             if minibotfinAtoH == 'Minibot arrived Any to Home Successfully!!!':
                 self.lineEdit_4.setText('minibot_to_main_move_finish_anyposition_to_home')
                 self.roslog.append('minibot_to_main_move_finish_anyposition_to_home')        
 # 신발장 1~5번의 신호를 줄것입니다.   
-        elif testfaceid == 1:
+        elif 1 <= testfaceid <= 5:
             if testfaceid not in testfaceidlist:
                 testfaceidlist.append(testfaceid)
                 self.faceidlog.append('first to see :' + testfaceid_tmp)
@@ -384,7 +385,7 @@ class WindowClass(QMainWindow, from_class) :
                     self.roslog.append(f'main_to_minibot_move_start_home_to_{testfaceid_tmp} shoebox')
 
                     self.miniHtoSbtn.click()
-                    self.miniStoHfinbtn.clicked.connect(lambda: self.minibotfinHtoSer(node))
+                    self.miniHtoSfinbtn.clicked.connect(lambda: self.minibotfinHtoSer(node))
                     node.minibotfinHtoS_callback
 
                     if minibotfinHtoS == 'Minibot arrived Home to Shoebox Successfully!!!':
@@ -400,9 +401,11 @@ class WindowClass(QMainWindow, from_class) :
                         if roboarmfinunleash == 'roboarm_to_main_unleashactive_finish':
                             self.lineEdit_5.setText('roboarm_to_main_unleashactive_finish')
                             self.roslog.append('roboarm_to_main_unleashactive_finish')
+                            
 
                             self.lineEdit_4.setText(f'main_to_minibot_move_start_{testfaceid_tmp}shoebox_to_home')
                             self.roslog.append(f'main_to_minibot_move_start_{testfaceid_tmp}shoebox_to_home')
+                            
                             self.miniStoHbtn.click
                             self.miniStoHfinbtn.clicked.connect(lambda: self.minibotfinStoHer(node))
                             node.minibotfinStoH_callback
@@ -418,241 +421,26 @@ class WindowClass(QMainWindow, from_class) :
                                 return None
             else:
                 self.faceidlog.append('Error alread exist num : ' + testfaceid_tmp)
-        elif testfaceid == 2:
-            if testfaceid not in testfaceidlist:
-                testfaceidlist.append(testfaceid)
-                self.faceidlog.append('first to see :' + testfaceid_tmp)
-                self.lineEdit_3.setText('faceid_to_main_givetopic_facenumber')
-                self.roslog.append(f'faceid_to_main_givetopic_facenumber : {testfaceid_tmp}')
-                self.lineEdit_4.setText('main_to_roboarm_pipupactive_start')
-                self.roslog.append('main_to_roboarm_pipupactive_start')
 
-                self.roboPbtn.click()
-                # 일정 행동후에 pickupact _finishbtn 클릭하라고 주면됨
-                self.roboPfinbtn.clicked.connect(lambda: self.roboarmfinpicker(node))
-                node.roboarmfinpick_callback
-                if roboarmfinpick == 'roboarm_to_main_pickupactive_finish':
-                    self.lineEdit_5.setText('roboarm_to_main_pickupactive_finish')
-                    self.roslog.append('roboarm_to_main_pickupactive_finish')
-
-                    self.lineEdit_4.setText(f'main_to_minibot_move_start_home_to_{testfaceid_tmp} shoebox')
-                    self.roslog.append(f'main_to_minibot_move_start_home_to_{testfaceid_tmp} shoebox')
-
-                    self.miniHtoSbtn.click()
-                    self.miniStoHfinbtn.clicked.connect(lambda: self.minibotfinHtoSer(node))
-                    node.minibotfinHtoS_callback
-
-                    if minibotfinHtoS == 'Minibot arrived Home to Shoebox Successfully!!!':
-                        self.lineEdit_4.setText(f'minibot_to_main_move_finish_home_to_{testfaceid_tmp}shoebox')
-                        self.roslog.append(f'minibot_to_main_move_finish_home_to_{testfaceid_tmp} shoebox')
-
-                        self.lineEdit_5.setText('main_to_roboarm_unleashactive_start')
-                        self.roslog.append('main_to_roboarm_unleashactive_start')
-
-                        self.roboUbtn.click()       
-                        self.roboUfinbtn.clicked.connect(lambda: self.roboarmfinunleasher(node))
-                        node.roboarmfinunleash_callback
-                        if roboarmfinunleash == 'roboarm_to_main_unleashactive_finish':
-                            self.lineEdit_5.setText('roboarm_to_main_unleashactive_finish')
-                            self.roslog.append('roboarm_to_main_unleashactive_finish')
-
-                            self.lineEdit_4.setText(f'main_to_minibot_move_start_{testfaceid_tmp}shoebox_to_home')
-                            self.roslog.append(f'main_to_minibot_move_start_{testfaceid_tmp}shoebox_to_home')
-                            self.miniStoHbtn.click
-                            self.miniStoHfinbtn.clicked.connect(lambda: self.minibotfinStoHer(node))
-                            node.minibotfinStoH_callback
-                            if minibotfinStoH == 'Minibot arrived Shoebox to Home Successfully!!!':
-                                self.lineEdit_4.setText(f'minibot_to_main_move_finish_{testfaceid_tmp}shoebox_to_home')
-                                self.roslog.append(f'minibot_to_main_move_finish_{testfaceid_tmp}shoebox_to_home')
-
-                                self.lineEdit_5.setText(f'shoe -{testfaceid_tmp}box in -completed')
-                                self.roslog.append('minibot state 0 location-completed')
-                                self.lineEdit_6.setText(f'shoe -{testfaceid_tmp}-completed')
-                                self.roslog.append(f'shoe -{testfaceid_tmp}-completed')
-                            else:
-                                return None
-            else:
-                self.faceidlog.append('Error alread exist num : ' + testfaceid_tmp)                             
-        elif testfaceid == 3:
-            if testfaceid not in testfaceidlist:
-                testfaceidlist.append(testfaceid)
-                self.faceidlog.append('first to see :' + testfaceid_tmp)
-            
-            
-                self.lineEdit_3.setText('faceid_to_main_givetopic_facenumber')
-                self.roslog.append(f'faceid_to_main_givetopic_facenumber : {testfaceid_tmp}')
-                self.lineEdit_4.setText('main_to_roboarm_pipupactive_start')
-                self.roslog.append('main_to_roboarm_pipupactive_start')
-
-                self.roboPbtn.click()
-                # 일정 행동후에 pickupact _finishbtn 클릭하라고 주면됨
-                self.roboPfinbtn.clicked.connect(lambda: self.roboarmfinpicker(node))
-                node.roboarmfinpick_callback
-                if roboarmfinpick == 'roboarm_to_main_pickupactive_finish':
-                    self.lineEdit_5.setText('roboarm_to_main_pickupactive_finish')
-                    self.roslog.append('roboarm_to_main_pickupactive_finish')
-
-                    self.lineEdit_4.setText(f'main_to_minibot_move_start_home_to_{testfaceid_tmp} shoebox')
-                    self.roslog.append(f'main_to_minibot_move_start_home_to_{testfaceid_tmp} shoebox')
-
-                    self.miniHtoSbtn.click()
-                    self.miniStoHfinbtn.clicked.connect(lambda: self.minibotfinHtoSer(node))
-                    node.minibotfinHtoS_callback
-
-                    if minibotfinHtoS == 'Minibot arrived Home to Shoebox Successfully!!!':
-                        self.lineEdit_4.setText(f'minibot_to_main_move_finish_home_to_{testfaceid_tmp}shoebox')
-                        self.roslog.append(f'minibot_to_main_move_finish_home_to_{testfaceid_tmp} shoebox')
-
-                        self.lineEdit_5.setText('main_to_roboarm_unleashactive_start')
-                        self.roslog.append('main_to_roboarm_unleashactive_start')
-
-                        self.roboUbtn.click()     
-                        self.roboUfinbtn.clicked.connect(lambda: self.roboarmfinunleasher(node))
-                        node.roboarmfinunleash_callback
-                        if roboarmfinunleash == 'roboarm_to_main_unleashactive_finish':
-                            self.lineEdit_5.setText('roboarm_to_main_unleashactive_finish')
-                            self.roslog.append('roboarm_to_main_unleashactive_finish')
-
-                            self.lineEdit_4.setText(f'main_to_minibot_move_start_{testfaceid_tmp}shoebox_to_home')
-                            self.roslog.append(f'main_to_minibot_move_start_{testfaceid_tmp}shoebox_to_home')
-                            self.miniStoHbtn.click
-                            self.miniStoHfinbtn.clicked.connect(lambda: self.minibotfinStoHer(node))
-                            
-                            node.minibotfinStoH_callback
-                            if minibotfinStoH == 'Minibot arrived Shoebox to Home Successfully!!!':
-                                self.lineEdit_4.setText(f'minibot_to_main_move_finish_{testfaceid_tmp}shoebox_to_home')
-                                self.roslog.append(f'minibot_to_main_move_finish_{testfaceid_tmp}shoebox_to_home')
-
-                                self.lineEdit_5.setText(f'shoe -{testfaceid_tmp}box in -completed')
-                                self.roslog.append('minibot state 0 location-completed')
-                                self.lineEdit_6.setText(f'shoe -{testfaceid_tmp}-completed')
-                                self.roslog.append(f'shoe -{testfaceid_tmp}-completed')
-
-                            else:   return None
-                
-            else:
-                self.faceidlog.append('Error alread exist num : ' + testfaceid_tmp)                                                                   
-        elif testfaceid == 4:
-            if testfaceid not in testfaceidlist:
-                testfaceidlist.append(testfaceid)
-                self.faceidlog.append('first to see :' + testfaceid_tmp)
-                self.lineEdit_3.setText('faceid_to_main_givetopic_facenumber')
-                self.roslog.append(f'faceid_to_main_givetopic_facenumber : {testfaceid_tmp}')
-                self.lineEdit_4.setText('main_to_roboarm_pipupactive_start')
-                self.roslog.append('main_to_roboarm_pipupactive_start')
-
-                self.roboPbtn.click()
-                # 일정 행동후에 pickupact _finishbtn 클릭하라고 주면됨
-                self.roboPfinbtn.clicked.connect(lambda: self.roboarmfinpicker(node))
-                node.roboarmfinpick_callback
-                if roboarmfinpick == 'roboarm_to_main_pickupactive_finish':
-                    self.lineEdit_5.setText('roboarm_to_main_pickupactive_finish')
-                    self.roslog.append('roboarm_to_main_pickupactive_finish')
-
-                    self.lineEdit_4.setText(f'main_to_minibot_move_start_home_to_{testfaceid_tmp} shoebox')
-                    self.roslog.append(f'main_to_minibot_move_start_home_to_{testfaceid_tmp} shoebox')
-
-                    self.miniHtoSbtn.click()
-                    self.miniStoHfinbtn.clicked.connect(lambda: self.minibotfinHtoSer(node))
-                    node.minibotfinHtoS_callback
-
-                    if minibotfinHtoS == 'Minibot arrived Home to Shoebox Successfully!!!':
-                        self.lineEdit_4.setText(f'minibot_to_main_move_finish_home_to_{testfaceid_tmp}shoebox')
-                        self.roslog.append(f'minibot_to_main_move_finish_home_to_{testfaceid_tmp} shoebox')
-
-                        self.lineEdit_5.setText('main_to_roboarm_unleashactive_start')
-                        self.roslog.append('main_to_roboarm_unleashactive_start')
-
-                        self.roboUbtn.click()       
-                        self.roboUfinbtn.clicked.connect(lambda: self.roboarmfinunleasher(node))
-                        node.roboarmfinunleash_callback
-                        if roboarmfinunleash == 'roboarm_to_main_unleashactive_finish':
-                            self.lineEdit_5.setText('roboarm_to_main_unleashactive_finish')
-                            self.roslog.append('roboarm_to_main_unleashactive_finish')
-
-                            self.lineEdit_4.setText(f'main_to_minibot_move_start_{testfaceid_tmp}shoebox_to_home')
-                            self.roslog.append(f'main_to_minibot_move_start_{testfaceid_tmp}shoebox_to_home')
-                            self.miniStoHbtn.click
-                            self.miniStoHfinbtn.clicked.connect(lambda: self.minibotfinStoHer(node))
-                            node.minibotfinStoH_callback
-                            if minibotfinStoH == 'Minibot arrived Shoebox to Home Successfully!!!':
-                                self.lineEdit_4.setText(f'minibot_to_main_move_finish_{testfaceid_tmp}shoebox_to_home')
-                                self.roslog.append(f'minibot_to_main_move_finish_{testfaceid_tmp}shoebox_to_home')
-
-                                self.lineEdit_5.setText(f'shoe -{testfaceid_tmp}box in -completed')
-                                self.roslog.append('minibot state 0 location-completed')
-                                self.lineEdit_6.setText(f'shoe -{testfaceid_tmp}-completed')
-                                self.roslog.append(f'shoe -{testfaceid_tmp}-completed')
-                            else:
-                                return None
-        
-            else:
-                self.faceidlog.append('Error alread exist num : ' + testfaceid_tmp)     
-        elif testfaceid == 5:
-            if testfaceid not in testfaceidlist:
-                testfaceidlist.append(testfaceid)
-                self.faceidlog.append('first to see :' + testfaceid_tmp)
-                self.lineEdit_3.setText('faceid_to_main_givetopic_facenumber')
-                self.roslog.append(f'faceid_to_main_givetopic_facenumber : {testfaceid_tmp}')
-                self.lineEdit_4.setText('main_to_roboarm_pipupactive_start')
-                self.roslog.append('main_to_roboarm_pipupactive_start')
-
-                self.roboPbtn.click()
-                # 일정 행동후에 pickupact _finishbtn 클릭하라고 주면됨
-                self.roboPfinbtn.clicked.connect(lambda: self.roboarmfinpicker(node))
-                node.roboarmfinpick_callback
-                if roboarmfinpick == 'roboarm_to_main_pickupactive_finish':
-                    self.lineEdit_5.setText('roboarm_to_main_pickupactive_finish')
-                    self.roslog.append('roboarm_to_main_pickupactive_finish')
-
-                    self.lineEdit_4.setText(f'main_to_minibot_move_start_home_to_{testfaceid_tmp} shoebox')
-                    self.roslog.append(f'main_to_minibot_move_start_home_to_{testfaceid_tmp} shoebox')
-
-                    self.miniHtoSbtn.click()
-                    self.miniStoHfinbtn.clicked.connect(lambda: self.minibotfinHtoSer(node))
-                    node.minibotfinHtoS_callback
-
-                    if minibotfinHtoS == 'Minibot arrived Home to Shoebox Successfully!!!':
-                        self.lineEdit_4.setText(f'minibot_to_main_move_finish_home_to_{testfaceid_tmp}shoebox')
-                        self.roslog.append(f'minibot_to_main_move_finish_home_to_{testfaceid_tmp} shoebox')
-
-                        self.lineEdit_5.setText('main_to_roboarm_unleashactive_start')
-                        self.roslog.append('main_to_roboarm_unleashactive_start')
-
-                        self.roboUbtn.click()       
-                        self.roboUfinbtn.clicked.connect(lambda: self.roboarmfinunleasher(node))
-                        node.roboarmfinunleash_callback
-                        if roboarmfinunleash == 'roboarm_to_main_unleashactive_finish':
-                            self.lineEdit_5.setText('roboarm_to_main_unleashactive_finish')
-                            self.roslog.append('roboarm_to_main_unleashactive_finish')
-
-                            self.lineEdit_4.setText(f'main_to_minibot_move_start_{testfaceid_tmp}shoebox_to_home')
-                            self.roslog.append(f'main_to_minibot_move_start_{testfaceid_tmp}shoebox_to_home')
-                            self.miniStoHbtn.click
-                            self.miniStoHfinbtn.clicked.connect(lambda: self.minibotfinStoHer(node))
-                            node.minibotfinStoH_callback
-                            if minibotfinStoH == 'Minibot arrived Shoebox to Home Successfully!!!':
-                                self.lineEdit_4.setText(f'minibot_to_main_move_finish_{testfaceid_tmp}shoebox_to_home')
-                                self.roslog.append(f'minibot_to_main_move_finish_{testfaceid_tmp}shoebox_to_home')
-
-                                self.lineEdit_5.setText(f'shoe -{testfaceid_tmp}box in -completed')
-                                self.roslog.append('minibot state 0 location-completed')
-                                self.lineEdit_6.setText(f'shoe -{testfaceid_tmp}-completed')
-                                self.roslog.append(f'shoe -{testfaceid_tmp}-completed')
-                            else:
-                                return None
-            else:
-                self.faceidlog.append('Error alread exist num : ' + testfaceid_tmp)         
-                        
 #신발장 1~5 있는상태에서 가져가는방법입니다.
     def mainmobileRev(self, node, testfaceid):
-        
                 testfaceid_tmp = str(testfaceid)
                 if testfaceid == 0:
+                    self.lineEdit_4.setText('Face_ID not recognized')
+                    self.lineEdit_5.setText('')
+                    self.lineEdit_6.setText('')
+                elif testfaceid == 6: # 미니봇이 특별한 위치가아닌 랜덤위치에 있을떄 """ anyposition to home을 줍니다 """
                     self.lineEdit_4.setText('홈위치에갈것')
                     self.lineEdit_5.setText('')
                     self.lineEdit_6.setText('')
-                elif testfaceid == 1:
+                    self.lineEdit_4.setText('main_to_minibot_move_start_anyposition_to_home')
+                    self.roslog.append('main_to_minibot_move_start_anyposition_to_home')
+                    self.miniAtoHbtn.click
+                    node.minibotfinAtoH_callback
+                    if minibotfinAtoH == 'Minibot arrived Any to Home Successfully!!!':
+                        self.lineEdit_4.setText('minibot_to_main_move_finish_anyposition_to_home')
+                        self.roslog.append('minibot_to_main_move_finish_anyposition_to_home')        
+                elif 1 <= testfaceid <= 5:
                     if testfaceid in testfaceidlist:
                         testfaceidlist.remove(testfaceid)
                         
@@ -677,12 +465,13 @@ class WindowClass(QMainWindow, from_class) :
                             self.lineEdit_4.setText('main_to_roboarm_pipupactive_start')
                             self.roslog.append('main_to_roboarm_pipupactive_start')
                             self.roboPbtn.click()
+                            
                             self.roboPfinbtn.clicked.connect(self.roboarmfinpicker)
                             node.roboarmfinpick_callback
                         if roboarmfinpick == 'roboarm_to_main_pickupactive_finish':
                             self.lineEdit_5.setText('roboarm_to_main_pickupactive_finish')
                             self.roslog.append('roboarm_to_main_pickupactive_finish')
-
+                            
                             self.lineEdit_4.setText(f'main_to_minibot_move_start_{testfaceid_tmp}shoebox_to_home')
                             self.roslog.append(f'main_to_minibot_move_start_{testfaceid_tmp}shoebox_to_home')
 
@@ -713,191 +502,7 @@ class WindowClass(QMainWindow, from_class) :
                                     return  self.roslog.append('-1- section not works')  
                     else:
                         self.faceidlog.append(f'not works checkthe {testfaceid_tmp} list') 
-                elif testfaceid == 2:
-                    if testfaceid in testfaceidlist:
-                        testfaceidlist.remove(testfaceid)
-                        
-                        self.faceidlog.append('second to see : ' + testfaceid_tmp)
-                        self.lineEdit_3.setText('faceid_to_main_givetopic_facenumber')
-                        self.roslog.append(f'faceid_to_main_givetopic_facenumber : {testfaceid_tmp}')
 
-                    
-                        self.lineEdit_4.setText(f'main_to_minibot_move_start_home_to_{testfaceid_tmp}shoebox')
-                        self.roslog.append(f'main_to_minibot_move_start_home_to_{testfaceid_tmp}shoebox')
-
-
-                        self.miniHtoSbtn.click()
-                        self.miniStoHfinbtn.clicked.connect(self.minibotfinHtoSer)
-
-                        node.minibotfinHtoS_callback
-
-                        if minibotfinHtoS == 'Minibot arrived Home to Shoebox Successfully!!!':
-                            self.lineEdit_4.setText(f'minibot_to_main_move_finish_home_to_{testfaceid_tmp}shoebox')
-                            self.roslog.append(f'minibot_to_main_move_finish_home_to_{testfaceid_tmp}shoebox')
-
-                            self.lineEdit_4.setText('main_to_roboarm_pipupactive_start')
-                            self.roslog.append('main_to_roboarm_pipupactive_start')
-                            self.roboPbtn.click()
-                            self.roboPfinbtn.clicked.connect(self.roboarmfinpicker)
-                            node.roboarmfinpick_callback
-                        if roboarmfinpick == 'roboarm_to_main_pickupactive_finish':
-                            self.lineEdit_5.setText('roboarm_to_main_pickupactive_finish')
-                            self.roslog.append('roboarm_to_main_pickupactive_finish')
-
-                            self.lineEdit_4.setText(f'main_to_minibot_move_start_{testfaceid_tmp}shoebox_to_home')
-                            self.roslog.append(f'main_to_minibot_move_start_{testfaceid_tmp}shoebox_to_home')
-
-                            self.miniStoHbtn.click()
-                            self.miniStoHfinbtn.clicked.connect(self.minibotfinStoHer)
-                            node.minibotfinStoH_callback
-                            if minibotfinStoH == 'Minibot arrived Shoebox to Home Successfully!!!':
-                                self.lineEdit_4.setText(f'minibot_to_main_move_finish_{testfaceid_tmp}shoebox_to_home')
-                                self.roslog.append(f'minibot_to_main_move_finish_{testfaceid_tmp}shoebox_to_home')
-
-                                self.lineEdit_5.setText('main_to_roboarm_unleashactive_start')
-                                self.roslog.append('main_to_roboarm_unleashactive_start')
-
-                                self.roboUbtn.click()    
-                                self.roboUfinbtn.clicked.connect(self.roboarmfinunleasher)
-                                node.roboarmfinunleash_callback
-
-                                if roboarmfinunleash == 'roboarm_to_main_unleashactive_finish':
-                                    self.lineEdit_5.setText('roboarm_to_main_unleashactive_finish')
-                                    self.roslog.append('roboarm_to_main_unleashactive_finish')
-
-                                    self.lineEdit_5.setText(f'shoe -{testfaceid_tmp}box in -completed')
-                                    self.roslog.append('minibot state 0 location-completed')
-                                    self.lineEdit_6.setText(f'shoe -{testfaceid_tmp}-completed')
-                                    self.roslog.append(f'shoe -{testfaceid_tmp}-completed')
-                                else:
-                                            
-                                    return  self.roslog.append('-1- section not works') 
-                        else:
-                            self.faceidlog.append(f'not works checkthe {testfaceid_tmp} list')                              
-                elif testfaceid == 3:
-                    if testfaceid in testfaceidlist:
-                        testfaceidlist.remove(testfaceid)
-                        
-                        self.faceidlog.append('second to see : ' + testfaceid_tmp)
-                        
-                        
-                        self.lineEdit_3.setText('faceid_to_main_givetopic_facenumber')
-                        self.roslog.append(f'faceid_to_main_givetopic_facenumber : {testfaceid_tmp}')
-
-                    
-                        self.lineEdit_4.setText(f'main_to_minibot_move_start_home_to_{testfaceid_tmp}shoebox')
-                        self.roslog.append(f'main_to_minibot_move_start_home_to_{testfaceid_tmp}shoebox')
-
-                        self.miniHtoSbtn.click()
-                        self.miniStoHfinbtn.clicked.connect(self.minibotfinHtoSer)
-
-                        node.minibotfinHtoS_callback
-
-                        if minibotfinHtoS == 'Minibot arrived Home to Shoebox Successfully!!!':
-                            self.lineEdit_4.setText(f'minibot_to_main_move_finish_home_to_{testfaceid_tmp}shoebox')
-                            self.roslog.append(f'minibot_to_main_move_finish_home_to_{testfaceid_tmp}shoebox')
-
-                            self.lineEdit_4.setText('main_to_roboarm_pipupactive_start')
-                            self.roslog.append('main_to_roboarm_pipupactive_start')
-                            self.roboPbtn.click()
-                            self.roboPfinbtn.clicked.connect(self.roboarmfinpicker)
-                            node.roboarmfinpick_callback
-                        if roboarmfinpick == 'roboarm_to_main_pickupactive_finish':
-                            self.lineEdit_5.setText('roboarm_to_main_pickupactive_finish')
-                            self.roslog.append('roboarm_to_main_pickupactive_finish')
-
-                            self.lineEdit_4.setText(f'main_to_minibot_move_start_{testfaceid_tmp}shoebox_to_home')
-                            self.roslog.append(f'main_to_minibot_move_start_{testfaceid_tmp}shoebox_to_home')
-
-                            self.miniStoHbtn.click()
-                            self.miniStoHfinbtn.clicked.connect(self.minibotfinStoHer)
-                            node.minibotfinStoH_callback
-                            if minibotfinStoH == 'Minibot arrived Shoebox to Home Successfully!!!':
-                                self.lineEdit_4.setText(f'minibot_to_main_move_finish_{testfaceid_tmp}shoebox_to_home')
-                                self.roslog.append(f'minibot_to_main_move_finish_{testfaceid_tmp}shoebox_to_home')
-
-                                self.lineEdit_5.setText('main_to_roboarm_unleashactive_start')
-                                self.roslog.append('main_to_roboarm_unleashactive_start')
-
-                                self.roboUbtn.click()    
-                                self.roboUfinbtn.clicked.connect(self.roboarmfinunleasher)
-                                node.roboarmfinunleash_callback
-
-                                if roboarmfinunleash == 'roboarm_to_main_unleashactive_finish':
-                                    self.lineEdit_5.setText('roboarm_to_main_unleashactive_finish')
-                                    self.roslog.append('roboarm_to_main_unleashactive_finish')
-
-                                    self.lineEdit_5.setText(f'shoe -{testfaceid_tmp}box in -completed')
-                                    self.roslog.append('minibot state 0 location-completed')
-                                    self.lineEdit_6.setText(f'shoe -{testfaceid_tmp}-completed')
-                                    self.roslog.append(f'shoe -{testfaceid_tmp}-completed')
-                                else:
-                                            
-                                    return  self.roslog.append('-1- section not works')
-                    else:
-                        self.faceidlog.append(f'not works checkthe {testfaceid_tmp} list')
-                elif testfaceid == 4:
-                    if testfaceid in testfaceidlist:
-                        testfaceidlist.remove(testfaceid)
-                        
-                        self.faceidlog.append('second to see : ' + testfaceid_tmp)
-                        self.lineEdit_3.setText('faceid_to_main_givetopic_facenumber')
-                        self.roslog.append(f'faceid_to_main_givetopic_facenumber : {testfaceid_tmp}')
-
-                    
-                        self.lineEdit_4.setText(f'main_to_minibot_move_start_home_to_{testfaceid_tmp}shoebox')
-                        self.roslog.append(f'main_to_minibot_move_start_home_to_{testfaceid_tmp}shoebox')
-
-
-                        self.miniHtoSbtn.click()
-                        self.miniStoHfinbtn.clicked.connect(self.minibotfinHtoSer)
-
-                        node.minibotfinHtoS_callback
-
-                        if minibotfinHtoS == 'Minibot arrived Home to Shoebox Successfully!!!':
-                            self.lineEdit_4.setText(f'minibot_to_main_move_finish_home_to_{testfaceid_tmp}shoebox')
-                            self.roslog.append(f'minibot_to_main_move_finish_home_to_{testfaceid_tmp}shoebox')
-
-                            self.lineEdit_4.setText('main_to_roboarm_pipupactive_start')
-                            self.roslog.append('main_to_roboarm_pipupactive_start')
-                            self.roboPbtn.click()
-                            self.roboPfinbtn.clicked.connect(self.roboarmfinpicker)
-                            node.roboarmfinpick_callback
-                        if roboarmfinpick == 'roboarm_to_main_pickupactive_finish':
-                            self.lineEdit_5.setText('roboarm_to_main_pickupactive_finish')
-                            self.roslog.append('roboarm_to_main_pickupactive_finish')
-
-                            self.lineEdit_4.setText(f'main_to_minibot_move_start_{testfaceid_tmp}shoebox_to_home')
-                            self.roslog.append(f'main_to_minibot_move_start_{testfaceid_tmp}shoebox_to_home')
-
-                            self.miniStoHbtn.click()
-                            self.miniStoHfinbtn.clicked.connect(self.minibotfinStoHer)
-                            node.minibotfinStoH_callback
-                            if minibotfinStoH == 'Minibot arrived Shoebox to Home Successfully!!!':
-                                self.lineEdit_4.setText(f'minibot_to_main_move_finish_{testfaceid_tmp}shoebox_to_home')
-                                self.roslog.append(f'minibot_to_main_move_finish_{testfaceid_tmp}shoebox_to_home')
-
-                                self.lineEdit_5.setText('main_to_roboarm_unleashactive_start')
-                                self.roslog.append('main_to_roboarm_unleashactive_start')
-
-                                self.roboUbtn.click()    
-                                self.roboUfinbtn.clicked.connect(self.roboarmfinunleasher)
-                                node.roboarmfinunleash_callback
-
-                                if roboarmfinunleash == 'roboarm_to_main_unleashactive_finish':
-                                    self.lineEdit_5.setText('roboarm_to_main_unleashactive_finish')
-                                    self.roslog.append('roboarm_to_main_unleashactive_finish')
-
-                                    self.lineEdit_5.setText(f'shoe -{testfaceid_tmp}box in -completed')
-                                    self.roslog.append('minibot state 0 location-completed')
-                                    self.lineEdit_6.setText(f'shoe -{testfaceid_tmp}-completed')
-                                    self.roslog.append(f'shoe -{testfaceid_tmp}-completed')
-                                else:
-                                            
-                                    return  self.roslog.append('-1- section not works')
-                    else:
-                        self.faceidlog.append(f'not works checkthe {testfaceid_tmp} list')            
-                elif testfaceid == 5:
                     if testfaceid in testfaceidlist:
                         testfaceidlist.remove(testfaceid)
                         
@@ -959,7 +564,7 @@ class WindowClass(QMainWindow, from_class) :
                                     return  self.roslog.append('-1- section not works')
                     else:
                         self.faceidlog.append(f'not works checkthe {testfaceid_tmp} list')                        
-#version 0.9
+#version 0.98
 def main():
     rclpy.init()
     node = Listen()
