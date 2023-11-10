@@ -110,7 +110,7 @@ def pose_esitmation(frame, aruco_dict_type, matrix_coefficients, distortion_coef
 
 @smart_inference_mode()
 def run(
-        weights=os.path.join(workspace_path, "src", package_name, package_name, "utils/best.pt"),  # model path or triton URL
+        weights=os.path.join(workspace_path, "src", package_name, package_name, "utils/best_last.pt"),  # model path or triton URL
         source="0",  # file/dir/URL/glob/screen/0(webcam)
         imgsz=(640, 480),  # inference size (height, width)
         conf_thres=0.1,  # confidence threshold
@@ -220,7 +220,7 @@ def run(
                         y_pixel = np.mean([tmp_list[1], tmp_list[3]])
                         if names[c] == 'ShoeLace' :
                             xy_shoelace.append((x_pixel, y_pixel))
-                        if names[c] == 'Shoe' :
+                        if names[c] == 'point' :
                             xy_shoe.append((x_pixel, y_pixel))
 
             cam_activate = True
@@ -509,31 +509,14 @@ def main():
     
     
     # Move to Way Point
-    # learn_list = way_point_1[17, 18, 19, 20, 22, 24, 26, 27, 28, 29, 30, 31, 32, 34, 36, 38, 40, 42, 45, 46, 72, 89, 90, 91, 92, 93, 99, 100, 102, 104, 106]
-    # list = [17, 18, 19, 20, 22, 24, 26, 27, 28, 29, 30, 31, 32, 34, 36, 38, 40, 42, 45, 46, 72, 89, 90, 91, 92, 93, 99, 100, 102, 104, 106]
-    list = [89, 90, 92, 94, 100]
-    for idx, point in enumerate(list):
-        episode = point
-        print ("Episode", episode , "Studying")
+
+    for idx, point in enumerate(way_point_1):
+        episode = idx
+        print ("Episode", episode + 1 , "Studying")
         # print("Episode", idx + 1 + episode_start, "/", len(way_point_1), "Start!")
         # print ("Episode", 1 + episode_start , "~", len(way_point_1[episode_start:]), "Studying")
         # print("Episode", idx + 1 + episode_start, "/", len(way_point_1[episode_start:]), "Start!")
         
-        ## Check Gripper picks shoes
-        # move_softly_to(shoes_check_point)
-        # wait_arrive(5)
-        # time.sleep(10)
-    
-        # if (len(xy_shoe) == 0 and len(xy_shoelace) == 0):
-        #     print("Gripper don't pick shoes.... Learning again please")
-        #     with open(log_file, 'a') as file:
-        #         # file.write(f"{episode} episode succeed {success_count} times! \n")
-        #         file.write(f"\n Now Gripper don't pick shoes in {episode + 1} episode ... Check this episode")
-        #     teleop_keyboard.destroy_node()
-        #     rclpy.shutdown()
-        # else:
-        #     print("Good!! Gripper picks shoes Successfully~!!")
-        #     ## 서칭액션으로 def 조건 넣어주고 if문 하니까 idx 꼬이는듯 ;;
         
         #### Initial Position Setting #####
         move_softly_to(way_point_2[episode][:5])

@@ -424,8 +424,10 @@ def main():
 
     # search_start_point = [-1.0, -0.8866409063339233, 0.1395922601222992, 2.032524585723877, 0., -1.1520196199417114]
     search_start_point = [0.13345633447170258, -0.4862719178199768, 0.04601942375302315, 2.1491072177886963, 0.11044661700725555, -1.3606410026550293] # 서칭 액션 없이 고정 위치
-    
+    gripper_open, gripper_close = -1.100485634803772, 0.3493204975128174
     goal_joint_angle = present_joint_angle.copy()
+    shoebox_up_point = [0.7163690328598022, 0.2577087879180908, -0.8912428617477417, 2.213534355163574, -0.18254372477531433, -1.0998642444610596]
+    shoebox_point = [0.6289321184158325,  0.7915341258049011, -0.8973788022994995, 1.5033012628555298, 0.6688156127929688]
 
     # Read JSON
     with open(way_point_1_path, 'r') as json_file:
@@ -441,9 +443,14 @@ def main():
     point_2_to_1.fit(X, y)
 
     # Go Searching point 
+    goal_joint_angle[5] = gripper_open
+    teleop_keyboard.send_goal_joint_space()
+    wait_arrive(0.05)
+    time.sleep(1)
     move_softly_to(search_start_point)
     wait_arrive(0.05)
     time.sleep(1)
+    
     
     if not (len(xy_shoe) == 2 and len(xy_shoelace) == 2):
         print(" Hmm.. Where is shoes? Searching Start !")
@@ -470,9 +477,9 @@ def main():
         # if successs, remember this state
         tmp_shoelace, tmp_shoe = result
         state = [present_joint_angle[4]] + list(tmp_shoelace[0]) + list(tmp_shoelace[1]) + list(tmp_shoe[0]) + list(tmp_shoe[1])
-        print("!!!!!!!!!OK! Save Information about Joint angle and X,Y Position!!!!!!!!!!!!!!!")
+        print("!!!!!!!!!OK! Find Information about Joint angle and X,Y Position!!!!!!!!!!!!!!!")
     else:
-        print("Model prediction failed!")
+        print("Can't fing position...")
         return
         
     point_2 = agent.predict(np.array(state).reshape(1, -1))[0]
@@ -482,7 +489,36 @@ def main():
     move_softly_to(point_1)
     
     print("Model prediction success!!!")
+    
+    goal_joint_angle[5] = gripper_close
+    teleop_keyboard.send_goal_joint_space()
+    wait_arrive(0.05)
+    time.sleep(1)
+    
+    move_softly_to(search_start_point)
+    wait_arrive(0.05)
+    time.sleep(1)
+    
+    move_softly_to(shoebox_up_point)
+    wait_arrive(0.05)
+    time.sleep(1)
+    
+    move_softly_to(shoebox_point)
+    wait_arrive(0.05)
+    time.sleep(1)
+    
+    goal_joint_angle[5] = gripper_open
+    teleop_keyboard.send_goal_joint_space()
+    wait_arrive(0.05)
+    time.sleep(1)
+    
+    move_softly_to(shoebox_up_point)
+    wait_arrive(0.05)
+    time.sleep(1)
 
+    move_softly_to(search_start_point)
+    wait_arrive(0.05)
+    time.sleep(1)
 
 
     # Destroy Node
