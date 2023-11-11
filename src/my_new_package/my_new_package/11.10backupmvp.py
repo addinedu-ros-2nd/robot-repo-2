@@ -6,7 +6,6 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int32, Bool
 from PyQt5.QtCore import QTimer
-from PyQt5.QtGui import QPalette, QColor
 import time
 import threading
 from my_new_package.sound import play_sound 
@@ -16,7 +15,7 @@ import random
 
 
 # ros ver
-from_class = uic.loadUiType("src/my_new_package/my_new_package/shoebotVerguimode.0.99.ui")[0]
+from_class = uic.loadUiType("src/my_new_package/my_new_package/shoebotVer.0.98.ui")[0]
 # #python ver
 # from_class = uic.loadUiType("basic.ui")[0]
 
@@ -159,6 +158,15 @@ class WindowClass(QMainWindow, from_class) :
         # self.timer.timeout.connect(self.auto_refresh)
         # self.timer.start(1000) 
 #===================
+        self.pushButton_1.clicked.connect(self.button1_Clicked)
+        self.pushButton_2.clicked.connect(self.button2_Clicked)
+        self.pushButton_3.clicked.connect(self.button3_Clicked)
+        self.pushButton_4.clicked.connect(self.button4_Clicked)
+        self.pushButton_5.clicked.connect(self.button5_Clicked)
+        self.pushButton_6.clicked.connect(self.button6_Clicked)
+        self.pushButton_7.clicked.connect(self.button7_Clicked)
+        self.pushButton_8.clicked.connect(self.button8_Clicked)
+        self.pushButton_9.clicked.connect(self.button9_Clicked)
 
         self.getfaceidbtn.clicked.connect(self.faceid_to_main_givetopic_facenumber)
     
@@ -172,119 +180,101 @@ class WindowClass(QMainWindow, from_class) :
         self.miniAtoHbtn.clicked.connect(lambda: self.minibotAtoH(node))
         self.roboPbtn.clicked.connect(lambda: self.robopickupact(node))
         self.roboUbtn.clicked.connect(lambda: self.robounleachact(node))
-        self.resetbtn.clicked.connect(self.reset)
-        
-       
+
+        self.logEdit.returnPressed.connect(self.addText)
+        self.enter.clicked.connect(self.addTextClicked)
+        self.Error.clicked.connect(self.error12)
         self.rosMobilestart.clicked.connect(lambda: self.mainmobile(node, testfaceid))
         self.rosMobileRstart.clicked.connect(lambda: self.mainmobileRev(node, testfaceid))
 # # each button have trigger publihser
-        self.timer = QTimer(self)
-        self.timer.timeout.connect(self.finish_color_count)
-        self.timer2 = QTimer(self)
-        self.timer2.timeout.connect(self.finish_color_count2)
-    
+
+        self.resetbtn.clicked.connect(self.reset)
+
         global testfaceidlist
         testfaceidlist = []
-
-        global active_color
-        active_color = QColor(0,0, 255) # pure blue
-
-        global finish_color
-        finish_color = QColor(169,169,169)
-
-        global Inactive_color
-        Inactive_color = QColor(255,255,255)
-
-
-
-    def finish_color_count(self):
         
-        QTimer.singleShot(500, lambda: self.guiline.setStyleSheet
-                            (f"background-color: {finish_color.name()}"))
-        QTimer.singleShot(1000, lambda: self.guiline2.setStyleSheet
-                            (f"background-color: {active_color.name()}"))
-        self.timer.stop()
-    def finish_color_count2(self):
-        QTimer.singleShot(1500, lambda: self.guiline2.setStyleSheet
-                            (f"background-color: {finish_color.name()}"))
-        QTimer.singleShot(2000, lambda: self.guiline3.setStyleSheet
-                            (f"background-color: {active_color.name()}"))     
-    def finish_color_count3(self):
-        QTimer.singleShot(3000, lambda: self.guiline3.setStyleSheet
-                            (f"background-color: {finish_color.name()}"))
-        QTimer.singleShot(3500, lambda: self.guiline4.setStyleSheet
-                            (f"background-color: {active_color.name()}"))
-    def finish_color_count4(self):
-        QTimer.singleShot(4500, lambda: self.guiline4.setStyleSheet
-                            (f"background-color: {finish_color.name()}"))
-        QTimer.singleShot(5000, lambda: self.guiline5.setStyleSheet
-                            (f"background-color: {active_color.name()}"))
-    def finish_color_count5(self):
-        QTimer.singleShot(6000, lambda: self.guiline5.setStyleSheet
-                            (f"background-color: {finish_color.name()}"))
-        QTimer.singleShot(6500, lambda: self.guiline6.setStyleSheet
-                            (f"background-color: {active_color.name()}"))
-    def finish_color_homecount(self):
-        QTimer.singleShot(7500, lambda: self.guiline6.setStyleSheet
-                            (f"background-color: {finish_color.name()}"))
-        QTimer.singleShot(8000, lambda: self.guiline7.setStyleSheet
-                            (f"background-color: {active_color.name()}"))
-    def finish_color_revcount(self):
-        QTimer.singleShot(0, lambda: self.guiline7.setStyleSheet
-                            (f"background-color: {finish_color.name()}"))
-        QTimer.singleShot(500, lambda: self.guiline8.setStyleSheet
-                            (f"background-color: {active_color.name()}"))
-    def finish_color_revcount2(self):
-        QTimer.singleShot(1000, lambda: self.guiline8.setStyleSheet
-                            (f"background-color: {finish_color.name()}"))
-        QTimer.singleShot(1500, lambda: self.guiline9.setStyleSheet
-                            (f"background-color: {active_color.name()}"))
-    def finish_color_revcount3(self):
-        QTimer.singleShot(2500, lambda: self.guiline9.setStyleSheet
-                            (f"background-color: {finish_color.name()}"))
-        QTimer.singleShot(3000, lambda: self.guiline10.setStyleSheet
-                            (f"background-color: {active_color.name()}"))
-    def finish_color_revcount4(self):
-        QTimer.singleShot(4000, lambda: self.guiline10.setStyleSheet
-                            (f"background-color: {finish_color.name()}"))
-        QTimer.singleShot(4500, lambda: self.guiline11.setStyleSheet
-                            (f"background-color: {active_color.name()}"))
-    def finish_color_revcount5(self):
-        QTimer.singleShot(5500, lambda: self.guiline11.setStyleSheet
-                            (f"background-color: {finish_color.name()}"))
-        QTimer.singleShot(6000, lambda: self.guiline12.setStyleSheet
-                            (f"background-color: {active_color.name()}"))
-    def finish_color_revhomecount(self):
-        QTimer.singleShot(7000, lambda: self.guiline12.setStyleSheet
-                            (f"background-color: {finish_color.name()}"))
-        QTimer.singleShot(7500, lambda: self.guiline7.setStyleSheet
-                            (f"background-color: {active_color.name()}"))
+    def start_count(self):
+        self.count=0
+        self.timer = self.startTimer(1000)
+    def timerEvent(self,event):
+        self.count += 1
+        self.lcdNumber.display(self.count)
+    def error12(self):
+        msg = "===============Error==============="
+        self.textEdit.setText(msg)
+        self.log.append(msg)
+        play_sound('07_에러효과음.mp3')
+    def addText(self):
+        input = self.logEdit.text()
+        self.logEdit.clear()
+        self.log.append(input)
+    def addTextClicked(self):
+        input = self.logEdit.text()
+        self.logEdit.clear()
+        self.log.append(input)   
+
+    def button1_Clicked(self):
+        Action1 = "사람이 들어오는 action  → 컴퓨터는 사람이 들어왔다라고 인식"
+        self.textEdit.setText(Action1)
+        self.log.append(Action1)
+        play_sound('01_인식되었습니다.wav')
+        
+    def button2_Clicked(self):
+        Action2 = "사람이들어와서 카메라로 찍는 action"
+        self.textEdit.setText(Action2)
+        self.log.append(Action2)
+    def button3_Clicked(self):
+        Action3 = "카메라로 찎은 데이터를 기록함"
+        self.textEdit.setText(Action3)
+        self.log.append(Action3)
+
+    def button4_Clicked(self):
+        Action4 = "메뉴플레이터를 작동, 신발인식후 신발을 들어올리는 action "
+        self.textEdit.setText(Action4)
+        self.log.append(Action4)
+        play_sound('03_신발정리중입니다.wav')
+    def button5_Clicked(self):
+        Action5 = "미니봇은 신발장에 맞는 근처로 움직이는 action "
+        self.textEdit.setText(Action5)
+        self.log.append(Action5)   
+    def button6_Clicked(self):
+        Action6 = " manuplator로 신발장에 두는 action 하기"
+        self.textEdit.setText(Action6)
+        self.log.append(Action6)  
+        play_sound('06_움직임효과음.mp3')
+    def button7_Clicked(self):
+        Action7 = "데이터 1번 기록에 신발장 위치 데이터 기록 해서 하나로 묶기"
+        self.textEdit.setText(Action7)
+        self.log.append(Action7)
+        play_sound('01_인식되었습니다.wav')
+    def button8_Clicked(self):
+        Action8 = "미니봇은 다시 금 홈으로 돌아가기"
+        self.textEdit.setText(Action8)
+        self.log.append(Action8)
+        play_sound('04_귀환중입니다.wav')
+    def button9_Clicked(self):
+        Action9 = "N번데이터에 기록, N번신발장은 신발장사용 , 그외 신발장 사용가능"
+        self.textEdit.setText(Action9)
+        self.log.append(Action9)
+        play_sound('05_대기중입니다.wav')
+ 
+        
    #===================================== 
     def reset(self):
+        Action10 = "초기화"
         self.lineEdit.setText('')
         self.lineEdit_2.setText('')
         self.lineEdit_3.setText('')
         self.lineEdit_4.setText('')
         self.lineEdit_5.setText('')
         self.lineEdit_6.setText('')
+        self.log.setText('')
+        self.textEdit.setText('')
         self.roslog.setText('')
+        self.log.append(Action10)
         self.faceidlog.setText('')
         self.roboarmlog.setText('')
         self.minibotlog.setText('')
-        self.guiline.setStyleSheet(f"background-color: {Inactive_color.name()};")
-        self.guiline2.setStyleSheet(f"background-color: {Inactive_color.name()};")
-        self.guiline3.setStyleSheet(f"background-color: {Inactive_color.name()};")
-        self.guiline4.setStyleSheet(f"background-color: {Inactive_color.name()};")
-        self.guiline5.setStyleSheet(f"background-color: {Inactive_color.name()};")
-        self.guiline6.setStyleSheet(f"background-color: {Inactive_color.name()};")
-        self.guiline7.setStyleSheet(f"background-color: {Inactive_color.name()};")
-        self.guiline8.setStyleSheet(f"background-color: {Inactive_color.name()};")
-        self.guiline9.setStyleSheet(f"background-color: {Inactive_color.name()};")
-        self.guiline10.setStyleSheet(f"background-color: {Inactive_color.name()};")
-        self.guiline11.setStyleSheet(f"background-color: {Inactive_color.name()};")
-        self.guiline12.setStyleSheet(f"background-color: {Inactive_color.name()};")
-       
-
     def faceid_to_main_givetopic_facenumber(self):
         self.lineEdit.setText(str(testfaceid))
         # faceId INt 32 로 받아온것을 str로 반환
@@ -352,7 +342,6 @@ class WindowClass(QMainWindow, from_class) :
             self.lineEdit_5.setText('')
             self.lineEdit_6.setText('')
             self.lineEdit_4.setText('main_to_minibot_move_start_anyposition_to_home')
-            
             self.roslog.append('main_to_minibot_move_start_anyposition_to_home')
             self.minibotlog.append('main_to_minibot_move_start_anyposition_to_home')
             self.miniAtoHbtn.click
@@ -367,29 +356,19 @@ class WindowClass(QMainWindow, from_class) :
                 testfaceidlist.append(testfaceid)
                 self.faceidlog.append('first to see :' + testfaceid_tmp)
                 self.lineEdit_3.setText('faceid_to_main_givetopic_facenumber')
-                self.guiline.setStyleSheet(f"background-color: {active_color.name()};")
                 self.roslog.append(f'faceid_to_main_givetopic_facenumber : {testfaceid_tmp}')
-                
-                self.finish_color_count()
                 self.lineEdit_4.setText('main_to_roboarm_pipupactive_start')
                 self.roslog.append('main_to_roboarm_pipupactive_start')
                 self.roboarmlog.append('main_to_roboarm_pipupactive_start')
-                
+
                 self.roboPbtn.click()
                 # 일정 행동후에 pickupact _finishbtn 클릭하라고 주면됨
                 self.roboPfinbtn.clicked.connect(lambda: self.roboarmfinpicker(node))
-                
-                self.finish_color_count2()
-                
-                
                 node.roboarmfinpick_callback
                 if roboarmfinpick == 'roboarm_to_main_pickupactive_finish':
-                    
-
                     self.lineEdit_5.setText('roboarm_to_main_pickupactive_finish')
                     self.roslog.append('roboarm_to_main_pickupactive_finish')
                     self.roboarmlog.append('roboarm_to_main_pickupactive_finish')
-                    self.finish_color_count3()
 
                     self.lineEdit_4.setText(f'main_to_minibot_move_start_home_to_{testfaceid_tmp} shoebox')
                     self.roslog.append(f'main_to_minibot_move_start_home_to_{testfaceid_tmp} shoebox')
@@ -409,7 +388,6 @@ class WindowClass(QMainWindow, from_class) :
                         self.lineEdit_5.setText('main_to_roboarm_unleashactive_start')
                         self.roslog.append('main_to_roboarm_unleashactive_start')
                         self.roboarmlog.append('main_to_roboarm_unleashactive_start')
-                        self.finish_color_count4()
 
                         self.roboUbtn.click()       
                         self.roboUfinbtn.clicked.connect(lambda: self.roboarmfinunleasher(node))
@@ -423,7 +401,6 @@ class WindowClass(QMainWindow, from_class) :
                             self.lineEdit_4.setText(f'main_to_minibot_move_start_{testfaceid_tmp}shoebox_to_home')
                             self.roslog.append(f'main_to_minibot_move_start_{testfaceid_tmp}shoebox_to_home')
                             self.minibotlog.append(f'main_to_minibot_move_start_{testfaceid_tmp}shoebox_to_home')
-                            self.finish_color_count5()
                             
                             self.miniStoHbtn.click
                             self.miniStoHfinbtn.clicked.connect(lambda: self.minibotfinStoHer(node))
@@ -432,7 +409,6 @@ class WindowClass(QMainWindow, from_class) :
                                 self.lineEdit_4.setText(f'minibot_to_main_move_finish_{testfaceid_tmp}shoebox_to_home')
                                 self.roslog.append(f'minibot_to_main_move_finish_{testfaceid_tmp}shoebox_to_home')
                                 self.minibotlog.append(f'minibot_to_main_move_finish_{testfaceid_tmp}shoebox_to_home')
-                                self.finish_color_homecount()
 
                                 self.lineEdit_5.setText(f'shoe -{testfaceid_tmp}box in -completed')
                                 self.roslog.append('minibot state 0 location-completed')
@@ -465,7 +441,7 @@ class WindowClass(QMainWindow, from_class) :
                 elif 1 <= testfaceid <= 5:
                     if testfaceid in testfaceidlist:
                         testfaceidlist.remove(testfaceid)
-                        self.finish_color_revcount()
+                        
                         self.faceidlog.append('second to see : ' + testfaceid_tmp)
                         self.lineEdit_3.setText('faceid_to_main_givetopic_facenumber')
                         self.roslog.append(f'faceid_to_main_givetopic_facenumber : {testfaceid_tmp}')
@@ -474,7 +450,7 @@ class WindowClass(QMainWindow, from_class) :
                         self.lineEdit_4.setText(f'main_to_minibot_move_start_home_to_{testfaceid_tmp}shoebox')
                         self.roslog.append(f'main_to_minibot_move_start_home_to_{testfaceid_tmp}shoebox')
                         self.minibotlog.append(f'main_to_minibot_move_start_home_to_{testfaceid_tmp}shoebox')
-                        self.finish_color_revcount2()
+
 
                         self.miniHtoSbtn.click()
                         self.miniStoHfinbtn.clicked.connect(self.minibotfinHtoSer)
@@ -482,11 +458,10 @@ class WindowClass(QMainWindow, from_class) :
                         node.minibotfinHtoS_callback
 
                         if minibotfinHtoS == 'Minibot arrived Home to Shoebox Successfully!!!':
-                            self.finish_color_revcount3()
                             self.lineEdit_4.setText(f'minibot_to_main_move_finish_home_to_{testfaceid_tmp}shoebox')
                             self.roslog.append(f'minibot_to_main_move_finish_home_to_{testfaceid_tmp}shoebox')
                             self.minibotlog.append(f'minibot_to_main_move_finish_home_to_{testfaceid_tmp}shoebox')
-                            
+
                             self.lineEdit_4.setText('main_to_roboarm_pipupactive_start')
                             self.roslog.append('main_to_roboarm_pipupactive_start')
                             self.roboarmlog.append('main_to_roboarm_pipupactive_start')
@@ -495,7 +470,6 @@ class WindowClass(QMainWindow, from_class) :
                             self.roboPfinbtn.clicked.connect(self.roboarmfinpicker)
                             node.roboarmfinpick_callback
                         if roboarmfinpick == 'roboarm_to_main_pickupactive_finish':
-                            self.finish_color_revcount4()
                             self.lineEdit_5.setText('roboarm_to_main_pickupactive_finish')
                             self.roslog.append('roboarm_to_main_pickupactive_finish')
                             self.roboarmlog.append('roboarm_to_main_pickupactive_finish')
@@ -508,7 +482,6 @@ class WindowClass(QMainWindow, from_class) :
                             self.miniStoHfinbtn.clicked.connect(self.minibotfinStoHer)
                             node.minibotfinStoH_callback
                             if minibotfinStoH == 'Minibot arrived Shoebox to Home Successfully!!!':
-                                
                                 self.lineEdit_4.setText(f'minibot_to_main_move_finish_{testfaceid_tmp}shoebox_to_home')
                                 self.roslog.append(f'minibot_to_main_move_finish_{testfaceid_tmp}shoebox_to_home')
                                 self.minibotlog.append(f'minibot_to_main_move_finish_{testfaceid_tmp}shoebox_to_home')
@@ -523,7 +496,6 @@ class WindowClass(QMainWindow, from_class) :
                                 node.roboarmfinunleash_callback
 
                                 if roboarmfinunleash == 'roboarm_to_main_unleashactive_finish':
-                                    self.finish_color_revcount5()
                                     self.lineEdit_5.setText('roboarm_to_main_unleashactive_finish')
                                     self.roslog.append('roboarm_to_main_unleashactive_finish')
                                     self.roboarmlog.append('roboarm_to_main_unleashactive_finish')
@@ -532,7 +504,6 @@ class WindowClass(QMainWindow, from_class) :
                                     self.roslog.append('minibot state 0 location-completed')
                                     self.lineEdit_6.setText(f'shoe -{testfaceid_tmp}-completed')
                                     self.roslog.append(f'shoe -{testfaceid_tmp}-completed')
-                                    self.finish_color_revhomecount()
                                 else:
                                             
                                     return  self.roslog.append('-1- section not works')  
