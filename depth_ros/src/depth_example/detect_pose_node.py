@@ -34,6 +34,7 @@ class DetectPoseNode(Node):
         self.cv_bridge = CvBridge()
 
         self.model = YOLO('yolov8n-pose.pt')
+        self.model2 = YOLO('yolov8n-seg.pt')
 
         # self.visualization = True
 
@@ -64,39 +65,57 @@ class DetectPoseNode(Node):
         results = self.model.predict(color_image, conf=self.conf, device=self.device) # detect
         # result = results[0].boxes.data.cpu().numpy()
         # keypoints = result.keypoints
-        
-        for result in results :
-            for idx, keypoints in enumerate(result.keypoints):
-                try:
-                    xyn = keypoints.xyn
-                    if xyn.size == 0:
+        model2_results = self.model2.predict(color_image, conf=self.conf, device=self.device)
+        model2_result = model2_results[0].boxes.data.cpu().numpy()
+        humans = model2_result[model2_result[:, -1] == 0]
+
+
+        id = 0
+        for row in humans :
+            id += 1
+            x1, y1, x2, y2, conf, cls = row
+            cx = int(x1 + x2) // 2
+            cy = int(y1 + y2) // 2
+            center = (cx, cy)
+
+            cv2.rectangle(color_image, (int(x1), int(y1)), (int(x2), int(y2)), (0,255, 0), 2)
+            cv2.circle(color_image, center, 3, (0, 0, 255), -1)
+            cv2.putText(color_image, "person " + str(id), (int(x1), int(y1)),
+            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+
+            for result in results:
+                for idx, keypoints in enumerate(result.keypoints):
+                    try:
+                        xyn = keypoints.xyn
+                        if xyn.size == 0:
+                            continue
+
+                        # selected_keypoints = xyn[0, [5, 11, 13], :]
+                        shoulder = xyn[0, [5], :] # joint1
+                        hip = xyn[0, [11], :]     # joint2
+                        knee = xyn[0, [13], :]    # joint3
+
+
+
+                        angle = self.calculate_angle(shoulder, hip, knee)
+
+                        threshold_angle = 120
+                        
+                        if angle < threshold_angle:
+                            msg = Int32MultiArray()
+                            msg.data = [1] # 'sit'
+                            self.pose_publisher.publish(msg)
+                        else:
+                            msg = Int32MultiArray()
+                            msg.data = [2] # 'stand'
+                            self.pose_publisher.publish(msg)
+
+                    except IndexError as e :
                         continue
 
-                    # selected_keypoints = xyn[0, [5, 11, 13], :]
-                    shoulder = xyn[0, [5], :] # joint1
-                    hip = xyn[0, [11], :]     # joint2
-                    knee = xyn[0, [13], :]    # joint3
-
-                    angle = self.calculate_angle(shoulder, hip, knee)
-
-                    threshold_angle = 120
-                    
-                    if angle < threshold_angle:
-                        msg = Int32MultiArray()
-                        msg.data = [1] # 'sit'
-                        self.pose_publisher.publish(msg)
-                    else:
-                        msg = Int32MultiArray()
-                        msg.data = [2] # 'stand'
-                        self.pose_publisher.publish(msg)
-
-                except IndexError as e :
-                    continue
 
 
 
-
-        print('activating')
         cv2.imshow("YOLOv8 Skeleton keypoint", color_image)
         cv2.waitKey(1)
 

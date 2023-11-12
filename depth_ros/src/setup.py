@@ -26,6 +26,8 @@ setup(
             'detect_node = depth_example.detect_node:main',
             'dist_node = depth_example.dist_node:main',
             'detect_pose_node = depth_example.detect_pose_node:main',
+            'detect_seg_node = depth_example.detect_seg_node:main',
+            'merge_pose_seg_node = depth_example.merge_pose_seg_node:main',
         ],
     },
 )
