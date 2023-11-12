@@ -22,29 +22,14 @@ def generate_launch_description():
         default_value=prarm_dir
           )]
     
-    detect_node = Node(
-            package='depth_example',
-            executable='detect_node',
-            parameters=[prarm_dir],
-            output="screen"
-    )
 
-    dist_node = Node(
+    detect_pose_node = Node(
         package='depth_example',
-        executable='dist_node',
+        executable='detect_pose_node',
         parameters=[prarm_dir],
         output='screen'
     )
-
-    # detect_pose_node = Node(
-    #     package='depth_example',
-    #     executable='detect_pose_node',
-    #     parameters=[prarm_dir],
-    #     output='screen'
-    # )
     
     ld = LaunchDescription(args) #laucnh파일 생성
-    ld.add_action(detect_node)
-    ld.add_action(dist_node)
-    # ld.add_action(detect_pose_node)
+    ld.add_action(detect_pose_node)
     return ld

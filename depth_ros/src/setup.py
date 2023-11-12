@@ -25,6 +25,7 @@ setup(
         'console_scripts': [
             'detect_node = depth_example.detect_node:main',
             'dist_node = depth_example.dist_node:main',
+            'detect_pose_node = depth_example.detect_pose_node:main',
         ],
     },
 )
