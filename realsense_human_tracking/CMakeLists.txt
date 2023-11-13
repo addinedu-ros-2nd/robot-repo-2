@@ -56,20 +56,19 @@ add_executable(color_image src/color_image.cpp)
 ament_target_dependencies(color_image rclcpp std_msgs sensor_msgs OpenCV cv_bridge)
 add_executable(pcl_visualizer_demo src/pcl_visualizer_demo.cpp)
 target_link_libraries( pcl_visualizer_demo ${PCL_LIBRARIES})
-add_executable(pcl_dbscan src/pcl_dbscan.cpp)
-target_link_libraries( pcl_dbscan
-  ${PCL_LIBRARIES}
-)
-ament_target_dependencies(pcl_dbscan rclcpp std_msgs sensor_msgs OpenCV cv_bridge)
 add_executable(testing src/test.cpp)
 ament_target_dependencies(testing rclcpp std_msgs sensor_msgs OpenCV cv_bridge)
-
+add_executable (cluster_extraction src/cluster_extraction.cpp)
+target_link_libraries (cluster_extraction ${PCL_LIBRARIES})
+add_executable (pcd_concatenation src/pcd_concatenation.cpp)
+target_link_libraries (pcd_concatenation ${PCL_LIBRARIES})
 
 install(TARGETS
  human_pcl
  color_image
  pcl_visualizer_demo
- pcl_dbscan
+ cluster_extraction
+ pcd_concatenation
  testing
  DESTINATION lib/${PROJECT_NAME}
 )

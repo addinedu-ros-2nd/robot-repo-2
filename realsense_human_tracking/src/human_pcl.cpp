@@ -8,11 +8,23 @@
 #include <cmath>
 #include <iostream>
 #include <thread>
+
 #include <pcl/common/angles.h>
 #include <pcl/features/normal_3d.h>
 #include <pcl/io/pcd_io.h>
 #include <pcl/visualization/pcl_visualizer.h>
 #include <pcl/console/parse.h>
+
+#include <pcl/ModelCoefficients.h>
+#include <pcl/point_types.h>
+#include <pcl/filters/extract_indices.h>
+#include <pcl/filters/voxel_grid.h>
+#include <pcl/search/kdtree.h>
+#include <pcl/sample_consensus/method_types.h>
+#include <pcl/sample_consensus/model_types.h>
+#include <pcl/segmentation/sac_segmentation.h>
+#include <pcl/segmentation/extract_clusters.h>
+#include <iomanip> // for setw, setfill
 
 pcl::visualization::PCLVisualizer::Ptr rgbVis (pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr cloud){
   // --------------------------------------------
@@ -114,11 +126,11 @@ class DistNode : public rclcpp::Node {
                 10,
                 std::bind(&DistNode::depthImageCallback, this, std::placeholders::_1)
             );
-            // color_subscription_ = this->create_subscription<sensor_msgs::msg::Image>(
-            //     "/camera/color/image_raw",
-            //     10,
-            //     std::bind(&DistNode::colorImageCallback, this, std::placeholders::_1)
-            // );
+            color_subscription_ = this->create_subscription<sensor_msgs::msg::Image>(
+                "/camera/color/image_raw",
+                10,
+                std::bind(&DistNode::colorImageCallback, this, std::placeholders::_1)
+            );
             seg_subscription_ = this->create_subscription<std_msgs::msg::Int32MultiArray>(
                 "/person_seg_tracking",
                 10,
@@ -129,7 +141,7 @@ class DistNode : public rclcpp::Node {
     private:
         rclcpp::Subscription<sensor_msgs::msg::CameraInfo>::SharedPtr camera_info_subscriber_;
         rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr depth_subscription_;
-        // rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr color_subscription_;
+        rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr color_subscription_;
         rclcpp::Subscription<std_msgs::msg::Int32MultiArray>::SharedPtr seg_subscription_;
         rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr dist_publisher_;
         cv_bridge::CvImagePtr cv_ptr;
@@ -139,12 +151,12 @@ class DistNode : public rclcpp::Node {
         pcl::PointCloud<pcl::PointXYZRGB>::Ptr point_cloud_ptr = std::make_shared<pcl::PointCloud<pcl::PointXYZRGB>>();
         pcl::visualization::PCLVisualizer::Ptr viewer = rgbVis(point_cloud_ptr);
 
-        // void colorImageCallback(const sensor_msgs::msg::Image::ConstPtr msg) {
-        //     color_image_.create(msg->height, msg->width, CV_8UC3);
-        //     color_image_.data = const_cast<unsigned char *>(msg->data.data());
-        //     // color_image_.step = msg->step;
-        //     cv::cvtColor(color_image_, color_image_, cv::COLOR_RGB2BGR);
-        // }
+        void colorImageCallback(const sensor_msgs::msg::Image::ConstPtr msg) {
+            color_image_.create(msg->height, msg->width, CV_8UC3);
+            color_image_.data = const_cast<unsigned char *>(msg->data.data());
+            color_image_.step = msg->step;
+            cv::cvtColor(color_image_, color_image_, cv::COLOR_RGB2BGR);
+        }
 
         void cameraInfoCallback(const sensor_msgs::msg::CameraInfo::SharedPtr msg) {
             intrinsics.ppx = msg->k[2];
@@ -179,7 +191,7 @@ class DistNode : public rclcpp::Node {
                 mat_human = mat_human.reshape(1, depth_image_.rows);
                 cv::Mat result = human_filter(depth_image_, mat_human);
                 // statistical outlier removal -> Failed!!
-                removeOutliers(result);
+                // removeOutliers(result);
                 // removeOutline(result);
                 // removeOutliers(result);
 
@@ -187,21 +199,61 @@ class DistNode : public rclcpp::Node {
                 for (int y = 0; y < result.rows; y++) {
                     for (int x = 0; x < result.cols; x++) {
                         float depth = result.at<float>(y, x) / 1000;
-                        // cv::Vec3b pixel = color_image_.at<cv::Vec3b>(y, x);
-                        // int blue = pixel[0];
-                        // int green = pixel[1];
-                        // int red = pixel[2];
                         if (depth > 0) {
+                            cv::Vec3b pixel = color_image_.at<cv::Vec3b>(y, x);
+                            int blue = pixel[0];
+                            int green = pixel[1];
+                            int red = pixel[2];
                             pcl::PointXYZRGB point;
                             rs2_deproject_pixel_to_point(point, &intrinsics, x, y, depth);
+                            // point.r = red;
+                            // point.g = green;
+                            // point.b = blue;
                             point_cloud_ptr->points.push_back(point);
                         }
                     }
                 }
+
+                // Create the filtering object: downsample the dataset using a leaf size of 1cm
+                pcl::VoxelGrid<pcl::PointXYZRGB> vg;
+                vg.setInputCloud(point_cloud_ptr);
+                vg.setLeafSize(0.01f, 0.01f, 0.01f);
+                vg.filter(*point_cloud_ptr);
+
+                // // Creating the KdTree object for the search method of the extraction
+                // pcl::search::KdTree<pcl::PointXYZRGB>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZRGB>);
+                // tree->setInputCloud(point_cloud_ptr);
+
+                // std::vector<pcl::PointIndices> cluster_indices;
+                // pcl::EuclideanClusterExtraction<pcl::PointXYZRGB> ec;
+                // ec.setClusterTolerance(0.1); // 0.02 == 2cm
+                // ec.setMinClusterSize(100);
+                // ec.setMaxClusterSize(25000);
+                // ec.setSearchMethod(tree);
+                // ec.setInputCloud(point_cloud_ptr);
+                // ec.extract(cluster_indices);
+
+                // int j = 0;
+                // for (const auto& cluster : cluster_indices) {
+                //     pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_cluster(new pcl::PointCloud<pcl::PointXYZRGB>);
+                //     for (const auto& idx : cluster.indices) {
+                //     cloud_cluster->push_back((*point_cloud_ptr)[idx]);
+                //     } //*
+                //     cloud_cluster->width = cloud_cluster->size();
+                //     cloud_cluster->height = 1;
+                //     cloud_cluster->is_dense = true;
+
+                //     std::cout << "PointCloud representing the Cluster: " << cloud_cluster->size() << " data points." << std::endl;
+                //     std::stringstream ss;
+                //     ss << std::setw(2) << std::setfill('0') << j;
+                //     j++;
+                // }
+
             }
 
             point_cloud_ptr->width = point_cloud_ptr->size ();
             point_cloud_ptr->height = 1;
+            point_cloud_ptr->is_dense = true;
             viewer->updatePointCloud(point_cloud_ptr, "sample cloud");
             viewer->spinOnce(100);
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
