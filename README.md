@@ -15,7 +15,9 @@
 ## Summary
 ----
 Face recognition으로 사람 얼굴을 구별
+
 YOLOv3 모델을 이용해 신발을 detecting 후 Robotics의 open_manipulator을 이용해 신발을 집어 Mobile robot을 이용해 신발장까지 운반하는 시스템
+
 Pose estimation으로 행동예측을 하여 Mobile robot을 회피기동
 ## Scenario
 ----
