@@ -2,19 +2,19 @@
 -----------
 # Demo Video
 ----
-# Summary
+## Summary
 ----
-# Scenario
+## Scenario
 ----
-# System Configuration
+## System Configuration
 ----
-# Manipulator Motion Planning
+## Manipulator Motion Planning
 ----
-# Face Recognition
+## Face Recognition
 ----
-# Pose Estimation
+## Pose Estimation
 ----
-# Mobile Robot
+## Mobile Robot
 -----
 # Improvements expected in the future
 a=text
