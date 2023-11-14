@@ -5,10 +5,14 @@
 -----
 오세찬
 
-김동우
+김동우 [Github](https://github.com/DongUKim)
+
 김명섭
+
 백세진
+
 최석원
+
 왕한세
 # Demo Video
 ----
