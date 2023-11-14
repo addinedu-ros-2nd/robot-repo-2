@@ -5,7 +5,7 @@
 -----
 오세찬
 
-김동우 [Github](https://github.com/DongUKim)
+김동우 [Github_link](https://github.com/DongUKim)
 
 김명섭
 
