@@ -114,11 +114,9 @@ YOLOv8-Pose, LSTM, Tensor Flow의 CNN을 활용하여 Human Pose estimation LSTM
 
 ### 백세진
 
-귀 후비후비
+PyQT와 ROS연결, 통신
 
 ### 최석원
-
-배 벍벍 긁을 위한 월동 준비
 
 shoe detection를 위한 YOLOv3 학습모델 구축
 
