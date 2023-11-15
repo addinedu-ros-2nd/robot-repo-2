@@ -114,7 +114,7 @@ YOLOv8-Pose, LSTM, Tensor Flow의 CNN을 활용하여 Human Pose estimation LSTM
 
 ### 백세진
 
-PyQT와 ROS연결, 통신
+PyQT를 활용하여 GUI생성, ROS연결 통신
 
 ### 최석원
 
