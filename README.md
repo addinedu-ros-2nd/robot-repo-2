@@ -20,7 +20,7 @@
 [https://youtu.be/70jTAGOszJk?si=234ndFWIfTjO60wj](https://youtu.be/70jTAGOszJk?si=B9b1eJ4xAqf_m7qv)
 
 
-## Summary
+## Project Summary
 ----
 Face recognition으로 사람 얼굴을 구별
 
@@ -35,10 +35,10 @@ Pose estimation으로 행동예측을 하여 Mobile robot을 회피기동
 ![ShoeBot_Diagram-Page-4 drawio](https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/f5ffd09c-155c-4951-af13-9e8d26a2af4c)
 ## Manipulator Motion Planning
 ----
-Motion Planning Part Summary
+### Motion Planning Part Summary
 manipulator가 신발을 감지 한 후에 신발을 집고 주행로봇이나 신발장에 올리기 위해 필요한 동작을 구현하는 단계
 
-Motion Planning Part Technology
+### Motion Planning Part Technology
 Language: Python, C++
 Library:
 
@@ -49,7 +49,7 @@ C++ - Dynamicxel, cstdlib, chrono, functional, memory, string, rclcpp, std_msgs
 Hardware:
 Open-manipulator, Object detecting camera, shoe’s mockup with formboard
 
-cpp controller 실행코드
+### cpp controller 실행코드
 ```
 ros2 run dynamixel_workbench_toolbox dxl_controller control
 ```
