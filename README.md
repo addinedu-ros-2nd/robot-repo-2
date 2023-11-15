@@ -5,15 +5,31 @@
 -----
 오세찬
 
+manipulator control ROS2 cpp package 작성
+
+Human 3D trajectory estimation system 구현
+
 김동우 [github link](https://github.com/DongUKim)
 
 김명섭
 
+Face recognition library를 활용한 얼굴인식 및 ID 관리 system 구현
+
+YOLOv8, LSTM, Tensor Flow의 CNN을 활용하여 Human Pose estimation 구현
+
 백세진
+
+귀 후비후비
 
 최석원
 
+배 벅벅 긁
+
+
+
 왕한세
+
+
 # Demo Video
 ----
 
