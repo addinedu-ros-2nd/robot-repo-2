@@ -136,6 +136,4 @@ Digital Twin
 ## Mobile Robot
 -----
 # Improvements expected in the future
-a=text
 
-세진이형
