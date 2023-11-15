@@ -61,10 +61,10 @@ YOLOv3 모델을 이용해 신발을 detecting 후 Robotics의 open_manipulator�
 Pose estimation으로 행동예측을 하여 Mobile robot을 회피기동
 ## Scenario
 ----
-![시퀀스다이어그램-스테이트전이 (2)](https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/5a99e0b4-a979-45f4-9dea-5e57a060ab19)
+![시퀀스다이어그램-스테이트전이 (2)](https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/5a99e0b4-a979-45f4-9dea-5e57a060ab19){: width="30%" height="30%"}
 ## System Configuration
 ----
-![ShoeBot_Diagram-Page-4 drawio](https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/f5ffd09c-155c-4951-af13-9e8d26a2af4c)
+![ShoeBot_Diagram-Page-4 drawio](https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/f5ffd09c-155c-4951-af13-9e8d26a2af4c){: width="100" height="100"}
 ## Manipulator Motion Planning
 ----
 ### Motion Planning Part Summary
