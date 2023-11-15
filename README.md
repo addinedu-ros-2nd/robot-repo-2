@@ -3,32 +3,48 @@
 -----------
 # Member
 -----
-오세찬
+### 오세찬
 
 manipulator control ROS2 cpp package 작성
 
 Human 3D trajectory estimation system 구현
 
-김동우 [github link](https://github.com/DongUKim)
+### 김동우 [github link](https://github.com/DongUKim)
 
-김명섭
+2D point & shoot SLAM 맵 구현 및 Mobile robot 제어
+
+shoe pick & place를 위한 joint angle 데이터 생성 및 딥러닝 모델을 이용한 데이터 증강
+
+
+### 김명섭
 
 Face recognition library를 활용한 얼굴인식 및 ID 관리 system 구현
 
-YOLOv8, LSTM, Tensor Flow의 CNN을 활용하여 Human Pose estimation 구현
+YOLOv8-Pose, LSTM, Tensor Flow의 CNN을 활용하여 Human Pose estimation LSTM 모델 구현
 
-백세진
+### 백세진
 
 귀 후비후비
 
-최석원
+### 최석원
 
-배 벅벅 긁
+배 벍벍 긁을 위한 월동 준비
+
+shoe detection를 위한 YOLOv3 학습모델 구축
+
+YOLOv8-Pose,Tensor Flow를 활용하여 Human Pose estimation decision tree모델과 LSTM 모델 구현
 
 
+### 왕한세
 
-왕한세
 
+shoe detection를 위한 YOLOv3 학습모델 구축
+
+MoveIt을 활용한 6-DOF manipulator URDF 구현 및 제어
+
+Digital Twin
+
+화장실 가서 맨날 cry
 
 # Demo Video
 ----
