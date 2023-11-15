@@ -2,7 +2,7 @@
 
 
 # Why?
-<img src="https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/6d90a1c4-a6e6-44a0-bfa7-9022e40e8950" width="30%" height="30%"/>
+<img src="https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/6d90a1c4-a6e6-44a0-bfa7-9022e40e8950" width="70%" height="70%"/>
 
 
 직접 손으로 정리하시겠습니까?
@@ -11,27 +11,62 @@
 
 ## Project Introduce
 ----
-shoebot은 사람의 손이 없어도 신발을 집어, 신발장에 정리해두는 친절한 로봇입니다.
 
-# Demo Video
+<img src="https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/cc05d8f4-d8a5-4d24-9b5d-f5cf5640731c" width="70%" height="70%"/>
+
+shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇입니다.
+
+# Demo Video(이미지 클릭시 유튜브로 연결됩니다)
 ----
 
-![image](https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/e05c57b4-476a-476e-943d-8dc229365a41)(https://www.youtube.com/watch?v=70jTAGOszJk)
+[![image](https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/d7c48a46-50a9-424f-b440-a319a1571943)](https://www.youtube.com/watch?v=70jTAGOszJk)
 
 
 ## Project Keyword
 ----
 1. Manipulator pick & place
-2. Deeplearning
-3. Autonomous driving
-4. ROS2
+   
+2. Face Recognition
+   
+3. Pose Estimation with LSTM & CNN
+   
+4. Autonomous Driving with SLAM
+
+5. Main Control System with ROS2
 
    
 ## Project Summary
 ----
-Face recognition으로 사람 얼굴을 구별
 
-YOLOv3 모델을 이용해 신발을 detecting 후 Robotics의 open_manipulator을 이용해 신발을 집어 Mobile robot을 이용해 신발장까지 운반하는 시스템
+1. Manipulator pick & place
+
+YOLOv3로 학습한 신발객체 인식 모델을 활용하여 manipulator가 신발을 집고, 신발장에 정리해줍니다.
+
+이때, manipulator은 MoveIt와 MLP model based DeepLearning로 정밀하게 제어됩니다.
+
+
+2. Face Recognition
+
+Face recognition으로 제공하는 고유ID는 똑같은 신발들 사이에서도 여러분의 신발을 찾을 수 있게 도와줍니다.
+
+
+3. Pose Estimation with LSTM & CNN
+
+LSTM 과 CNN으로 학습된 행동예측 모델은 ShoeBot이 신발을 정리하면서도 여러분과 부딪히지않게 해줍니다.
+
+당신이 걷던, 뛰던, 혹은 물구나무를 서더라도요.
+
+4. Autonomous Driving with SLAM
+
+manipulator가 여러분의 손을 대신해준다면, SLAM을 기반으로 구축한 Automous Driving은 여러분의 발이 되어줄겁니다.
+
+다만, 여러분들이 찾지않는다면 ShoeBot은 충전소에서 쉬고있겠죠
+
+5. Main Control System with ROS2
+
+ShoeBot에게는 든든한 친구 ShoeManager가 있습니다.
+
+Shoemanager은 여러분이 도움을 필요로 할때마다 ShoeBot에게 귀뜀을 해주지요. 물론 그 반대도 가능하도록 도와줍니다!
 
 Pose estimation으로 행동예측을 하여 Mobile robot을 회피기동
 ## Scenario
