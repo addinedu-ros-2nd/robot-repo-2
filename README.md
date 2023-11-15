@@ -17,7 +17,7 @@
 # Demo Video
 ----
 
-https://youtu.be/70jTAGOszJk?si=234ndFWIfTjO60wj
+[https://youtu.be/70jTAGOszJk?si=234ndFWIfTjO60wj](https://youtu.be/70jTAGOszJk?si=B9b1eJ4xAqf_m7qv)
 
 
 ## Summary
