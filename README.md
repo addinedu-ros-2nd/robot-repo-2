@@ -49,7 +49,7 @@ Digital Twin
 # Demo Video
 ----
 
-[https://youtu.be/70jTAGOszJk?si=234ndFWIfTjO60wj](https://youtu.be/70jTAGOszJk?si=B9b1eJ4xAqf_m7qv)
+<iframe width="1280" height="720" src="https://www.youtube.com/embed/70jTAGOszJk" title="Addinedu_ROS_Final 2조 Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 
 ## Project Summary
