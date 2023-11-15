@@ -110,7 +110,7 @@ shoe pick & place를 위한 joint angle 데이터 생성 및 딥러닝 모델을
 
 Face recognition library를 활용한 얼굴인식 및 ID 관리 system 구현
 
-YOLOv8-Pose, LSTM, Tensor Flow의 CNN을 활용하여 Human Pose estimation LSTM 모델 구현
+YOLOv8-Pose, LSTM, Tensor Flow의 CNN을 활용하여 Human Pose estimation 을 위한 LSTM 모델 구현
 
 ### 백세진
 
@@ -120,7 +120,7 @@ PyQT를 활용하여 GUI생성, ROS연결 통신
 
 shoe detection를 위한 YOLOv3 학습모델 구축
 
-YOLOv8-Pose,Tensor Flow를 활용하여 Human Pose estimation decision tree모델과 LSTM 모델 구현
+YOLOv8-Pose,Tensor Flow를 활용하여 Human Pose estimation 을 위한 decision tree모델과 LSTM 모델 구현
 
 
 ### 왕한세
