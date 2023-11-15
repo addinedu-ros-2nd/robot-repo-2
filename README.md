@@ -5,7 +5,7 @@
 <img src="https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/6d90a1c4-a6e6-44a0-bfa7-9022e40e8950" width="30%" height="30%"/>
 
 
-직접 손으로 정리하시겠습니까?네
+직접 손으로 정리하시겠습니까?
 
 아니면 shoebot이 정리해드릴까요?
 
