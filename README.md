@@ -49,9 +49,17 @@ Digital Twin
 # Demo Video
 ----
 
-https://www.youtube.com/watch?v=70jTAGOszJk
+![image](https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/e05c57b4-476a-476e-943d-8dc229365a41)(https://www.youtube.com/watch?v=70jTAGOszJk)
 
 
+## Project Keyword
+----
+1. Manipulator pick & place
+2. Deeplearning
+3. Autonomous driving
+4. ROS2
+
+   
 ## Project Summary
 ----
 Face recognition으로 사람 얼굴을 구별
@@ -70,7 +78,7 @@ Pose estimation으로 행동예측을 하여 Mobile robot을 회피기동
 ### Motion Planning Part Summary
 manipulator가 신발을 감지 한 후에 신발을 집고 주행로봇이나 신발장에 올리기 위해 필요한 동작을 구현하는 단계
 
-### Motion Planning Part Technology
+### Motion Planning Part language & library
 Language: Python, C++
 Library:
 
@@ -81,25 +89,26 @@ C++ - Dynamicxel, cstdlib, chrono, functional, memory, string, rclcpp, std_msgs
 Hardware:
 Open-manipulator, Object detecting camera, shoe’s mockup with formboard
 
-### cpp controller 실행코드
-```
-ros2 run dynamixel_workbench_toolbox dxl_controller control
-```
+### Motion Planning Part technology 
 
-cpp controller 실행코드(읽기전용)
-```
-ros2 run dynamixel_workbench_toolbox dxl_controller
-```
+#### Custom cpp package 
 
-model 생성 코드 실행
-```
-ros2 run ai_manipulation six_dxl_model
-```
+1. 6-DOF 제어
+2. dynamic cell control table 관찰
 
-현재 pose를 확인 할 수 있는 topic
-```
-ros2 topic echo /present_joint_angle
-```
+#### YOLOv3 신발객체탐지 모델
+
+1. 모형신발을 사용하여 학습
+2. 450개의 사진
+
+#### 자가학습 시스템 구축
+
+1. shoe pick & place 를 위한 pose를 manipulator 스스로 학습하도록 모델을 구축
+
+#### MoveIt를 활용한 manipulator 제어
+
+
+
 
 
 ## Face Recognition
