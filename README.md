@@ -16,6 +16,10 @@
 왕한세
 # Demo Video
 ----
+
+https://youtu.be/70jTAGOszJk?si=234ndFWIfTjO60wj
+
+
 ## Summary
 ----
 Face recognition으로 사람 얼굴을 구별
