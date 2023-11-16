@@ -40,7 +40,7 @@ shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇
 
 **1. Manipulator pick & place**
 
-     YOLOv3로 학습한 신발객체 인식 모델을 활용하여 manipulator가 신발을 집고, 신발장에 정리해줍니다.
+         YOLOv3로 학습한 신발객체 인식 모델을 활용하여 manipulator가 신발을 집고, 신발장에 정리해줍니다.
 
       이때, manipulator은 MoveIt와 MLP model based DeepLearning로 정밀하게 제어됩니다.
 
@@ -52,19 +52,19 @@ shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇
 
 **3. Pose Estimation with LSTM & CNN**
 
-      LSTM 과 CNN으로 학습된 행동예측 모델은 ShoeBot이 신발을 정리하면서도 여러분과 부딪히지않게 해줍니다.
+         LSTM 과 CNN으로 학습된 행동예측 모델은 ShoeBot이 신발을 정리하면서도 여러분과 부딪히지않게 해줍니다.
 
       당신이 걷던, 뛰던, 혹은 물구나무를 서더라도요.
 
 **4. Autonomous Driving with SLAM**
 
-      manipulator가 여러분의 손을 대신해준다면, SLAM을 기반으로 구축한 Automous Driving은 여러분의 발이 되어줄겁니다.
+         manipulator가 여러분의 손을 대신해준다면, SLAM을 기반으로 구축한 Automous Driving은 여러분의 발이 되어줄겁니다.
 
       다만, 여러분들이 찾지않는다면 ShoeBot은 충전소에서 쉬고있겠죠
 
 **5. Main Control System with ROS2**
 
-      ShoeBot에게는 든든한 친구 ShoeManager가 있습니다.
+         ShoeBot에게는 든든한 친구 ShoeManager가 있습니다.
 
       Shoemanager은 여러분이 도움을 필요로 할때마다 ShoeBot에게 귀뜀을 해주지요. 물론 그 반대도 가능하도록 도와줍니다!
 
@@ -84,16 +84,6 @@ shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇
 ### Motion Planning Part Summary
 manipulator가 신발을 감지 한 후에 신발을 집고 주행로봇이나 신발장에 올리기 위해 필요한 동작을 구현하는 단계
 
-### Motion Planning Part language & library
-Language: Python, C++
-Library:
-
-Python - math, os, rclpy, threading, numpy, multiprocessing, platform, sys, pathlib, torch, cv2, time, json, ultralytics.utils, ai_manipulation.utils, joblib, random, sklearn.linear_model, scipy.stats, array, std_msgs.msg, rclpy.node, subprocess
-
-C++ - Dynamicxel, cstdlib, chrono, functional, memory, string, rclcpp, std_msgs
-
-Hardware:
-Open-manipulator, Object detecting camera, shoe’s mockup with formboard
 
 ### Motion Planning Part technology 
 
@@ -114,7 +104,19 @@ Open-manipulator, Object detecting camera, shoe’s mockup with formboard
 #### MoveIt를 활용한 manipulator 제어
 
 
+### Motion Planning Part software & hardware
 
+|Language|Python|C++|
+|Library|---|---|
+Language: Python, C++
+Library:
+
+Python - math, os, rclpy, threading, numpy, multiprocessing, platform, sys, pathlib, torch, cv2, time, json, ultralytics.utils, ai_manipulation.utils, joblib, random, sklearn.linear_model, scipy.stats, array, std_msgs.msg, rclpy.node, subprocess
+
+C++ - Dynamicxel, cstdlib, chrono, functional, memory, string, rclcpp, std_msgs
+
+Hardware:
+Open-manipulator, Object detecting camera, shoe’s mockup with formboard
 
 
 ## Face Recognition
