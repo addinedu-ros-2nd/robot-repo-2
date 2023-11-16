@@ -24,45 +24,45 @@ shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇
 
 ## Project Keyword
 
-1. Manipulator pick & place
+**1. Manipulator pick & place**
    
-2. Face Recognition
+**2. Face Recognition**
    
-3. Pose Estimation with LSTM & CNN
+**3. Pose Estimation with LSTM & CNN**
    
-4. Autonomous Driving with SLAM
+**4. Autonomous Driving with SLAM**
 
-5. Main Control System with ROS2
+**5. Main Control System with ROS2**
 
    
 ## Project Summary
 
 
-1. Manipulator pick & place
+**1. Manipulator pick & place**
 
    YOLOv3로 학습한 신발객체 인식 모델을 활용하여 manipulator가 신발을 집고, 신발장에 정리해줍니다.
 
    이때, manipulator은 MoveIt와 MLP model based DeepLearning로 정밀하게 제어됩니다.
 
 
-2. Face Recognition
+**2. Face Recognition**
 
    Face recognition으로 제공하는 고유ID는 똑같은 신발들 사이에서도 여러분의 신발을 찾을 수 있게 도와줍니다.
 
 
-3. Pose Estimation with LSTM & CNN
+**3. Pose Estimation with LSTM & CNN**
 
    LSTM 과 CNN으로 학습된 행동예측 모델은 ShoeBot이 신발을 정리하면서도 여러분과 부딪히지않게 해줍니다.
 
    당신이 걷던, 뛰던, 혹은 물구나무를 서더라도요.
 
-4. Autonomous Driving with SLAM
+**4. Autonomous Driving with SLAM**
 
    manipulator가 여러분의 손을 대신해준다면, SLAM을 기반으로 구축한 Automous Driving은 여러분의 발이 되어줄겁니다.
 
    다만, 여러분들이 찾지않는다면 ShoeBot은 충전소에서 쉬고있겠죠
 
-5. Main Control System with ROS2
+**5. Main Control System with ROS2**
 
    ShoeBot에게는 든든한 친구 ShoeManager가 있습니다.
 
