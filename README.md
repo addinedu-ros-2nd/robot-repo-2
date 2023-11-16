@@ -123,6 +123,12 @@ shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇
 
 
 
+## Mobile Robot
+-----
+# Improvements expected in the future
+
+**아쉬웠던 점, 향후 개선점 기술예정**
+
 # Member
 |성함|기술 담당|GITHUB|
 |---|---|---|
@@ -132,10 +138,3 @@ shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇
 |**백세진**|PyQT를 활용하여 GUI생성, ROS연결 통신|---|
 |**최석원**|shoe detection를 위한 YOLOv3 학습모델 구축<br/><br/>   YOLOv8-Pose,Tensor Flow를 활용하여 Human Pose estimation 을 위한 decision tree모델과 LSTM 모델 구현|---|
 |**왕한세**|shoe detection를 위한 YOLOv3 학습모델 구축<br/><br/>   MoveIt을 활용한 6-DOF manipulator URDF 작성 및 제어<br/><br/>   Digital Twin|---|
-
-
-
-## Mobile Robot
------
-# Improvements expected in the future
-
