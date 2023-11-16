@@ -82,24 +82,24 @@ shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇
 ## Manipulator Motion Planning
 
 ### Motion Planning Part Summary
-   manipulator가 신발을 감지 한 후에 신발을 집고 주행로봇이나 신발장에 올리기 위해 필요한 동작을 구현하는 단계
+      manipulator가 신발을 감지 한 후에 신발을 집고 주행로봇이나 신발장에 올리기 위해 필요한 동작을 구현하는 단계
 
 
 ### Motion Planning Part technology 
 
 #### Custom cpp package 
 
-1. 6-DOF 제어
-2. dynamic cell control table 관찰
+      1. 6-DOF 제어
+      2. dynamic cell control table 관찰
 
 #### YOLOv3 신발객체탐지 모델
 
-1. 모형신발을 사용하여 학습
-2. 450개의 사진
+      1. 모형신발을 사용하여 학습
+      2. 450개의 사진
 
 #### 자가학습 시스템 구축
 
-1. shoe pick & place 를 위한 pose를 manipulator 스스로 학습하도록 모델을 구축
+      1. shoe pick & place 를 위한 pose를 manipulator 스스로 학습하도록 모델을 구축
 
 #### MoveIt를 활용한 manipulator 제어
 
@@ -124,8 +124,11 @@ shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇
 
 
 # Member
+|:성함:|:기술 담당:|:GITHUB:|
+|---|---|---|
+|**오세찬**|manipulator control ROS2 cpp package 작성    Human 3D trajectory estimation system 구현|---\
+|**김동우**|
 
-### 오세찬
 
 manipulator control ROS2 cpp package 작성
 
