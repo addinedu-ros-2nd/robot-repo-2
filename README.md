@@ -82,7 +82,7 @@ shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇
 ## Manipulator Motion Planning
 
 ### Motion Planning Part Summary
-manipulator가 신발을 감지 한 후에 신발을 집고 주행로봇이나 신발장에 올리기 위해 필요한 동작을 구현하는 단계
+   manipulator가 신발을 감지 한 후에 신발을 집고 주행로봇이나 신발장에 올리기 위해 필요한 동작을 구현하는 단계
 
 
 ### Motion Planning Part technology 
@@ -107,16 +107,11 @@ manipulator가 신발을 감지 한 후에 신발을 집고 주행로봇이나 �
 ### Motion Planning Part software & hardware
 
 |Language|Python|C++|
-|Library|---|---|
-Language: Python, C++
-Library:
+|---|---|---|
+|Library|rclpy,pathlib, torch, cv2,ai_manipulation,sklearn.linear_model|rclcpp,Dynamicxel,chrono|
 
-Python - math, os, rclpy, threading, numpy, multiprocessing, platform, sys, pathlib, torch, cv2, time, json, ultralytics.utils, ai_manipulation.utils, joblib, random, sklearn.linear_model, scipy.stats, array, std_msgs.msg, rclpy.node, subprocess
 
-C++ - Dynamicxel, cstdlib, chrono, functional, memory, string, rclcpp, std_msgs
 
-Hardware:
-Open-manipulator, Object detecting camera, shoe’s mockup with formboard
 
 
 ## Face Recognition
