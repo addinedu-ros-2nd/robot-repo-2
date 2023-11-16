@@ -134,6 +134,7 @@ manipulator control ROS2 cpp package 작성
 
 Human 3D trajectory estimation system 구현
 
+
 ### 김동우 [github link](https://github.com/DongUKim)
 
 2D point & shoot SLAM 맵 구현 및 Mobile robot 제어
@@ -147,9 +148,11 @@ Face recognition library를 활용한 얼굴인식 및 ID 관리 system 구현
 
 YOLOv8-Pose, LSTM, Tensor Flow의 CNN을 활용하여 Human Pose estimation 을 위한 LSTM 모델 구현
 
+
 ### 백세진
 
 PyQT를 활용하여 GUI생성, ROS연결 통신
+
 
 ### 최석원
 
@@ -163,11 +166,10 @@ YOLOv8-Pose,Tensor Flow를 활용하여 Human Pose estimation 을 위한 decisio
 
 shoe detection를 위한 YOLOv3 학습모델 구축
 
-MoveIt을 활용한 6-DOF manipulator URDF 구현 및 제어
+MoveIt을 활용한 6-DOF manipulator URDF 작성 및 제어
 
 Digital Twin
 
-화장실 가서 맨날 cry
 ## Mobile Robot
 -----
 # Improvements expected in the future
