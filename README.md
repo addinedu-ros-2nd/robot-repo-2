@@ -40,7 +40,7 @@ shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇
 
 **1. Manipulator pick & place**
 
-         YOLOv3로 학습한 신발객체 인식 모델을 활용하여 manipulator가 신발을 집고, 신발장에 정리해줍니다.
+      YOLOv3로 학습한 신발객체 인식 모델을 활용하여 manipulator가 신발을 집고, 신발장에 정리해줍니다.
 
       이때, manipulator은 MoveIt와 MLP model based DeepLearning로 정밀하게 제어됩니다.
 
@@ -52,19 +52,19 @@ shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇
 
 **3. Pose Estimation with LSTM & CNN**
 
-         LSTM 과 CNN으로 학습된 행동예측 모델은 ShoeBot이 신발을 정리하면서도 여러분과 부딪히지않게 해줍니다.
+      LSTM 과 CNN으로 학습된 행동예측 모델은 ShoeBot이 신발을 정리하면서도 여러분과 부딪히지않게 해줍니다.
 
       당신이 걷던, 뛰던, 혹은 물구나무를 서더라도요.
 
 **4. Autonomous Driving with SLAM**
 
-         manipulator가 여러분의 손을 대신해준다면, SLAM을 기반으로 구축한 Automous Driving은 여러분의 발이 되어줄겁니다.
+      manipulator가 여러분의 손을 대신해준다면, SLAM을 기반으로 구축한 Automous Driving은 여러분의 발이 되어줄겁니다.
 
       다만, 여러분들이 찾지않는다면 ShoeBot은 충전소에서 쉬고있겠죠
 
 **5. Main Control System with ROS2**
 
-         ShoeBot에게는 든든한 친구 ShoeManager가 있습니다.
+      ShoeBot에게는 든든한 친구 ShoeManager가 있습니다.
 
       Shoemanager은 여러분이 도움을 필요로 할때마다 ShoeBot에게 귀뜀을 해주지요. 물론 그 반대도 가능하도록 도와줍니다!
 
@@ -124,51 +124,16 @@ shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇
 
 
 # Member
-|:성함:|:기술 담당:|:GITHUB:|
+|성함|기술 담당|GITHUB|
 |---|---|---|
-|**오세찬**|manipulator control ROS2 cpp package 작성    Human 3D trajectory estimation system 구현|---\
-|**김동우**|
+|**오세찬**|manipulator control ROS2 cpp package 작성<br/><br/>  Human 3D trajectory estimation system 구현|---|
+|**김동우**|2D point & shoot SLAM 맵 구현 및 Mobile robot 제어<br/><br/>  shoe pick & place를 위한 joint angle 데이터 생성 및 딥러닝 모델을 이용한 데이터 증강|[링크](https://github.com/DongUKim)|Face recognition library를 활용한 얼굴인식 및 ID 관리 system 구현<br/><br/>  YOLOv8-Pose, LSTM, Tensor Flow의 CNN을 활용하여 Human Pose estimation 을 위한 LSTM 모델 구현|---|
+|**김명섭**|Face recognition library를 활용한 얼굴인식 및 ID 관리 system 구현<br/><br/>  YOLOv8-Pose, LSTM, Tensor Flow의 CNN을 활용하여 Human Pose estimation 을 위한 LSTM 모델 구현|---|
+|**백세진**|PyQT를 활용하여 GUI생성, ROS연결 통신|---|
+|**최석원**|shoe detection를 위한 YOLOv3 학습모델 구축<br/><br/>   YOLOv8-Pose,Tensor Flow를 활용하여 Human Pose estimation 을 위한 decision tree모델과 LSTM 모델 구현|---|
+|**왕한세**|shoe detection를 위한 YOLOv3 학습모델 구축<br/><br/>   MoveIt을 활용한 6-DOF manipulator URDF 작성 및 제어<br/><br/>   Digital Twin|---|
 
 
-manipulator control ROS2 cpp package 작성
-
-Human 3D trajectory estimation system 구현
-
-
-### 김동우 [github link](https://github.com/DongUKim)
-
-2D point & shoot SLAM 맵 구현 및 Mobile robot 제어
-
-shoe pick & place를 위한 joint angle 데이터 생성 및 딥러닝 모델을 이용한 데이터 증강
-
-
-### 김명섭
-
-Face recognition library를 활용한 얼굴인식 및 ID 관리 system 구현
-
-YOLOv8-Pose, LSTM, Tensor Flow의 CNN을 활용하여 Human Pose estimation 을 위한 LSTM 모델 구현
-
-
-### 백세진
-
-PyQT를 활용하여 GUI생성, ROS연결 통신
-
-
-### 최석원
-
-shoe detection를 위한 YOLOv3 학습모델 구축
-
-YOLOv8-Pose,Tensor Flow를 활용하여 Human Pose estimation 을 위한 decision tree모델과 LSTM 모델 구현
-
-
-### 왕한세
-
-
-shoe detection를 위한 YOLOv3 학습모델 구축
-
-MoveIt을 활용한 6-DOF manipulator URDF 작성 및 제어
-
-Digital Twin
 
 ## Mobile Robot
 -----
