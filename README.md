@@ -72,11 +72,8 @@ shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇
 ## Scenario
 
 <img src="https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/5a99e0b4-a979-45f4-9dea-5e57a060ab19" width="30%" height="30%"/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/f5ffd09c-155c-4951-af13-9e8d26a2af4c" width="30%" height="30%"/>
 
-
-## System Configuration
-
-<img src="https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/f5ffd09c-155c-4951-af13-9e8d26a2af4c" width="30%" height="30%"/>
 
 
 ## Manipulator Motion Planning
