@@ -10,20 +10,20 @@
 아니면 shoebot이 정리해드릴까요?
 
 ## Project Introduce
-----
+
 
 <img src="https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/cc05d8f4-d8a5-4d24-9b5d-f5cf5640731c" width="70%" height="70%"/>
 
 shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇입니다.
 
 # Demo Video(이미지 클릭시 유튜브로 연결됩니다)
-----
+
 
 [![image](https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/d7c48a46-50a9-424f-b440-a319a1571943)](https://www.youtube.com/watch?v=70jTAGOszJk)
 
 
 ## Project Keyword
-----
+
 1. Manipulator pick & place
    
 2. Face Recognition
@@ -36,7 +36,7 @@ shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇
 
    
 ## Project Summary
-----
+
 
 1. Manipulator pick & place
 
@@ -70,17 +70,17 @@ Shoemanager은 여러분이 도움을 필요로 할때마다 ShoeBot에게 귀�
 
 Pose estimation으로 행동예측을 하여 Mobile robot을 회피기동
 ## Scenario
-----
+
 <img src="https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/5a99e0b4-a979-45f4-9dea-5e57a060ab19" width="30%" height="30%"/>
 
 
 ## System Configuration
-----
+
 <img src="https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/f5ffd09c-155c-4951-af13-9e8d26a2af4c" width="30%" height="30%"/>
 
 
 ## Manipulator Motion Planning
-----
+
 ### Motion Planning Part Summary
 manipulator가 신발을 감지 한 후에 신발을 집고 주행로봇이나 신발장에 올리기 위해 필요한 동작을 구현하는 단계
 
@@ -118,16 +118,16 @@ Open-manipulator, Object detecting camera, shoe’s mockup with formboard
 
 
 ## Face Recognition
-----
+
 
 
 ## Pose Estimation
-----
+
 
 
 
 # Member
------
+
 ### 오세찬
 
 manipulator control ROS2 cpp package 작성
