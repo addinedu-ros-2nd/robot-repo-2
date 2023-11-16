@@ -85,6 +85,12 @@ shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇
 manipulator가 신발을 감지 한 후에 신발을 집고 주행로봇이나 신발장에 올리기 위해 필요한 동작을 구현하는 단계
 
 ### Motion Planning Part language & library
+
+|Language|dw|
+|python library|dw|
+|C++ library|dw|
+
+
 Language: Python, C++
 Library:
 
