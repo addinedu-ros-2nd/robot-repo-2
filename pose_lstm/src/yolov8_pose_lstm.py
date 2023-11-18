@@ -23,7 +23,8 @@ hidden_size = 64 # 숨겨진 상태 크기 정의
 num_layers =  2# LSTM 레이어 수 정의
 num_classes = 2 # 클래스 수 정의
 lstm_model = LSTMModel(input_size, hidden_size, num_layers, num_classes)
-lstm_model.load_state_dict(torch.load("/home/seokwon/dev_ws/final_models/lstm_model_v1.pth"))
+# lstm_model.load_state_dict(torch.load("/home/seokwon/dev_ws/final_models/lstm_model_v1.pth"))
+lstm_model.load_state_dict(torch.load("/home/seokwon/dev_ws/final_models/lstm_long_data_model_v1.pth"))
 lstm_model.eval()
 
 
