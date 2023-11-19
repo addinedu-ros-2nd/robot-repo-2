@@ -69,7 +69,7 @@ class DetectLSTMSegNode(Node):
 
         self.declare_parameter('rgb_topic', '/camera/color/image')
         self.declare_parameter('conf', 0.5)
-        self.declare_parameter('device', 'cpu')
+        self.declare_parameter('device', 'cuda')
 
         self.rgb_topic = self.get_parameter('rgb_topic').value
         self.conf = self.get_parameter('conf').value
@@ -155,14 +155,12 @@ class DetectLSTMSegNode(Node):
                                 print("LSTM 모델 예측 결과 (클래스 확률):", class_probabilities_numpy)
                                 if (class_probabilities_numpy[0][1] < 0.6).any():
                                     msg = Int32MultiArray()
-                                    msg.data = [0]
-                                    self.box_publisher.publish(msg)
+                                    msg.data = [1] # 'sit'
+                                    self.pose_publisher.publish(msg)
                                 else:
                                     msg = Int32MultiArray()
-                                    msg.data = [1]
-                                    self.seg_publisher.publish(msg)
-
-
+                                    msg.data = [2] # 'sit'
+                                    self.pose_publisher.publish(msg)
 
                                     id = 0
                                     for row in humans :
