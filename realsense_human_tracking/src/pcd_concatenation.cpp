@@ -43,8 +43,6 @@ int main() {
     reader.read("cloud_cluster_0002.pcd", *cloud2);
     reader.read("cloud_cluster_0003.pcd", *cloud3);
 
-    // *cloud1 += *cloud2;
-
     pcl::PointCloud<pcl::PointXYZ>::Ptr point_cloud_ptr = std::make_shared<pcl::PointCloud<pcl::PointXYZ>>();
 
     *point_cloud_ptr += *cloud0;
@@ -54,7 +52,7 @@ int main() {
 
     pcl::visualization::PCLVisualizer::Ptr viewer = simpleVis(point_cloud_ptr);
 
-    point_cloud_ptr->width = point_cloud_ptr->size ();
+    point_cloud_ptr->width = point_cloud_ptr->size();
     point_cloud_ptr->height = 1;
     point_cloud_ptr->is_dense = true;
 

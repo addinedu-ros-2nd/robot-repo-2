@@ -6,6 +6,7 @@ from cv_bridge import CvBridge
 import numpy as np
 import cv2
 from ultralytics import YOLO
+import time
 
 class DetectNode(Node):
     def __init__(self):
@@ -46,7 +47,7 @@ class DetectNode(Node):
 
             tracking_box.extend([int(person_tracking.boxes[idx].id[0]), x1, y1, x2, y2])
 
-            tracking_seg.extend([1] + person_tracking.masks.data[idx].cpu().numpy().astype(np.uint8).flatten().tolist())
+            tracking_seg.extend([(msg.header.stamp.sec % 1000000) * 1000 + msg.header.stamp.nanosec // 1000000] + person_tracking.masks.data[idx].cpu().numpy().astype(np.uint8).flatten().tolist())
 
             cv2.rectangle(color_image, (x1, y1), (x2, y2), (0, 0, 255), 4)
             # 텍스트를 박스 위에 추가 (배경을 빨간색으로, 글자를 흰색으로)
@@ -64,14 +65,14 @@ class DetectNode(Node):
         if self.visualization:
             cv2.imshow("YOLOv8 Tracking", color_image)
             cv2.waitKey(1)
-        if len(tracking_box) > 0:
-            msg = Int32MultiArray()
-            msg.data = tracking_box
-            self.box_publisher.publish(msg)
+        # if len(tracking_box) > 0:
+        #     msg_pub = Int32MultiArray()
+        #     msg_pub.data = tracking_box
+        #     self.box_publisher.publish(msg_pub)
         if len(tracking_seg) > 0:
-            msg = Int32MultiArray()
-            msg.data = tracking_seg
-            self.seg_publisher.publish(msg)
+            msg_pub = Int32MultiArray()
+            msg_pub.data = tracking_seg
+            self.seg_publisher.publish(msg_pub)
 def main(args=None):
     rclpy.init(args=args)
     node = DetectNode()
