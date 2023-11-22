@@ -11,6 +11,7 @@
 #include <thread>
 #include <deque>
 #include "rclcpp/clock.hpp"
+#include <fstream>
 
 #include <pcl/common/angles.h>
 #include <pcl/features/normal_3d.h>
@@ -63,7 +64,7 @@ pcl::visualization::PCLVisualizer::Ptr rgbVis (pcl::PointCloud<pcl::PointXYZRGB>
   return (viewer);
 }
 
-void removeOutliers(cv::Mat& mat, const int iteration) {
+void removeOutliers(cv::Mat& mat) {
     // 평균과 표준 편차 계산
     cv::Scalar mean, stddev;
     cv::Mat nonZeroMask = (mat != 0);
@@ -90,7 +91,7 @@ void removeOutliers(cv::Mat& mat, const int iteration) {
                 pixel = 0.0;
             }
         });
-        if (now_std < std::pow(mean[0], 1.29) / 10.5){
+        if (now_std < std::pow(mean[0], 1.27) / 11.6){
             break;
         }
     }
@@ -169,6 +170,15 @@ Point calculateAverage(const pcl::PointCloud<pcl::PointXYZRGB> pointClouds, int 
     return result;
 }
 
+float calculateAverage(const std::vector<float>& data) {
+    if (data.empty()) {
+        return 0.0; // 빈 벡터의 경우 0을 반환하거나 예외 처리를 수행할 수 있습니다.
+    }
+
+    // accumulate 함수를 사용하여 합을 계산하고, 크기로 나누어 평균을 얻습니다.
+    return std::accumulate(data.begin(), data.end(), 0.0) / data.size();
+}
+
 Velocity calculateVelocity(const Point& p1, const Point& p2) {
     Velocity v;
     v.vx = (p2.x - p1.x) / (p2.time - p1.time) * 1000; // meterpersec
@@ -226,6 +236,10 @@ class DistNode : public rclcpp::Node {
         rs2_intrinsics intrinsics;
         pcl::PointCloud<pcl::PointXYZRGB>::Ptr point_cloud_ptr = std::make_shared<pcl::PointCloud<pcl::PointXYZRGB>>();
         pcl::visualization::PCLVisualizer::Ptr viewer = rgbVis(point_cloud_ptr);
+        int now_time = 0;
+        std::vector<float> flight_time, cycle_time;
+        int now_time2 = 0;
+        std::vector<float> processTime;
 
         int return_depth_image_index(const int millisec){
             auto it = std::find(depth_image_time_stamp_deque.begin(), depth_image_time_stamp_deque.end(), millisec);
@@ -268,9 +282,14 @@ class DistNode : public rclcpp::Node {
             depth_image_deque.push_back(depth_image_);
             depth_image_time_stamp_deque.push_back((msg->header.stamp.sec % 1000000) * 1000 + msg->header.stamp.nanosec / 1000000);
             // printf("time gap : %d\n", this->now().nanoseconds() - msg->header.stamp.sec * 1000000000 - msg->header.stamp.nanosec);
+            if (now_time2 != 0){
+                // printf("time gap : %f\n", ((this->now().nanoseconds() / 1000000) % 1000000000 - now_time2)/1000.0);
+            }
+            now_time2 = (this->now().nanoseconds() / 1000000) % 1000000000;
         }
 
         void segCallback(const std_msgs::msg::Int32MultiArray::SharedPtr msg) {
+            int now_time3 = (this->now().nanoseconds() / 1000000) % 1000000000;
             // 현재 시간 출력
             // rclcpp::Time now = clock_->now();
             // RCLCPP_INFO(this->get_logger(), "현재 시간: %ld.%ld", now.seconds(), now.nanoseconds());
@@ -291,7 +310,7 @@ class DistNode : public rclcpp::Node {
                 mat_human = mat_human.reshape(1, depth_image_.rows);
                 // removeOutline(mat_human);
                 // printf("time gap : %f\n", ((this->now().nanoseconds() / 1000000) % 1000000000 - millisec) / 1000.0);
-                int time_sinc = return_depth_image_index(millisec);
+                // int time_sinc = return_depth_image_index(millisec);
                 cv::Mat result;
                 // if (time_sinc == -1){
                 //     printf("-1!!\n");
@@ -302,7 +321,7 @@ class DistNode : public rclcpp::Node {
                 //     result = human_filter(depth_image_deque[time_sinc], mat_human);
                 // }
                 if (depth_image_deque.size() >= 3){
-                    result = human_filter(depth_image_deque[depth_image_deque.size() - 3], mat_human);
+                    result = human_filter(depth_image_deque[depth_image_deque.size() - 1], mat_human);
                 }
                 else{
                     printf("check!\n");
@@ -310,7 +329,7 @@ class DistNode : public rclcpp::Node {
                 }
                 
                 // statistical outlier removal
-                removeOutliers(result, 5);
+                removeOutliers(result);
 
                 point_cloud_ptr = std::make_shared<pcl::PointCloud<pcl::PointXYZRGB>>();
                 for (int y = 0; y < result.rows; y++) {
@@ -338,7 +357,7 @@ class DistNode : public rclcpp::Node {
                 // vg.filter(*point_cloud_ptr);
             }
 
-            const int xyzt_deque_size = 3;
+            const int xyzt_deque_size = 4;
             if (xyzt_deque.size() >= xyzt_deque_size){
                 xyzt_deque.pop_front();
             }
@@ -373,15 +392,24 @@ class DistNode : public rclcpp::Node {
                 meanAcceleration.az /= xyzt_deque_size - 2;
                 
                 // i => 0.1sec
-                for (int i = 1; i <= 20; i++) {
+                float min_dist = 999999999.0;
+                int min_idx;
+                for (int i = 1; i <= 11; i++) {
                     Point after_i_seconds;
                     after_i_seconds.x = xyzt_deque.back().x + (meanVelocity.vx * i * 0.1) + 0.5 * (meanAcceleration.ax * i * i * 0.01);
                     after_i_seconds.y = xyzt_deque.back().y + (meanVelocity.vy * i * 0.1) + 0.5 * (meanAcceleration.ay * i * i * 0.01);
                     after_i_seconds.z = xyzt_deque.back().z + (meanVelocity.vz * i * 0.1) + 0.5 * (meanAcceleration.az * i * i * 0.01);
                     float dist = std::sqrt(after_i_seconds.x * after_i_seconds.x + after_i_seconds.y * after_i_seconds.y + after_i_seconds.z * after_i_seconds.z);
-                    if (dist < 1.0 && meanVelocity.vx < -0.3 && meanAcceleration.ax < -1.0) {
-                        printf("danger : %fm, %fm/s, %fm/s^2\n", dist, meanVelocity.vx, meanAcceleration.ax);
+                    // vel = std::sqrt(meanVelocity.vx * meanVelocity.vx + meanVelocity.vy * meanVelocity.vy + meanVelocity.vz * meanVelocity.vz);
+                    // acc = std::sqrt(meanAcceleration.ax * meanAcceleration.ax + meanAcceleration.ay * meanAcceleration.ay + meanAcceleration.az * meanAcceleration.az);
+                    if (dist < min_dist && meanVelocity.vx < -0.3 && meanAcceleration.ax < 0.0 && meanAcceleration.ax > -10.0) {
+                        min_dist = dist;
+                        min_idx = i;
                     }
+                }
+                if (min_dist < 1.0) {
+                    // printf("kinemetics : %fm, %fm/s, %fm/s^2\n", min_dist, meanVelocity.vx, meanAcceleration.ax);
+                    printf("danger : %f\n", -1 * meanVelocity.vx / min_dist / min_idx);
                 }
 
                 // 결과 출력
@@ -390,16 +418,56 @@ class DistNode : public rclcpp::Node {
                 // printf("time gap2 : %f\n", (xyzt_deque[2].time - xyzt_deque[1].time) / 1000.0);
                 // printf("vel : %f, %f, %f\n", meanVelocity.vx, meanVelocity.vy, meanVelocity.vz);
                 // printf("acc : %f, %f, %f\n", meanAcceleration.ax, meanAcceleration.ay, meanAcceleration.az);
-                
             }
 
-            point_cloud_ptr->width = point_cloud_ptr->size();
-            point_cloud_ptr->height = 1;
-            point_cloud_ptr->is_dense = true;
-            viewer->updatePointCloud(point_cloud_ptr, "sample cloud");
-            viewer->spinOnce(100);
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            // // flight, cycle time
+            // if (now_time != 0) {
+            //     // flight_time.push_back(((this->now().nanoseconds() / 1000000) % 1000000000 - xyzt_deque.back().time) / 1000.0);
+            //     flight_time.push_back(((this->now().nanoseconds() / 1000000) % 1000000000 - xyzt_deque.front().time) / 1000.0);
+            //     // cycle_time.push_back(((this->now().nanoseconds() / 1000000) % 1000000000 - now_time) / 1000.0);
+            //     cycle_time.push_back((xyzt_deque.back().time - xyzt_deque[xyzt_deque.size() - 2].time) / 1000.0);
+            //     // printf("%d, %f, %f\n", flight_time.size(), calculateAverage(flight_time), calculateAverage(cycle_time));
+            //     if (flight_time.size() == 1000){
+            //         const std::string filename = "flight_time.txt";
+            //         std::ofstream outFile(filename);
+            //         if (!outFile.is_open()) {
+            //             std::cerr << "파일을 열 수 없습니다." << std::endl;
+            //             return;
+            //         }
+            //         for (const auto& value : flight_time) {
+            //             outFile << value << std::endl;
+            //         }
+            //         outFile.close();
+            //         printf("%d, %f, %f\n", flight_time.size(), calculateAverage(flight_time), calculateAverage(cycle_time));
+            //     }
+            // }
+            // now_time = (this->now().nanoseconds() / 1000000) % 1000000000;
+
+            // // pcl visualizer
+            // point_cloud_ptr->width = point_cloud_ptr->size();
+            // point_cloud_ptr->height = 1;
+            // point_cloud_ptr->is_dense = true;
+            // viewer->updatePointCloud(point_cloud_ptr, "sample cloud");
+            // viewer->spinOnce(100);
+            // std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+            // // processing time
+            // processTime.push_back(((this->now().nanoseconds() / 1000000) % 1000000000 - now_time3) / 1000.0);
+            // if (processTime.size() == 1000){
+            //     const std::string filename = "processTime.txt";
+            //     std::ofstream outFile(filename);
+            //     if (!outFile.is_open()) {
+            //         std::cerr << "파일을 열 수 없습니다." << std::endl;
+            //         return;
+            //     }
+            //     for (const auto& value : processTime) {
+            //         outFile << value << std::endl;
+            //     }
+            //     outFile.close();
+            //     printf("%f\n", ((this->now().nanoseconds() / 1000000) % 1000000000 - now_time3) / 1000.0);
+            // }
         }
+
         // void xyzt_publish() {
         //     // Create a message object
         //     auto message = std_msgs::msg::Float32MultiArray();
