@@ -119,10 +119,22 @@ shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇
 
 
 ## Pose Estimation
-
-**Decision Tree**
-   
    모바일 로봇이 이동시 사람을 인식 후 부딪히지 않도록 행동을 예측하는 모델
+
+
+
+<h3 align="center">
+Models
+</h3>
+
+
+---
+**1. Decision Tree**
+1. YOLOv8-Pose로 어깨, 골반, 무릎의 Skeleton-Keypoints 값을 받아온다. 
+2. 받아온 3가지 Keypoints 값, 골반을 기준으로 어깨와 무릎의 각도를 측정한다.
+3. Sit과 Stand로 나눌 각도를 임의로 120도로 결정한다.
+
+**2. LSTM**
 
 
 
