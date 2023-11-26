@@ -138,7 +138,7 @@ Models
 
 **2. LSTM(Long Short Term Memory)**
 
-
+![LSTM](https://github.com/addinedu-ros-2nd/robot-repo-2/assets/132260442/ec9109fa-fbd0-4c6d-972d-f579dab60076)
 
 ## Mobile Robot
 -----
