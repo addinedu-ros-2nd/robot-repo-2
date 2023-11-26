@@ -4,3 +4,6 @@
 ### 2. Human Pose Estimation LSTM + Seg 
 <pre><code>ros2 launch depth_example merge_lstm_seg.launch.py</code></pre>
 
+
+### Human Pose Estimation
+https://docs.google.com/document/d/1927AtABfKBExAzwcSmCpmuVZfE72IKWgzNLeWiTiSR8/edit
