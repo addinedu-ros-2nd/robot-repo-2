@@ -120,7 +120,8 @@ shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇
 
 ## Pose Estimation
    모바일 로봇이 이동시 사람을 인식 후 부딪히지 않도록 행동을 예측하는 모델
-
+   YOLOv8n-pose를 사용하여 사람인식 후 Skeleton Keypoints을 추출
+   Keypoints값 17개는 Skeleton COCO Pose를 기반으로 사용
 
 
 <h3 align="center">
@@ -130,24 +131,8 @@ Models
 
 ---
 **1. Decision Tree**
-1. YOLOv8n-pose로 사람 인식 후 어깨, 골반, 무릎의 Skeleton-Keypoints 값을 받아온다. 
-2. 받아온 3가지 Keypoints 값, 골반을 기준으로 어깨와 무릎의 각도를 측정한다.
-3. Sit과 Stand로 나눌 각도를 임의로 120도로 결정한다.
-4. 사람 인식 후 어깨와 무릎 각도가 120도 이상이면 Stand로 분류한다.
 
 **2. LSTM(Long Short Term Memory)**
-
-데이터 전처리
-1. YOLOv8n-pose로 사람 인식 17개 관절의 Keypoints 값을 받아온다. 
-2. 행동별로 추출한 Keypoints 데이터를 10 Frame씩 묶어서(5장씩 겹치도록) Sequence 생성한다.
-3. Sequence를 LSTM모델에 맞게 Tensor형식으로 전처리 한다.
-4. 
-모델 설계
-1. 관절값 17개의 x, y값 총 34개의 값을 Input으로 넣고 7개의 층으로 LSTM모델을 설계하였으며 과적합을 방지하기위해 Dropout을 2번 넣는다.
-2. Loss Function - Categorical Entropy, Optimizer - Adam, Learning Rate - 0.0001
-3. 
-모델 실행 
-YOLOv8n-pose로 실시간 Frame의 Skeleton-Keypoints를 받아와 모델에 넣어서 예측한다.
 
 
 ## Mobile Robot
