@@ -134,6 +134,8 @@ Models
 ---
 **1. Decision Tree**
 
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/727cb2f6-a407-42ce-9b85-273c269df69b/381c5c36-1107-414f-9479-548ebc58a2b9/Untitled.png)
+
 **2. LSTM(Long Short Term Memory)**
 
 
