@@ -134,6 +134,7 @@ Models
 ---
 **1. Decision Tree**
 
+![DecisionTree](https://github.com/addinedu-ros-2nd/robot-repo-2/assets/132260442/a2118e91-d5fd-491e-8b29-bb1d73c70438)
 
 **2. LSTM(Long Short Term Memory)**
 
