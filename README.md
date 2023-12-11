@@ -73,13 +73,15 @@ shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇
 
 <img src="https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/5a99e0b4-a979-45f4-9dea-5e57a060ab19" width="40%" height="40%"/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
 
 <img src="https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/f5ffd09c-155c-4951-af13-9e8d26a2af4c" width="40%" height="40%"/>
 
 
 
 ## Manipulator Motion Planning
+
+
 
 ### Motion Planning Part Summary
       manipulator가 신발을 감지 한 후에 신발을 집고 주행로봇이나 신발장에 올리기 위해 필요한 동작을 구현하는 단계
@@ -89,26 +91,42 @@ shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇
 
 #### Custom cpp package 
 
-      1. 6-DOF 제어
-      2. dynamic cell control table 관찰
+      1. 기존에는 5-DOF만 제어가능한 패키지를 DOF에 관계없이 제어할 수 있도록 별도로 custom
+      2. dynamic cell control table 을 확인 할 수 있도록 기능 추가
+      3. ROS2 Humble에서 실행이 가능하도록 custom
 
 #### YOLOv3 신발객체탐지 모델
 
-      1. 모형신발을 사용하여 학습
-      2. 450개의 사진
+      1. webcam으로 촬영한 약 450개의 모형신발 사진을 사용하여 YoloV3 학습모델을 생성
+      2. manipulator의 gripper에 동일한 webcam을 장착하여 모형신발을 탐지
 
-#### 자가학습 시스템 구축
+<img src="https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/d2621362-ff64-4c15-aaed-f4ba40c0d72b" width="40%" height="40%"/>
 
-      1. shoe pick & place 를 위한 pose를 manipulator 스스로 학습하도록 모델을 구축
+#### 신발위치추정 모델
+
+      1. shoe pick & place 를 위해서 모형신발의 위치를 추정할 수 있는 모델을 구축
+         a. 다양한 윛
+      
 
 #### MoveIt를 활용한 manipulator 제어
 
+      1. ROS1의 MoveIt로 manipulator path planning 
+      (moveit 사진 첨부 예정)
 
-### Motion Planning Part software & hardware
 
+
+### Motion Planning Part Software & Hardware
+
+#### Software
+      * ROS1 & 2
+      * YoloV3
+      
 |Language|Python|C++|
 |---|---|---|
 |Library|rclpy,pathlib, torch, cv2,ai_manipulation,sklearn.linear_model|rclcpp,Dynamicxel,chrono|
+
+#### Hardware
+<img src="https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/05088ef2-2538-4654-9fcd-4d721e202420" width="40%" height="40%"/>
 
 
 
