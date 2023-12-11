@@ -163,7 +163,26 @@ Models
 ![LSTM](https://github.com/addinedu-ros-2nd/robot-repo-2/assets/132260442/ec9109fa-fbd0-4c6d-972d-f579dab60076)
 
 ## Mobile Robot
------
+### Mobile Robot Part Summary
+      manipulator가 신발을 집은 후 신발장 혹은 손님앞까지 자율주행을 하는 단계
+
+### Mobile Robot Part technology
+
+#### SLAM & Navigation
+      1. 2D Lidar를 이용하여 mobile robot의 활동영역을 mapping
+      2. map을 기반으로 shoebot manager의 지시한 위치로 자율주행
+      (slam 사진 첨부 예정)
+
+#### SSH 연결
+      1. mobile robot의 RasberryPi 와 main pc간의 통신
+      2. 실시간 통신으로 현재 mobile robot의 위치와 상태를 파악가능하고 mobile robot에게 명령을 전달할 수 있음.
+
+### Mobile Robot Part Software & Hardware
+
+#### Software
+
+      
+      
 # Improvements expected in the future
 
 **아쉬웠던 점, 향후 개선점 기술예정**
