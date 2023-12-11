@@ -109,7 +109,8 @@ shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇
          b. 특정 위치의 모형신발을 집을때 gripper의 상태 와 YoloV3로 탐지하는 모형신발의 bounding box의 중심좌표를 미리 기록해둔 5개의 관절 상태와 매칭시킨다.
          c. b를 반복하여 생성한 데이터셋을 기반으로 deeplearning 모델을 생성한다.
 
-      
+      2. Linear 모델과 MLP 모델 비교
+<img src="https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/c911a55d-a0f8-4f09-a187-1be4172da2a1" width="40%" height="40%"/>
 
 #### MoveIt를 활용한 manipulator 제어
 
