@@ -141,13 +141,18 @@ shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇
 
 
 ## Pose Estimation
-   모바일 로봇이 이동시 사람을 인식 후 부딪히지 않도록 행동을 예측하는 모델
-   
-   YOLOv8n-pose를 사용하여 사람인식 후 Skeleton Keypoints을 추출
-   
-   Keypoints값 17개는 Skeleton COCO Pose를 기반으로 사용
+### Pose Estimation Part Summary
 
+      모바일 로봇이 이동시 사람을 인식 후 부딪히지 않도록 행동을 예측하는 단계
 
+### Pose Estimation Part technology
+
+#### YOLOv8-pose
+      YOLOv8n-pose를 사용하여 사람인식 후 Skeleton Keypoints을 추출
+   
+      Keypoints값 17개는 Skeleton COCO Pose를 기반으로 사용
+
+#### Pose Estimation을 위한 모델 구축
 <h3 align="center">
 Models
 </h3>
@@ -180,7 +185,11 @@ Models
 ### Mobile Robot Part Software & Hardware
 
 #### Software
-
+      * ROS2
+      * SLAM
+      * Arduino
+|---|---|---|
+|Library|BasicNavigator,rclpy,PoseStamped,TaskResult,PoseWithCovarianceStamped|rclcpp,Dynamicxel,chrono|
       
       
 # Improvements expected in the future
