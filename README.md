@@ -188,8 +188,10 @@ Models
       * ROS2
       * SLAM
       * Arduino
+
+|Language|Python|C++|     
 |---|---|---|
-|Library|BasicNavigator,rclpy,PoseStamped,TaskResult,PoseWithCovarianceStamped|rclcpp,Dynamicxel,chrono|
+|Library|BasicNavigator,rclpy,PoseStamped,TaskResult,PoseWithCovarianceStamped|---|
       
       
 # Improvements expected in the future
