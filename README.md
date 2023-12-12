@@ -109,7 +109,8 @@ shoebot은 당신의 손이 없어도 신발을 정리해주는 친절한 로봇
          b. 특정 위치의 모형신발을 집을때 gripper의 상태 와 YoloV3로 탐지하는 모형신발의 bounding box의 중심좌표를 미리 기록해둔 5개의 관절 상태와 매칭시킨다.
          c. b를 반복하여 생성한 데이터셋을 기반으로 deeplearning 모델을 생성한다.
 
-      
+      2. Linear 모델과 MLP 모델 비교
+<img src="https://github.com/addinedu-ros-2nd/robot-repo-2/assets/140477778/c911a55d-a0f8-4f09-a187-1be4172da2a1" width="40%" height="40%"/>
 
 #### MoveIt를 활용한 manipulator 제어
 
@@ -162,7 +163,26 @@ Models
 ![LSTM](https://github.com/addinedu-ros-2nd/robot-repo-2/assets/132260442/ec9109fa-fbd0-4c6d-972d-f579dab60076)
 
 ## Mobile Robot
------
+### Mobile Robot Part Summary
+      manipulator가 신발을 집은 후 신발장 혹은 손님앞까지 자율주행을 하는 단계
+
+### Mobile Robot Part technology
+
+#### SLAM & Navigation
+      1. 2D Lidar를 이용하여 mobile robot의 활동영역을 mapping
+      2. map을 기반으로 shoebot manager의 지시한 위치로 자율주행
+      (slam 사진 첨부 예정)
+
+#### SSH 연결
+      1. mobile robot의 RasberryPi 와 main pc간의 통신
+      2. 실시간 통신으로 현재 mobile robot의 위치와 상태를 파악가능하고 mobile robot에게 명령을 전달할 수 있음.
+
+### Mobile Robot Part Software & Hardware
+
+#### Software
+
+      
+      
 # Improvements expected in the future
 
 **아쉬웠던 점, 향후 개선점 기술예정**
