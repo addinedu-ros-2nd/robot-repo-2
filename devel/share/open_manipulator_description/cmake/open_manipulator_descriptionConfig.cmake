@@ -1,0 +1,1 @@
+/home/wang/catkin_ws/devel/.private/open_manipulator_description/share/open_manipulator_description/cmake/open_manipulator_descriptionConfig.cmake

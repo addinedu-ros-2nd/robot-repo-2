@@ -1,0 +1,4 @@
+[01m[K/home/wang/catkin_ws/src/open_manipulator/open_manipulator_teleop/src/open_manipulator_teleop_keyboard.cpp:[m[K In member function ‘[01m[Kvoid OpenManipulatorTeleop::printText()[m[K’:
+[01m[K/home/wang/catkin_ws/src/open_manipulator/open_manipulator_teleop/src/open_manipulator_teleop_keyboard.cpp:183:10:[m[K [01;35m[Kwarning: [m[Ktoo many arguments for format [[01;35m[K-Wformat-extra-args[m[K]
+  183 |   printf([01;35m[K"Present Joint Angle J1: %.3lf J2: %.3lf J3: %.3lf J4: %.3lf\n"[m[K,
+      |          [01;35m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K

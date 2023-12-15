@@ -1,0 +1,8 @@
+prefix=/home/wang/catkin_ws/devel/.private/open_manipulator_moveit_config
+
+Name: open_manipulator_moveit_config
+Description: Description of open_manipulator_moveit_config
+Version: 0.3.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

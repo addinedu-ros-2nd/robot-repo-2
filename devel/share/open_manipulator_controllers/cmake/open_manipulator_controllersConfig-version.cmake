@@ -1,0 +1,1 @@
+/home/wang/catkin_ws/devel/.private/open_manipulator_controllers/share/open_manipulator_controllers/cmake/open_manipulator_controllersConfig-version.cmake
