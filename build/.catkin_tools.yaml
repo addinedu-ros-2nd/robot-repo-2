@@ -1,6 +1,0 @@
-devel_space: /home/wang/catkin_ws/devel
-install: false
-install_space: /home/wang/catkin_ws/install
-profile: default
-source_space: /home/wang/catkin_ws/src
-workspace: /home/wang/catkin_ws
