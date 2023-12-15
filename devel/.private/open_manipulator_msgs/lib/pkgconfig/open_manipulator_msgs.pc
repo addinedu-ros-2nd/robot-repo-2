@@ -1,8 +1,0 @@
-prefix=/home/wang/catkin_ws/devel/.private/open_manipulator_msgs
-
-Name: open_manipulator_msgs
-Description: Description of open_manipulator_msgs
-Version: 1.0.1
-Cflags: -I/home/wang/catkin_ws/devel/.private/open_manipulator_msgs/include
-Libs: -L${prefix}/lib 
-Requires: std_msgs geometry_msgs message_runtime

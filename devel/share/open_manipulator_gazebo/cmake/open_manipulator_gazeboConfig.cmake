@@ -1,1 +1,0 @@
-/home/wang/catkin_ws/devel/.private/open_manipulator_gazebo/share/open_manipulator_gazebo/cmake/open_manipulator_gazeboConfig.cmake

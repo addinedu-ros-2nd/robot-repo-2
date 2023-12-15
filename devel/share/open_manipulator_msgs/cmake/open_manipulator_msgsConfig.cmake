@@ -1,1 +1,0 @@
-/home/wang/catkin_ws/devel/.private/open_manipulator_msgs/share/open_manipulator_msgs/cmake/open_manipulator_msgsConfig.cmake

@@ -1,1 +1,0 @@
-/home/wang/catkin_ws/devel/.private/open_manipulator_msgs/lib/python3/dist-packages/open_manipulator_msgs/msg/_OpenManipulatorState.py
