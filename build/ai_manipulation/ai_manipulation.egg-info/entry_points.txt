@@ -1,8 +1,0 @@
-[console_scripts]
-make_my_model = ai_manipulation.script.make_my_model:main
-run_my_model = ai_manipulation.script.run_my_model:main
-shoe_drop_point_gen = ai_manipulation.script.shoe_drop_point_gen:main
-six_dxl_model = ai_manipulation.script.six_dxl_model:main
-six_dxl_run = ai_manipulation.script.six_dxl_run:main
-test_seokwon = ai_manipulation.script.test_seokwon:main
-testing = ai_manipulation.script.testing:main

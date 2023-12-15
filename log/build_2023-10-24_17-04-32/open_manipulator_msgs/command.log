@@ -1,4 +1,0 @@
-Invoking command in '/home/hanse/git_ws/final_project/build/open_manipulator_msgs': CMAKE_PREFIX_PATH=/opt/ros/humble /home/hanse/.local/bin/cmake --build /home/hanse/git_ws/final_project/build/open_manipulator_msgs -- -j8 -l8
-Invoked command in '/home/hanse/git_ws/final_project/build/open_manipulator_msgs' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /home/hanse/.local/bin/cmake --build /home/hanse/git_ws/final_project/build/open_manipulator_msgs -- -j8 -l8
-Invoking command in '/home/hanse/git_ws/final_project/build/open_manipulator_msgs': CMAKE_PREFIX_PATH=/opt/ros/humble /home/hanse/.local/bin/cmake --install /home/hanse/git_ws/final_project/build/open_manipulator_msgs
-Invoked command in '/home/hanse/git_ws/final_project/build/open_manipulator_msgs' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /home/hanse/.local/bin/cmake --install /home/hanse/git_ws/final_project/build/open_manipulator_msgs

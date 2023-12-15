@@ -1,9 +1,0 @@
-/home/hanse/git_ws/final_project/build/open_manipulator_msgs/rosidl_adapter/open_manipulator_msgs:msg/JointPosition.idl
-/home/hanse/git_ws/final_project/build/open_manipulator_msgs/rosidl_adapter/open_manipulator_msgs:msg/KinematicsPose.idl
-/home/hanse/git_ws/final_project/build/open_manipulator_msgs/rosidl_adapter/open_manipulator_msgs:msg/OpenManipulatorState.idl
-/home/hanse/git_ws/final_project/build/open_manipulator_msgs/rosidl_adapter/open_manipulator_msgs:srv/GetJointPosition.idl
-/home/hanse/git_ws/final_project/build/open_manipulator_msgs/rosidl_adapter/open_manipulator_msgs:srv/GetKinematicsPose.idl
-/home/hanse/git_ws/final_project/build/open_manipulator_msgs/rosidl_adapter/open_manipulator_msgs:srv/SetJointPosition.idl
-/home/hanse/git_ws/final_project/build/open_manipulator_msgs/rosidl_adapter/open_manipulator_msgs:srv/SetKinematicsPose.idl
-/home/hanse/git_ws/final_project/build/open_manipulator_msgs/rosidl_adapter/open_manipulator_msgs:srv/SetDrawingTrajectory.idl
-/home/hanse/git_ws/final_project/build/open_manipulator_msgs/rosidl_adapter/open_manipulator_msgs:srv/SetActuatorState.idl

@@ -1,3 +1,0 @@
-[console_scripts]
-make_my_model = open_manipulator_x_teleop.script.make_my_model:main
-teleop_keyboard = open_manipulator_x_teleop.script.teleop_keyboard:main
