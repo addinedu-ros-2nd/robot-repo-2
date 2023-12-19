@@ -21,7 +21,7 @@
 
 ## Moveit 실행
 <pre><code>roslaunch open_manipulator_controller open_manipulator_controller.launch use_platform:=false use_moveit:=true</code></pre>
-### 가제보에서 실행할 때는 use_platform = false
+##### 가제보에서 실행할 때는 use_platform = false
 
 ## rqt
 <pre><code>rqt</code></pre>
