@@ -24,6 +24,7 @@
 ### 가제보에서 실행할 때는 use_platform = false
 
 ## rqt
+<pre><code>rqt</code></pre>
 
 ## Gazebo, Rviz 연동 실행
 <pre><code>roslaunch open_manipulator_controllers joint_trajectory_controller.launch</code></pre>
@@ -31,11 +32,11 @@
 ## Manipulator 연결
 <pre><code>roslaunch open_manipulator_controller open_manipulator_controller.launch</code></pre>
 
-## Rviz와 manipulator를 연동하여 Digital Twin
+## Rviz와 manipulator를 연동하여 Joint_angle 값 받아오기 (Digital Twin)
 <pre><code>roslaunch open_manipulator_description open_manipulator_rviz.launch</code></pre>
 <pre><code>roslaunch open_manipulator_controller open_manipulator_controller.launch</code></pre>
 
-### manipulator 모터 제어 풀기
+### Joint_angle 토픽 구독 취소, manipulator 모터 제어 풀기
 <pre><code>rosservice call /set_actuator_state "set_actuator_state: false”</code></pre>
 
 
