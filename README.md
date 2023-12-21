@@ -1,4 +1,9 @@
-# How to run ROS1_noetic 
+# setup ?
+os : ubuntu 20.04
+version : ROS1, noetic
+
+
+# How to run ROS1_noetic ?
 
 ## 환경설정
 <pre><code>source /opt/ros/noetic/setup.bash</code></pre>
