@@ -205,5 +205,5 @@ Models
 |**김동우**|2D point & shoot SLAM 맵 구현 및 Mobile robot 제어<br/><br/>  shoe pick & place를 위한 joint angle 데이터 생성 및 딥러닝 모델을 이용한 데이터 증강|[링크](https://github.com/DongUKim)|Face recognition library를 활용한 얼굴인식 및 ID 관리 system 구현<br/><br/>  YOLOv8-Pose, LSTM, Tensor Flow의 CNN을 활용하여 Human Pose estimation 을 위한 LSTM 모델 구현|---|
 |**김명섭**|Face recognition library를 활용한 얼굴인식 및 ID 관리 system 구현<br/><br/>  YOLOv8-Pose, LSTM, Tensor Flow의 CNN을 활용하여 Human Pose estimation 을 위한 LSTM 모델 구현|---|
 |**백세진**|PyQT를 활용하여 GUI생성, ROS연결 통신 <br/><br/>   GUI와 Dashboard를 만들어서 전반적인 상황에 관제 시스템을 만든 모델을 구현했음|---|
-|**최석원**|shoe detection를 위한 YOLOv3 학습모델 구축<br/><br/>   YOLOv8-Pose,Tensor Flow를 활용하여 Human Pose estimation 을 위한 decision tree모델과 LSTM 모델 구현|[git](https://github.com/VampireDeer)|
+|**최석원**|shoe detection를 위한 YOLOv3 학습모델 구축<br/><br/>   YOLOv8-Pose,Tensor Flow를 활용하여 Human Pose estimation 을 위한 decision tree모델과 LSTM 모델 구현|[링크](https://github.com/VampireDeer)|
 |**왕한세**|shoe detection를 위한 YOLOv3 학습모델 구축<br/><br/>   MoveIt을 활용한 6-DOF manipulator URDF 작성 및 제어<br/><br/>   Digital Twin|---|
